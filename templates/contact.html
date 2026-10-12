@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Contact Us | WE Institute</title>
+  <link rel="icon" href="static/images/logowihoutbg.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy:   #1a237e;
+      --royal:  #1565c0;
+      --sky:    #00aaff;
+      --sky-lt: #e3f4ff;
+      --light:  #f0f4fb;
+      --white:  #ffffff;
+      --text:   #1e2a4a;
+      --muted:  #5a6a8a;
+      --border: #d0dcf0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); }
+
+   /* ── NAVBAR ── */
+    nav {
+      position: sticky; top: 0; z-index: 999;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 68px;
+      box-shadow: 0 2px 16px rgba(26,35,126,.35);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo { height: 55px; border-radius: 12px; }
+    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .nav-links a {
+      color: #000; text-decoration: none;
+      font-size: .88rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 5px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { background: rgba(0,0,0,.05); }
+    .nav-links a.active { color: var(--sky) !important; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { width: 24px; height: 2px; background: #1a237e; border-radius: 2px; }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      background: linear-gradient(135deg, var(--navy) 0%, #1a3a5c 55%, #1565c0 100%);
+      padding: 80px 5vw 70px; text-align: center;
+      position: relative; overflow: hidden;
+    }
+    .page-hero::before {
+      content: ''; position: absolute; inset: 0;
+      background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat;
+    }
+    .page-hero-tag {
+      display: inline-block; position: relative;
+      background: rgba(0,170,255,.15); border: 1px solid rgba(0,170,255,.4);
+      color: var(--sky); font-size: .75rem; font-weight: 700; letter-spacing: 2px;
+      text-transform: uppercase; padding: 5px 16px; border-radius: 20px; margin-bottom: 20px;
+    }
+    .page-hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2rem, 5vw, 3.2rem); font-weight: 700;
+      color: var(--white); line-height: 1.2; margin-bottom: 18px; position: relative;
+    }
+    .page-hero h1 span { color: var(--sky); }
+    .page-hero p {
+      color: rgba(255,255,255,.75); font-size: 1.05rem; line-height: 1.8;
+      max-width: 580px; margin: 0 auto; position: relative;
+    }
+    .breadcrumb {
+      display: flex; align-items: center; justify-content: center;
+      gap: 8px; margin-top: 28px; position: relative;
+      font-size: .83rem; color: rgba(255,255,255,.5);
+    }
+    .breadcrumb a { color: var(--sky); text-decoration: none; }
+    .breadcrumb span { color: rgba(255,255,255,.35); }
+
+    /* ── INFO STRIP ── */
+    .info-strip {
+      background: var(--navy);
+      display: grid; grid-template-columns: repeat(3, 1fr);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+    .info-strip-item {
+      display: flex; align-items: flex-start; gap: 18px;
+      padding: 32px 5vw;
+      border-right: 1px solid rgba(255,255,255,.08);
+    }
+    .info-strip-item:last-child { border-right: none; }
+    .strip-icon {
+      width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+      background: rgba(0,170,255,.12); border: 1px solid rgba(0,170,255,.25);
+      display: flex; align-items: center; justify-content: center;
+    }
+    .strip-icon svg { width: 22px; height: 22px; stroke: var(--sky); fill: none; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+    .strip-text h4 { color: var(--white); font-size: .88rem; font-weight: 700; margin-bottom: 6px; letter-spacing: .3px; }
+    .strip-text p, .strip-text a {
+      color: rgba(255,255,255,.6); font-size: .84rem; line-height: 1.75;
+      text-decoration: none; display: block;
+    }
+    .strip-text a:hover { color: var(--sky); }
+    .strip-text .hours-row { display: flex; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
+    .strip-text .hours-row span:first-child { color: rgba(255,255,255,.45); font-size: .8rem; }
+    .strip-text .hours-row span:last-child  { color: rgba(255,255,255,.75); font-size: .8rem; font-weight: 600; }
+
+    /* ── MAIN CONTACT SECTION ── */
+    .contact-section {
+      padding: 90px 5vw; background: var(--light);
+      display: grid; grid-template-columns: 1fr 1.1fr; gap: 60px; align-items: start;
+    }
+
+    .contact-details .section-label {
+      display: inline-block;
+      background: rgba(26,35,126,.1); color: var(--royal);
+      font-size: .72rem; font-weight: 700; letter-spacing: 1.8px;
+      text-transform: uppercase; padding: 4px 12px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .contact-details h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 2.8vw, 2.2rem); font-weight: 700; color: var(--navy);
+      margin-bottom: 16px; line-height: 1.25;
+    }
+    .contact-details > p { color: var(--muted); font-size: .95rem; line-height: 1.75; margin-bottom: 36px; }
+
+    .detail-card {
+      background: var(--white); border-radius: 14px; padding: 24px 24px;
+      border: 1px solid var(--border); margin-bottom: 18px;
+      display: flex; gap: 18px; align-items: flex-start;
+      transition: box-shadow .25s, transform .25s;
+    }
+    .detail-card:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(0,0,0,.09); }
+    .detail-card-icon {
+      width: 48px; height: 48px; border-radius: 12px; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .detail-card-icon.blue   { background: rgba(26,35,126,.1); }
+    .detail-card-icon.accent { background: rgba(0,170,255,.12); }
+    .detail-card-icon.green  { background: rgba(37,211,102,.12); }
+    .detail-card-icon.red    { background: rgba(220,53,69,.1);   }
+    .detail-card-icon svg { width: 22px; height: 22px; fill: none; stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
+    .detail-card-icon.blue   svg { stroke: var(--royal); }
+    .detail-card-icon.accent svg { stroke: #c97d10; }
+    .detail-card-icon.green  svg { stroke: #1aab54; }
+    .detail-card-icon.red    svg { stroke: #dc3545; }
+    .detail-card-body h4 { font-size: .82rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+    .detail-card-body p, .detail-card-body a {
+      color: var(--navy); font-size: .93rem; line-height: 1.7;
+      text-decoration: none; display: block; font-weight: 500;
+    }
+    .detail-card-body a:hover { color: var(--royal); }
+    .detail-card-body .sub  { color: var(--muted); font-size: .82rem; font-weight: 400; margin-top: 2px; }
+
+    .social-connect { margin-top: 28px; }
+    .social-connect h4 { font-size: .82rem; font-weight: 700; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; }
+    .social-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .social-btn {
+      display: flex; align-items: center; gap: 8px;
+      padding: 16px 50px; border-radius: 8px; text-decoration: none;
+      font-size: .82rem; font-weight: 600; transition: transform .2s, box-shadow .2s;
+    }
+    .social-btn svg { width: 17px; height: 17px; fill: #fff; flex-shrink: 0; }
+    .social-btn span { color: #fff; }
+    .social-btn.fb    { background: #1877f2; }
+    .social-btn.ig    { background: linear-gradient(135deg,#f09433,#e6683c,#dc2743,#cc2366,#bc1888); }
+    .social-btn.li    { background: #0077b5; }
+    .social-btn.yt    { background: #ff0000; }
+    .social-btn.wa    { background: #25d366; }
+    .social-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.18); }
+    /* ── FOOTER SOCIAL ICONS ── */
+    .footer-social-btn {
+      width: 38px; height: 38px; border-radius: 8px;
+      background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: background .2s;
+      padding: 0; flex-shrink: 0;
+    }
+    .footer-social-btn:hover { background: var(--sky); }
+    .footer-social-btn svg { width: 17px; height: 17px; fill: #fff; }
+
+
+    .contact-form-wrap {
+      background: var(--white); border-radius: 18px;
+      padding: 40px 36px; border: 1px solid var(--border);
+      box-shadow: 0 8px 40px rgba(0,0,0,.07);
+    }
+    .contact-form-wrap h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 700; color: var(--navy); margin-bottom: 6px;
+    }
+    .contact-form-wrap .form-sub { color: var(--muted); font-size: .88rem; margin-bottom: 28px; line-height: 1.6; }
+
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block; font-size: .8rem; font-weight: 700; color: var(--text);
+      text-transform: uppercase; letter-spacing: .8px; margin-bottom: 7px;
+    }
+    .form-group label .req { color: var(--sky); margin-left: 2px; }
+    .form-control {
+      width: 100%; padding: 11px 15px; border-radius: 8px;
+      border: 1.5px solid var(--border); background: var(--light);
+      font-family: 'DM Sans', sans-serif; font-size: .92rem; color: var(--text);
+      transition: border-color .2s, box-shadow .2s, background .2s;
+      appearance: none; outline: none;
+    }
+    .form-control:focus {
+      border-color: var(--royal); background: var(--white);
+      box-shadow: 0 0 0 3px rgba(26,35,126,.1);
+    }
+    select.form-control { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%236b7c93' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 14px center; padding-right: 36px; }
+    textarea.form-control { resize: vertical; min-height: 110px; }
+
+    .btn-submit {
+      width: 100%; padding: 14px; border-radius: 9px; border: none;
+      background: var(--navy); color: var(--white);
+      font-family: 'DM Sans', sans-serif; font-size: 1rem; font-weight: 700;
+      cursor: pointer; transition: background .2s, transform .2s, box-shadow .2s;
+      display: flex; align-items: center; justify-content: center; gap: 8px;
+      margin-top: 8px;
+    }
+    .btn-submit:hover { background: var(--royal); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(26,35,126,.3); }
+    .btn-submit svg { width: 18px; height: 18px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+    .form-success { display: none; text-align: center; padding: 30px 20px; }
+    .form-success .check-circle {
+      width: 64px; height: 64px; border-radius: 50%;
+      background: rgba(37,211,102,.1); border: 2px solid #1aab54;
+      display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;
+    }
+    .form-success .check-circle svg { width: 30px; height: 30px; stroke: #1aab54; fill: none; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; }
+    .form-success h4 { font-family: 'Playfair Display', serif; font-size: 1.3rem; color: var(--navy); margin-bottom: 8px; }
+    .form-success p  { color: var(--muted); font-size: .9rem; line-height: 1.7; }
+
+    .wa-shortcut {
+      margin-top: 20px; padding: 14px 18px;
+      background: rgba(37,211,102,.07); border: 1px solid rgba(37,211,102,.2);
+      border-radius: 10px; display: flex; align-items: center; gap: 14px;
+      text-decoration: none; transition: background .2s;
+    }
+    .wa-shortcut:hover { background: rgba(37,211,102,.13); }
+    .wa-shortcut-icon { width: 40px; height: 40px; border-radius: 50%; background: #25d366; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .wa-shortcut-icon svg { width: 22px; height: 22px; fill: #fff; }
+    .wa-shortcut-text strong { display: block; font-size: .9rem; font-weight: 700; color: var(--navy); }
+    .wa-shortcut-text span   { font-size: .8rem; color: var(--muted); }
+
+    .map-section { padding: 0 0 90px; background: var(--light); }
+    .map-section .map-header {
+      padding: 0 5vw 36px;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
+    }
+    .map-section .map-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2rem); font-weight: 700; color: var(--navy);
+    }
+    .map-section .map-header a {
+      display: inline-flex; align-items: center; gap: 6px;
+      background: var(--navy); color: #fff;
+      font-size: .83rem; font-weight: 600; padding: 9px 18px; border-radius: 7px;
+      text-decoration: none; transition: background .2s;
+    }
+    .map-section .map-header a:hover { background: var(--royal); }
+    .map-section .map-header a svg { width: 15px; height: 15px; fill: none; stroke: #fff; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .map-wrap {
+      margin: 0 5vw; border-radius: 16px; overflow: hidden;
+      box-shadow: 0 8px 40px rgba(0,0,0,.12); border: 1px solid var(--border);
+    }
+    .map-wrap iframe { width: 100%; height: 460px; border: none; display: block; }
+
+    .whatsapp-fab {
+      position: fixed; bottom: 28px; right: 28px; z-index: 998;
+      width: 56px; height: 56px; border-radius: 50%;
+      background: #25d366; box-shadow: 0 4px 20px rgba(37,211,102,.45);
+      display: flex; align-items: center; justify-content: center;
+      text-decoration: none; transition: transform .2s, box-shadow .2s;
+    }
+    .whatsapp-fab:hover { transform: scale(1.1); box-shadow: 0 8px 28px rgba(37,211,102,.55); }
+    .whatsapp-fab svg { width: 30px; height: 30px; fill: #fff; }
+
+    footer { background: var(--navy); color: rgba(255,255,255,.7); padding: 70px 5vw 0; }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px;
+      padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .footer-logo { height: 60px; border-radius: 5px; background: white; padding: 4px 8px; object-fit: contain; }
+    .footer-brand p { font-size: .88rem; line-height: 1.75; max-width: 320px; }
+    .footer-brand .contact-info { margin-top: 20px; font-size: .87rem; line-height: 1.85; }
+    .footer-brand .contact-info strong { color: var(--white); }
+    .footer-brand .contact-info a { color: var(--sky); text-decoration: none; }
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--white);
+      margin-bottom: 18px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--sky); display: inline-block;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .87rem; transition: color .2s; }
+    .footer-col ul a:hover { color: var(--sky); }
+    .footer-bottom { padding: 22px 0; text-align: center; font-size: .82rem; color: rgba(255,255,255,.35); }
+
+@media (max-width:768px){
+  nav{ height:65px; padding:0 15px; }
+  .nav-logo{ height:45px; width:auto; }
+  .nav-hamburger{ display:flex; }
+  .nav-links{
+    display:none; flex-direction:column; position:absolute;
+    top:65px; left:0; width:100%; background:#fff; padding:15px;
+    box-shadow:0 10px 25px rgba(0,0,0,.12); z-index:999;
+  }
+  .nav-links.open{ display:flex; }
+  .nav-links li{ width:100%; }
+  .nav-links a{ display:block; width:100%; padding:12px; color:#000; }
+  .page-hero{ padding:50px 20px; }
+  .page-hero h1{ font-size:2rem; }
+  .page-hero p{ font-size:.95rem; line-height:1.7; }
+  .breadcrumb{ flex-wrap:wrap; }
+  .info-strip{ grid-template-columns:1fr; }
+  .info-strip-item{ padding:20px; border-right:none; border-bottom:1px solid rgba(255,255,255,.08); }
+  .info-strip-item:last-child{ border-bottom:none; }
+  .contact-section{ grid-template-columns:1fr; gap:30px; padding:60px 20px; }
+  .contact-details h2{ font-size:1.8rem; }
+  .detail-card{ padding:18px; }
+  .contact-form-wrap{ padding:25px 20px; }
+  .form-row{ grid-template-columns:1fr; gap:0; }
+  .form-control{ font-size:16px; }
+  .btn-submit{ padding:15px; }
+  .wa-shortcut{ padding:12px; }
+  .wa-shortcut-text strong{ font-size:.85rem; }
+  .wa-shortcut-text span{ font-size:.75rem; }
+  .map-section{ padding-bottom:60px; }
+  .map-section .map-header{ padding:0 20px 20px; flex-direction:column; align-items:flex-start; }
+  .map-wrap{ margin:0 20px; }
+  .map-wrap iframe{ height:300px; }
+  .footer-grid{ grid-template-columns:1fr; gap:30px; }
+  .footer-brand p{ max-width:100%; }
+  .footer-col{ margin-top:10px; }
+  .whatsapp-fab{ width:52px; height:52px; right:15px; bottom:15px; }
+  .whatsapp-fab svg{ width:28px; height:28px; }
+}
+@media (max-width:480px){
+  .page-hero h1{ font-size:1.7rem; }
+  .page-hero p{ font-size:.9rem; }
+  .contact-details h2{ font-size:1.5rem; }
+  .detail-card{ flex-direction:column; text-align:left; }
+  .contact-form-wrap{ padding:20px 15px; }
+  .map-wrap iframe{ height:250px; }
+  .footer-logo{ height:50px; }
+}
+
+    /* ══ CHATBOT WIDGET ══ */
+    #chatToggle{position:fixed;bottom:96px;right:28px;width:56px;height:56px;border-radius:50%;background:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px;box-shadow:0 6px 22px rgba(26,35,126,.45);z-index:998;transition:background .2s,transform .2s}
+    #chatToggle:hover{background:var(--sky);transform:scale(1.08)}
+    .ct-badge{position:absolute;top:-2px;right:-2px;width:14px;height:14px;border-radius:50%;background:#ef4444;border:2px solid #fff;animation:badgePulse 2s ease-in-out infinite}
+    @keyframes badgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+    #chatPanel{position:fixed;bottom:28px;right:96px;width:min(360px,calc(100vw - 124px));height:min(400px,calc(100vh - 200px));background:#fff;border-radius:20px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(26,35,126,.18);display:none;flex-direction:column;overflow:hidden;z-index:997}
+    #chatPanel.open{display:flex;animation:cpSlide .22s ease}
+    @keyframes cpSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+    .cp-header{background:linear-gradient(135deg,var(--navy),var(--royal));padding:14px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+    .cp-avatar{width:40px;height:40px;border-radius:50%;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:0 0 12px rgba(0,170,255,.4)}
+    .cp-info{flex:1}.cp-name{font-size:14px;font-weight:700;color:#fff}
+    .cp-status{font-size:11px;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:5px;margin-top:2px}
+    .cp-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:dotPulse 2s ease-in-out infinite}
+    @keyframes dotPulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .cp-close{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:20px;line-height:1;transition:color .15s}.cp-close:hover{color:#fff}
+    #cpMessages{flex:1;overflow-y:auto;padding:12px 10px;display:flex;flex-direction:column;gap:8px;background:var(--light);scroll-behavior:smooth}
+    #cpMessages::-webkit-scrollbar{width:4px}#cpMessages::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .cp-row{display:flex;gap:7px;align-items:flex-end}.cp-row.user{flex-direction:row-reverse}
+    .cp-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+    .cp-av.ai{background:var(--navy);color:#fff}.cp-av.user{background:var(--sky);color:#fff}
+    .cp-bub{max-width:82%;padding:9px 12px;border-radius:14px;font-size:13px;line-height:1.6;word-break:break-word;animation:bubIn .18s ease}
+    @keyframes bubIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+    .cp-bub.ai{background:#fff;border:1px solid var(--border);color:var(--text);border-bottom-left-radius:4px}
+    .cp-bub.user{background:var(--sky);color:#fff;border-bottom-right-radius:4px}
+    .cp-bub strong{color:var(--navy)}.cp-bub.user strong{color:#fff}
+    .cp-typing{display:flex;gap:5px;align-items:center;padding:4px 2px}
+    .cp-typing span{width:7px;height:7px;border-radius:50%;background:var(--sky);animation:typBounce 1.2s ease-in-out infinite}
+    .cp-typing span:nth-child(2){animation-delay:.2s}.cp-typing span:nth-child(3){animation-delay:.4s}
+    @keyframes typBounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+    .cp-input-row{display:flex;gap:8px;align-items:center;padding:10px 12px;border-top:1px solid var(--border);background:#fff;flex-shrink:0}
+    #cpInput{flex:1;border:1px solid var(--border);border-radius:20px;padding:9px 14px;font-size:13px;outline:none;background:var(--light);color:var(--text);font-family:inherit;transition:border-color .15s}
+    #cpInput:focus{border-color:var(--sky)}#cpInput::placeholder{color:var(--muted)}
+    #cpSend{width:38px;height:38px;border-radius:50%;background:var(--sky);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:0 3px 10px rgba(0,170,255,.35);transition:background .15s,transform .12s}
+    #cpSend:hover:not(:disabled){background:#0090dd;transform:scale(1.07)}#cpSend:disabled{opacity:.4;cursor:not-allowed;transform:none}
+    .cp-opts{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+    .cp-opt{background:#fff;border:1.5px solid var(--border);color:var(--text);font-size:12.5px;font-weight:500;padding:8px 12px;border-radius:10px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:8px;font-family:inherit;transition:all .15s;width:100%;line-height:1.3}
+    .cp-opt:hover:not(:disabled){border-color:var(--sky);background:var(--sky-lt);color:var(--royal)}
+    .cp-opt:disabled{cursor:default}.cp-opt .opt-em{font-size:15px;flex-shrink:0}
+    .cp-result{font-size:13px;line-height:1.7}
+    .cp-result .career-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px}
+    .cp-result .salary-chip{display:inline-block;background:var(--sky-lt);color:var(--royal);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+    .cp-result .section-lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:10px 0 4px}
+    .cp-result .tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
+    .cp-result .tag{background:#f0f4fb;border:1px solid var(--border);color:var(--text);font-size:11px;padding:3px 9px;border-radius:20px}
+    .cp-result .step{display:flex;gap:8px;margin-bottom:5px}
+    .cp-result .step-num{width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .cp-result .wa-btn{display:inline-flex;align-items:center;gap:6px;background:#25d366;color:#fff;font-size:12px;font-weight:600;padding:8px 14px;border-radius:8px;text-decoration:none;margin-top:12px;border:none;cursor:pointer;font-family:inherit}
+    .cp-result .restart-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);color:var(--muted);font-size:12px;padding:7px 12px;border-radius:8px;cursor:pointer;font-family:inherit;margin-top:6px;margin-left:6px}
+    .cp-result .restart-btn:hover{background:var(--light);color:var(--text)}
+    @media(max-width:768px){ #chatToggle{bottom:90px;right:18px;width:50px;height:50px;font-size:22px}#chatPanel{right:8px;bottom:155px;width:calc(100vw - 16px);height:min(380px,calc(100vh - 200px))}}
+    @media(max-width:480px){ #chatToggle{right:16px;bottom:90px}.whatsapp-fab{right:16px;bottom:28px}}
+
+    .page-wrap{overflow-x:hidden;width:100%;position:relative}
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="{{ url_for('static', filename='images/logo2.png') }}"  class="nav-logo" alt="WE Institute Logo" onerror="this.style.display='none'" />
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/courses">Courses</a></li>
+    <li><a href="/achievements">Achievements</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/contact" class="active">Contact Us</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-tag">Get In Touch</div>
+  <h1>Let's Talk About <span>Your Career</span></h1>
+  <p>Have questions about our courses, admissions, or anything else? We're here to help you take the next step.</p>
+  <div class="breadcrumb">
+    <a href="/">Home</a><span>›</span><span>Contact Us</span>
+  </div>
+</section>
+
+<div class="info-strip">
+  <div class="info-strip-item">
+    <div class="strip-icon">
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    </div>
+    <div class="strip-text">
+      <h4>Head Office</h4>
+      <p>WE Institute of Computer Science<br/>103, Shree Samarth Plaza<br/>Mulund West, Mumbai — 400080</p>
+    </div>
+  </div>
+  <div class="info-strip-item">
+    <div class="strip-icon">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    </div>
+    <div class="strip-text">
+      <h4>Working Hours</h4>
+      <div style="margin-top:4px;">
+        <div class="hours-row"><span>Monday – Saturday</span><span>10:00 AM – 7:00 PM</span></div>
+        <div class="hours-row" style="margin-top:4px;"><span>Sunday</span><span>10:00 AM – 5:00 PM</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="info-strip-item">
+    <div class="strip-icon">
+      <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+    </div>
+    <div class="strip-text">
+      <h4>Call Now</h4>
+      <a href="tel:+919819740122">+91 98197 40122</a>
+      <a href="tel:+918097171055">+91 80971 71055</a>
+      <a href="tel:+919819538954">+91 98195 38954</a>
+    </div>
+  </div>
+</div>
+
+<section class="contact-section">
+  <div class="contact-details">
+    <div class="section-label">Reach Us</div>
+    <h2>We'd Love to Hear From You</h2>
+    <p>Whether you're looking to enroll in a course, need guidance about your career path, or simply want to know more about WE Institute — our team is always ready to assist.</p>
+
+    <div class="detail-card">
+      <div class="detail-card-icon blue">
+        <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      </div>
+      <div class="detail-card-body">
+        <h4>Address</h4>
+        <p>103, 1st Floor, Shree Samarth Plaza</p>
+        <p>Mulund West, Mumbai, Maharashtra 400080</p>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-card-icon accent">
+        <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      </div>
+      <div class="detail-card-body">
+        <h4>Email Address</h4>
+        <a href="mailto:hr_admin@weinstitute.in">hr_admin@weinstitute.in</a>
+        <span class="sub">We usually reply within a few hours</span>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-card-icon green">
+        <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.73a16 16 0 0 0 6.29 6.29l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      </div>
+      <div class="detail-card-body">
+        <h4>Phone Numbers</h4>
+        <a href="tel:+919819740122">+91 98197 40122</a>
+        <a href="tel:+918097171055">+91 80971 71055</a>
+        <a href="tel:+919819538954">+91 98195 38954</a>
+      </div>
+    </div>
+
+    <div class="detail-card">
+      <div class="detail-card-icon blue">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      </div>
+      <div class="detail-card-body">
+        <h4>Working Hours</h4>
+        <p>Monday – Saturday &nbsp; 10:00 AM – 7:00 PM</p>
+        <p>Sunday &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 10:00 AM – 5:00 PM</p>
+      </div>
+    </div>
+
+    <div class="social-connect">
+      <h4>Follow Us</h4>
+      <div class="social-row">
+        <a class="social-btn fb" href="https://www.facebook.com/WissenEducation.319?mibextid=ZbWKwL" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg>
+          <span>Facebook</span>
+        </a>
+        <a class="social-btn ig" href="https://www.instagram.com/weinstitute.cs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="5" ry="5" stroke="#fff" stroke-width="2"/><circle cx="12" cy="12" r="4" stroke="#fff" stroke-width="2" fill="none"/><circle cx="17.5" cy="6.5" r="1.2" fill="#fff"/></svg>
+          <span>Instagram</span>
+        </a>
+        <a class="social-btn li" href="https://www.linkedin.com/in/we-institute-22b300309" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+          <span>LinkedIn</span>
+        </a>
+        <a class="social-btn yt" href="https://www.youtube.com/@WE_Institute" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#c00"/></svg>
+          <span>YouTube</span>
+        </a>
+        <a class="social-btn wa" href="https://wa.me/919819740122" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span>WhatsApp</span>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-form-wrap">
+    <h3>Request a Call Back</h3>
+    <p class="form-sub">Fill in your details below and one of our counsellors will reach out to you shortly.</p>
+
+    <div id="contactForm">
+      <div class="form-row">
+        <div class="form-group">
+          <label>Full Name <span class="req">*</span></label>
+          <input type="text" class="form-control" placeholder="Your full name" id="fname" />
+        </div>
+        <div class="form-group">
+          <label>Phone Number <span class="req">*</span></label>
+          <input type="tel" class="form-control" placeholder="+91 00000 00000" id="fphone" />
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Email Address</label>
+        <input type="email" class="form-control" placeholder="you@email.com" id="femail" />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Select Stream <span class="req">*</span></label>
+          <select class="form-control" id="fstream">
+            <option value="" disabled selected>Choose a stream</option>
+            <option>AI / ML</option>
+            <option>RPA</option>
+            <option>Frontend Developer</option>
+            <option>Backend Developer</option>
+            <option>Full Stack Developer</option>
+            <option>Data Science</option>
+            <option>Data Analytics</option>
+            <option>Python Development</option>
+            <option>Java Programming</option>
+            <option>Power BI &amp; Tableau</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Education Level <span class="req">*</span></label>
+          <select class="form-control" id="fedu">
+            <option value="" disabled selected>Your qualification</option>
+            <option>XI – XII</option>
+            <option>Under-Graduate</option>
+            <option>Graduate</option>
+            <option>Post-Graduate</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>How Can We Help You? <span class="req">*</span></label>
+        <select class="form-control" id="fhelp">
+          <option value="" disabled selected>Select inquiry type</option>
+          <option>Admission Inquiry</option>
+          <option>Course Details</option>
+          <option>Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Message</label>
+        <textarea class="form-control" id="fmsg" placeholder="Tell us anything else you'd like us to know…"></textarea>
+      </div>
+
+      <button class="btn-submit" onclick="submitForm()">
+        Request a Call Back
+        <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+      </button>
+    </div>
+
+    <div class="form-success" id="formSuccess">
+      <div class="check-circle">
+        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <h4>Request Received!</h4>
+      <p>Thank you for reaching out. Our counsellor will call you back shortly. You can also reach us directly on WhatsApp.</p>
+    </div>
+
+    <a class="wa-shortcut" href="https://wa.me/919819740122?text=Hello%20%F0%9F%91%8B%2C%20I%20am%20interested%20in%20your%20services.%20Please%20share%20more%20details." target="_blank" rel="noopener">
+      <div class="wa-shortcut-icon">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      </div>
+      <div class="wa-shortcut-text">
+        <strong>Prefer WhatsApp?</strong>
+        <span>Tap to chat with us directly — quick &amp; easy</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="map-section">
+  <div class="map-header">
+    <h2>Find Us on the Map</h2>
+    <a href="https://maps.google.com/?q=WE+INSTITUTE+Mulund+West+Mumbai" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      Get Directions
+    </a>
+  </div>
+  <div class="map-wrap">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3768.5298568181584!2d72.95294517497987!3d19.17204628205244!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7b9b68550d5c7%3A0x64caed795691bbea!2sWE%20INSTITUTE!5e0!3m2!1sen!2sin!4v1754376717040!5m2!1sen!2sin"
+      allowfullscreen=""
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"
+      title="WE Institute Location">
+    </iframe>
+  </div>
+</section>
+
+</div><!-- /page-wrap -->
+<a class="whatsapp-fab" href="https://wa.me/919819740122?text=Hello%20%F0%9F%91%8B%2C%20I%20am%20interested%20in%20your%20services" target="_blank" rel="noopener" title="Chat on WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo-wrap">
+        <a href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename='images/logo2.png') }}" class="footer-logo" alt="WE Institute" onerror="this.style.display='none'">
+        </a>
+      </div>
+      <p>WE Institute is committed to providing students with the skills and knowledge they need to succeed in the competitive field of technology.</p>
+      <div class="contact-info">
+        <div><strong>ADDRESS:</strong> 103, 1st Floor Shree Samarth Plaza,<br/>Mulund West, Mumbai, Maharashtra 400080</div>
+        <div style="margin-top:8px;"><strong>EMAIL:</strong> <a href="mailto:hr_admin@weinstitute.in">hr_admin@weinstitute.in</a></div>
+        <div style="margin-top:4px;"><strong>PHONE:</strong> <a href="tel:+919819740122">+91 9819740122</a></div>
+      </div>
+      <div class="social-row" style="margin-top:20px;">
+        <a class="footer-social-btn" href="https://www.facebook.com/WissenEducation.319" target="_blank" rel="noopener" ><svg viewBox="0 0 24 24" style="width:17px;height:17px;"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a class="footer-social-btn" href="https://www.instagram.com/weinstitute.cs" target="_blank" rel="noopener" ><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="#fff" stroke-width="1.8" fill="none"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="#fff" stroke-width="1.8" fill="none"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+        <a class="footer-social-btn" href="https://www.linkedin.com/in/we-institute-22b300309" target="_blank" rel="noopener" ><svg viewBox="0 0 24 24" style="width:17px;height:17px;"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="footer-social-btn" href="https://www.youtube.com/@WE_Institute" target="_blank" rel="noopener" ><svg viewBox="0 0 24 24" style="width:17px;height:17px;"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a237e"/></svg></a>
+        <a class="footer-social-btn" href="https://wa.me/919819740122" target="_blank" rel="noopener" ><svg viewBox="0 0 24 24" style="width:17px;height:17px;"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/courses">Courses</a></li>
+        <li><a href="/achievements">Achievements</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Courses</h4>
+      <ul>
+        <li><a href="/DSAIML">Artificial Intelligence (AI)</a></li>
+        <li><a href="/DSAIML">Machine Learning (ML)</a></li>
+        <li><a href="/RPA">RPA Development</a></li>
+        <li><a href="/dataanalytics">Data Analytics</a></li>
+        <li><a href="/DSAIML">Data Science</a></li>
+        <li><a href="/introduction">Python Development</a></li>
+        <li><a href="/fullstackdevelopment">Full Stack Development</a></li>
+        <li><a href="/dataanalytics">PowerBI &amp; Tableau</a></li>
+        <li><a href="/dbmstools">DBMS Tools &amp; Query Languages</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright &copy; WE Institute 2012–<span id="currentYear"></span> &nbsp;|&nbsp; Shaping Careers</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+  function submitForm() {
+    const name  = document.getElementById('fname').value.trim();
+    const phone = document.getElementById('fphone').value.trim();
+    const stream = document.getElementById('fstream').value;
+    const edu   = document.getElementById('fedu').value;
+    const help  = document.getElementById('fhelp').value;
+
+    if (!name || !phone || !stream || !edu || !help) {
+      alert('Please fill in all required fields marked with *');
+      return;
+    }
+
+    const msg = encodeURIComponent(
+      `Hello 👋, I would like to request a call back.\n\n` +
+      `*Name:* ${name}\n` +
+      `*Phone:* ${phone}\n` +
+      `*Stream:* ${stream}\n` +
+      `*Education:* ${edu}\n` +
+      `*Inquiry:* ${help}\n` +
+      (document.getElementById('fmsg').value ? `*Message:* ${document.getElementById('fmsg').value}` : '')
+    );
+
+    document.getElementById('contactForm').style.display = 'none';
+    document.getElementById('formSuccess').style.display = 'block';
+
+    setTimeout(() => {
+      window.open(`https://wa.me/919819740122?text=${msg}`, '_blank');
+    }, 800);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Enter' && e.target.tagName !== 'TEXTAREA') submitForm();
+  });
+</script>
+
+<!-- ══ CHATBOT TOGGLE ══ -->
+<button id="chatToggle" aria-label="Open AI Assistant">
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
+  </svg>
+  <span class="ct-badge"></span>
+</button>
+
+<!-- ══ CHAT PANEL ══ -->
+<div id="chatPanel" role="dialog" aria-label="WE Institute AI Assistant">
+  <div class="cp-header">
+    <div class="cp-avatar">🎓</div>
+    <div class="cp-info">
+      <div class="cp-name">WE AI Assistant</div>
+      <div class="cp-status"><span class="cp-dot"></span> Online · ready to help</div>
+    </div>
+    <button class="cp-close" id="cpClose" aria-label="Close">✕</button>
+  </div>
+  <div id="cpMessages"></div>
+  <div class="cp-input-row" id="cpInputRow" style="display:none;">
+    <input id="cpInput" type="text" placeholder="Ask a follow-up question…" autocomplete="off" />
+    <button id="cpSend" aria-label="Send">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+  const COMPASS_URL = "/api/career-compass";
+  const CHAT_URL    = "/api/chat";
+
+  const ccQuestions = [
+    { key:"stream",   question:"What was your 12th standard stream?",      options:[{em:"🔬",label:"Science (PCM / PCB)"},{em:"📈",label:"Commerce"},{em:"🎨",label:"Arts / Humanities"},{em:"🛠",label:"Vocational / Other"}] },
+    { key:"interest", question:"What excites you most in technology?",      options:[{em:"💻",label:"Building apps & websites"},{em:"🤖",label:"AI, Data & Analytics"},{em:"🛡️",label:"Cybersecurity & Networks"},{em:"⚙️",label:"Automation & RPA"},{em:"🎮",label:"Gaming & App Design"},{em:"📊",label:"Business Intelligence"}] },
+    { key:"studyMode",question:"Which education path are you considering?", options:[{em:"🎓",label:"Full degree (BSC / BCA / BE)"},{em:"📜",label:"Diploma course"},{em:"⏱",label:"Short professional course"},{em:"🔀",label:"Degree + extra training"}] },
+    { key:"goal",     question:"What is your primary goal right now?",      options:[{em:"💼",label:"Get a good job quickly"},{em:"🚀",label:"Build my own startup"},{em:"🌍",label:"Study / work abroad"},{em:"📈",label:"High salary long-term"}] }
+  ];
+
+  const careerTemplates = {
+    "Building apps & websites": {emoji:"💻",primaryCareer:"Full Stack Developer",salaryRange:"₹3.5 – ₹9 LPA",demand:"Very High",technicalSkills:["HTML/CSS/JS","React.js","Node.js","Git","REST APIs"],courses:["Full Stack Development","Introduction to Programming"]},
+    "AI, Data & Analytics":     {emoji:"🤖",primaryCareer:"Data Scientist / ML Engineer",salaryRange:"₹4 – ₹12 LPA",demand:"Very High",technicalSkills:["Python","Statistics","ML","SQL","Data Visualization"],courses:["Data Science + AI + ML","AI Tools"]},
+    "Cybersecurity & Networks": {emoji:"🛡️",primaryCareer:"Cybersecurity Analyst",salaryRange:"₹3.5 – ₹10 LPA",demand:"High",technicalSkills:["Networking","Linux","Python","DBMS","Security tools"],courses:["Introduction to Programming","DBMS Tools"]},
+    "Automation & RPA":         {emoji:"⚙️",primaryCareer:"RPA Developer",salaryRange:"₹3.5 – ₹9 LPA",demand:"High",technicalSkills:["UiPath","UiRPA","Process mapping","SQL","Scripting"],courses:["RPA Development","Introduction to Programming"]},
+    "Gaming & App Design":      {emoji:"🎮",primaryCareer:"Mobile App / UI Developer",salaryRange:"₹3 – ₹8 LPA",demand:"High",technicalSkills:["JavaScript","React Native","UI/UX","HTML & CSS","Git"],courses:["Full Stack Development","Introduction to Programming"]},
+    "Business Intelligence":    {emoji:"📊",primaryCareer:"Business Intelligence Analyst",salaryRange:"₹3.5 – ₹9 LPA",demand:"High",technicalSkills:["Excel","SQL","Tableau","Power BI","Data storytelling"],courses:["Data Analytics","Data Science + AI + ML"]}
+  };
+
+  function buildLocalResult(a){
+    const t=careerTemplates[a.interest]||careerTemplates["AI, Data & Analytics"];
+    return {emoji:t.emoji,primaryCareer:t.primaryCareer,salaryRange:t.salaryRange,demand:t.demand,
+            technicalSkills:t.technicalSkills,recommendedCourses:t.courses,
+            academicPath:["Build job-ready skills through focused training","Complete hands-on projects for your portfolio","Apply for internships & entry-level roles"],
+            motivationalLine:"Every expert started exactly where you are right now — take the first step."};
+  }
+
+  let ccStep=0,ccAnswers={},chatMode=false;
+  const cpHistory=[];
+  const chatToggle=document.getElementById('chatToggle'),chatPanel=document.getElementById('chatPanel');
+  const cpClose=document.getElementById('cpClose'),cpMsgs=document.getElementById('cpMessages');
+  const cpInputRow=document.getElementById('cpInputRow'),cpInput=document.getElementById('cpInput');
+  const cpSendBtn=document.getElementById('cpSend'),ctBadge=document.querySelector('.ct-badge');
+
+  chatToggle.addEventListener('click',()=>{
+    const opening=!chatPanel.classList.contains('open');
+    chatPanel.classList.toggle('open');
+    if(opening){ctBadge.style.display='none';if(cpMsgs.children.length===0)startCompass();}
+  });
+  cpClose.addEventListener('click',()=>chatPanel.classList.remove('open'));
+
+  function cpAppend(html,role){
+    const row=document.createElement('div');row.className='cp-row'+(role==='user'?' user':'');
+    const av=document.createElement('div');av.className='cp-av '+(role==='user'?'user':'ai');av.textContent=role==='user'?'👤':'🎓';
+    const bub=document.createElement('div');bub.className='cp-bub '+(role==='user'?'user':'ai');bub.innerHTML=html;
+    row.appendChild(av);row.appendChild(bub);cpMsgs.appendChild(row);cpMsgs.scrollTop=cpMsgs.scrollHeight;return bub;
+  }
+  function cpShowTyping(){
+    const row=document.createElement('div');row.className='cp-row';row.id='cpTyping';
+    const av=document.createElement('div');av.className='cp-av ai';av.textContent='🎓';
+    const bub=document.createElement('div');bub.className='cp-bub ai';
+    bub.innerHTML='<div class="cp-typing"><span></span><span></span><span></span></div>';
+    row.appendChild(av);row.appendChild(bub);cpMsgs.appendChild(row);cpMsgs.scrollTop=cpMsgs.scrollHeight;
+  }
+  function cpHideTyping(){const t=document.getElementById('cpTyping');if(t)t.remove();}
+
+  function showQuestion(idx){
+    const q=ccQuestions[idx];
+    const optHtml=q.options.map(o=>`<button class="cp-opt" onclick="selectOpt('${q.key}','${o.label.replace(/'/g,"\\'")}','${idx}',this)"><span class="opt-em">${o.em}</span>${o.label}</button>`).join('');
+    cpAppend(`<div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Step ${idx+1} of 4</div><div style="font-weight:600;margin-bottom:4px;">${q.question}</div><div class="cp-opts">${optHtml}</div>`,'ai');
+  }
+
+  function startCompass(){
+    ccStep=0;ccAnswers={};chatMode=false;
+    cpMsgs.innerHTML='';cpInputRow.style.display='none';
+    cpAppend('👋 Hi! I\'m the <strong>WE Institute AI Assistant</strong>.<br><br>Answer 4 quick questions and I\'ll show you your personalised IT career roadmap! 🚀','ai');
+    setTimeout(()=>showQuestion(0),400);
+  }
+
+  function selectOpt(key,value,qIdx,btn){
+    if(parseInt(qIdx)!==ccStep)return;
+    ccAnswers[key]=value;
+    btn.closest('.cp-opts').querySelectorAll('.cp-opt').forEach(b=>{b.disabled=true;b.style.opacity=b===btn?'1':'0.4';b.style.cursor='default';});
+    btn.style.borderColor='var(--sky)';btn.style.background='var(--sky-lt)';btn.style.color='var(--royal)';
+    setTimeout(()=>{
+      cpAppend(value,'user');ccStep++;
+      if(ccStep<ccQuestions.length)setTimeout(()=>showQuestion(ccStep),350);
+      else setTimeout(()=>generateResult(),350);
+    },200);
+  }
+
+  async function generateResult(){
+    cpShowTyping();let result;
+    try{
+      const res=await fetch(COMPASS_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(ccAnswers)});
+      if(!res.ok)throw new Error(res.status);
+      result=await res.json();if(result.error)throw new Error(result.error);
+    }catch{result=buildLocalResult(ccAnswers);}
+    cpHideTyping();showResult(result);
+  }
+
+  function showResult(r){
+    const waMsg=encodeURIComponent(`Hi! I used the Career Compass widget. My best-fit career is ${r.primaryCareer}. I'm interested in ${(r.recommendedCourses||[]).join(' and ')}. Please guide me!`);
+    const skillTags=(r.technicalSkills||[]).map(s=>`<span class="tag">${s}</span>`).join('');
+    const roadSteps=(r.academicPath||[]).map((s,i)=>`<div class="step"><div class="step-num">${i+1}</div><div>${s}</div></div>`).join('');
+    cpAppend(`<div class="cp-result">
+      <div class="career-title">${r.emoji||'🎓'} ${r.primaryCareer}</div>
+      <span class="salary-chip">💰 ${r.salaryRange} · Demand: ${r.demand}</span>
+      <div class="section-lbl">Skills to build</div><div class="tags">${skillTags}</div>
+      <div class="section-lbl">Your roadmap</div>${roadSteps}
+      <div class="section-lbl">WE Institute recommends</div>
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px;">${(r.recommendedCourses||[]).join(' · ')}</div>
+      <div style="font-size:12px;font-style:italic;color:var(--muted);margin-top:8px;">"${r.motivationalLine||'Every expert started exactly where you are now.'}"</div>
+      <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">
+        <a class="wa-btn" href="https://wa.me/919819740122?text=${waMsg}" target="_blank">💬 Talk to a counsellor</a>
+        <button class="restart-btn" onclick="startCompass()">🔄 Start over</button>
+      </div>
+    </div>`,'ai');
+    chatMode=true;cpInputRow.style.display='flex';
+  }
+
+  async function cpSend(){
+    const text=cpInput.value.trim();if(!text||cpSendBtn.disabled)return;
+    cpInput.value='';cpSendBtn.disabled=true;
+    cpAppend(text,'user');cpHistory.push({role:'user',content:text});cpShowTyping();
+    try{
+      const res=await fetch(CHAT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:cpHistory})});
+      if(!res.ok)throw new Error(res.status);
+      const data=await res.json();
+      const reply=data.reply||"I'm here to help — try asking again!";
+      cpHideTyping();cpAppend(reply.replace(/\n/g,'<br>'),'ai');
+      cpHistory.push({role:'assistant',content:reply});
+    }catch{cpHideTyping();cpAppend('⚠️ Connection issue. Please try again or WhatsApp us!','ai');}
+    cpSendBtn.disabled=false;cpInput.focus();
+  }
+
+  if(cpInput)cpInput.addEventListener('keydown',e=>{if(e.key==='Enter')cpSend();});
+  if(cpSendBtn)cpSendBtn.addEventListener('click',cpSend);
+</script>
+
+
+</body>
+</html>

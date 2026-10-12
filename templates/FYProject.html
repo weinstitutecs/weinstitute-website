@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Final Year Project Guidance | TechLearn</title>
+<link rel="icon" href="static/images/logowihoutbg.png" type="image/png">
+<style>
+:root {
+  --primary: #0a0a1a;
+  --accent: #6c63ff;
+  --accent2: #48cfad;
+  --gold: #ffd700;
+  --light: #f4f6ff;
+  --text: #1e1e2e;
+  --muted: #6b7080;
+  --card-bg: #ffffff;
+  --border: #e8eaf0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--light); }
+:root {
+      --navy:   #1a237e;
+      --royal:  #1565c0;
+      --sky:    #00aaff;
+      --sky-lt: #e3f4ff;
+      --light:  #f0f4fb;
+      --white:  #ffffff;
+      --text:   #1e2a4a;
+      --muted:  #5a6a8a;
+      --border: #d0dcf0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); }
+
+nav {
+      position: sticky; top: 0; z-index: 999;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 68px;
+      box-shadow: 0 2px 16px rgba(26,35,126,.35);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo {
+      height: 55px; width: 55; border-radius: 12px;
+
+    }
+	    .nav-brand-text {
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+    .nav-brand-text .t1 { color: var(--white); font-size: 1.1rem; font-weight: 700; letter-spacing: .3px; }
+    .nav-brand-text .t2 { color: var(--sky); font-size: .68rem; font-weight: 500; font-style: italic; letter-spacing: .5px; }
+    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .nav-links a {
+      color: #000; text-decoration: none;
+      font-size: .88rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 5px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color: var(--black); background: rgba(255,255,255,.1); }
+    .nav-links a.active { color: var(--sky) !important; }
+    .nav-links .btn-cta {
+      background: var(--sky); color: var(--navy) !important;
+      font-weight: 700; border-radius: 6px; margin-left: 6px;
+    }
+    .nav-links .btn-cta:hover { background: #00c2ff; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+
+
+.course-hero {background:linear-gradient(135deg,var(--navy) 0%,#0d47a1 55%,#1565c0 100%);padding:80px 5vw 70px;text-align:center;position:relative;overflow:hidden}
+  padding: 80px 40px 60px;
+  position: relative; overflow: hidden;
+}
+.course-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:480px;height:480px;background:radial-gradient(circle,rgba(6,182,212,.28) 0%,transparent 65%);border-radius:50%;}
+.course-hero::after{content:'';position:absolute;bottom:-60px;left:5%;width:320px;height:320px;background:radial-gradient(circle,rgba(251,191,36,.12) 0%,transparent 65%);border-radius:50%;}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+.course-badge{display:inline-block;background:var(--accent);color:#000;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:20px;}
+.course-hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.15;margin-bottom:18px;}
+.course-hero h1 span{color:var(--gold);}
+.course-hero p{font-size:1.05rem;color:rgba(255,255,255,.75);max-width:640px;line-height:1.7;margin-bottom:32px;}
+.hero-meta{display:flex;gap:24px;flex-wrap:wrap;}
+.meta-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.85);font-size:.88rem;}
+.meta-item svg{width:16px;height:16px;stroke:var(--accent2);fill:none;stroke-width:2;}
+
+.page-content{max-width:1000px;margin:0 auto;padding:60px 24px;}
+.section-label{font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.6rem;color:var(--primary);margin-bottom:28px;}
+
+/* Timeline */
+.timeline{margin-bottom:60px;position:relative;}
+.timeline::before{content:'';position:absolute;left:22px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--accent),var(--accent2));border-radius:2px;}
+.timeline-item{display:flex;gap:24px;margin-bottom:36px;position:relative;}
+.timeline-dot{width:46px;height:46px;border-radius:50%;background:var(--primary);border:3px solid var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-family:'Syne',sans-serif;font-weight:800;font-size:.85rem;color:var(--accent);z-index:1;}
+.timeline-content{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:22px 24px;flex:1;box-shadow:0 2px 10px rgba(6,182,212,.08);}
+.timeline-content h4{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;color:var(--primary);margin-bottom:8px;}
+.timeline-content p{font-size:.88rem;color:var(--muted);line-height:1.6;}
+
+/* Domain cards */
+.domain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:60px;}
+.domain-card{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,.05);transition:transform .2s,box-shadow .2s;}
+.domain-card:hover{transform:translateY(-3px);box-shadow:0 6px 20px rgba(6,182,212,.15);}
+.domain-icon{font-size:2rem;margin-bottom:10px;}
+.domain-card h5{font-family:'Syne',sans-serif;font-weight:700;font-size:.88rem;color:var(--primary);margin-bottom:4px;}
+.domain-card p{font-size:.78rem;color:var(--muted);}
+
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:60px;}
+.overview-card{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:28px;box-shadow:0 2px 12px rgba(6,182,212,.07);}
+.overview-card .icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#0284c7);display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.overview-card .icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;}
+.overview-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:8px;color:var(--primary);}
+.overview-card p{font-size:.88rem;color:var(--muted);line-height:1.6;}
+
+.outcomes{
+    background: linear-gradient(90deg, var(--sky) 0%, #0077cc 100%);
+    border-radius: 18px;
+    padding: 44px;
+    margin-bottom: 60px;
+    color: white;
+}
+.outcomes .section-label{color:var(--gold);}
+.outcomes .section-title{color:#fff;}
+.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.outcome-item{display:flex;align-items:flex-start;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;line-height:1.5;}
+.outcome-item::before{content:'✓';width:22px;height:22px;border-radius:50%;background:var(--accent);color:#000;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+
+/* Testimonial style note */
+.note-box{background:#fffbeb;border:1px solid #fde68a;border-left:4px solid var(--gold);border-radius:10px;padding:20px 24px;margin-bottom:60px;}
+.note-box p{font-size:.9rem;color:#78350f;line-height:1.6;}
+.note-box strong{color:#92400e;}
+
+.cta-box{background:linear-gradient(135deg,#0369a1,var(--primary));border-radius:18px;padding:50px 44px;text-align:center;}
+.cta-box h3{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#fff;margin-bottom:12px;}
+.cta-box p{color:rgba(255,255,255,.85);margin-bottom:28px;font-size:.98rem;}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;background:var(--accent);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;padding:14px 32px;border-radius:8px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s;}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.3);}
+.cta-btn svg{width:18px;height:18px;}
+@media(max-width:768px){.course-hero{padding:50px 20px 40px;}.overview-grid,.outcomes-grid,.domain-grid{grid-template-columns:1fr;}.cta-box{padding:36px 24px;}nav{padding:14px 20px;}.timeline::before{left:18px;}.timeline-dot{width:38px;height:38px;font-size:.75rem;}}
+
+footer{background:var(--navy);color:rgba(255,255,255,.7);padding:70px 5vw 0}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:50px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.1)}
+    .footer-logo-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .footer-logo{height:60px;border-radius:5px;background:#fff;padding:4px 8px;object-fit:contain}
+    .footer-brand-name .t1{color:#fff;font-weight:700;font-size:1rem}.footer-brand-name .t2{color:var(--sky);font-size:.7rem;font-style:italic}
+    .footer-brand p{font-size:.88rem;line-height:1.75;max-width:320px}
+    .footer-brand .contact-info{margin-top:20px;font-size:.87rem;line-height:1.85}
+    .footer-brand .contact-info strong{color:#fff}.footer-brand .contact-info a{color:var(--sky);text-decoration:none}
+    .footer-col h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:#fff;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--sky);display:inline-block}
+    .footer-col ul{list-style:none}.footer-col ul li{margin-bottom:10px}
+    .footer-col ul a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.87rem;transition:color .2s}.footer-col ul a:hover{color:var(--sky)}
+    .footer-social-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+    .footer-social-btn{width:38px;height:38px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .2s}
+    .footer-social-btn:hover{background:var(--sky)}.footer-social-btn svg{width:17px;height:17px;fill:#fff}
+    .footer-bottom{padding:22px 0;text-align:center;font-size:.82rem;color:rgba(255,255,255,.35)}
+    .whatsapp-fab{position:fixed;bottom:28px;right:28px;z-index:1000;width:56px;height:56px;border-radius:50%;background:#25d366;box-shadow:0 4px 20px rgba(37,211,102,.45);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:transform .2s}
+    .whatsapp-fab:hover{transform:scale(1.1)}.whatsapp-fab svg{width:30px;height:30px;fill:#fff}
+    @media(max-width:900px){.mv-grid,.why-grid,.what-grid{grid-template-columns:1fr}.mentors-grid{grid-template-columns:1fr;max-width:480px}.footer-grid{grid-template-columns:1fr 1fr;gap:36px}}
+    @media(max-width:640px){.nav-links{display:none;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:var(--navy);padding:20px 5vw;gap:6px;box-shadow:0 8px 20px rgba(0,0,0,.3)}.nav-links.open{display:flex}.nav-hamburger{display:flex}.footer-grid{grid-template-columns:1fr}}
+
+/* =========================
+   MOBILE FOOTER DESIGN
+   ========================= */
+@media (max-width: 768px) {
+
+  footer{
+    padding:50px 20px 0;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:30px;
+    text-align:center;
+    padding-bottom:35px;
+  }
+
+  .footer-logo-wrap{
+    justify-content:center;
+    margin-bottom:15px;
+  }
+
+  .footer-logo{
+    height:70px;
+    width:auto;
+  }
+
+  .footer-brand p{
+    max-width:100%;
+    font-size:.9rem;
+    line-height:1.7;
+    margin:auto;
+  }
+
+  .contact-info{
+    margin-top:18px;
+    font-size:.85rem;
+    line-height:1.8;
+  }
+
+ @media (max-width:768px){
+
+  .footer-col{
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+    box-shadow: none;
+  }
+
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:25px;
+    text-align:center;
+  }
+
+  .footer-col h4{
+    display:inline-block;
+    margin-bottom:15px;
+  }
+
+  .footer-col ul{
+    padding:0;
+  }
+
+  .footer-col ul li{
+    margin-bottom:10px;
+  }
+}
+
+  .footer-col h4{
+    display:block;
+    width:fit-content;
+    margin:0 auto 18px;
+  }
+
+  .footer-col ul li{
+    margin-bottom:12px;
+  }
+
+  .footer-col ul a{
+    font-size:.9rem;
+  }
+
+  .footer-social-row,
+  .social-row{
+    justify-content:center;
+    margin-top:20px;
+    gap:12px;
+  }
+
+  .footer-social-btn,
+  .social-btn{
+    width:42px;
+    height:42px;
+    border-radius:10px;
+    background:rgba(255,255,255,.08);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    transition:.3s;
+  }
+
+  .footer-social-btn:hover,
+  .social-btn:hover{
+    background:var(--sky);
+    transform:translateY(-3px);
+  }
+
+  .footer-bottom{
+    padding:18px 10px;
+    font-size:.75rem;
+    line-height:1.6;
+  }
+
+  .whatsapp-fab{
+    width:52px;
+    height:52px;
+    right:18px;
+    bottom:18px;
+  }
+
+  .whatsapp-fab svg{
+    width:26px;
+    height:26px;
+  }
+}
+
+</style>
+</head>
+<body>
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="{{ url_for('static', filename='images/logo2.png') }}"  class="nav-logo" alt="WE Institute Logo" onerror="this.style.display='none'" />
+    <!--<div class="nav-brand-text">
+      <span class="t1">WE Institute</span>
+      <span class="t2">Shaping Careers</span>
+    </div>-->
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/" class="active">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/courses">Courses</a></li>
+
+	<li><a href="/achievements">Achievements</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/contact">Contact</a></li>
+   <!--
+   <li><a href="contact.html" class="btn-cta">Enroll Now</a></li>
+   -->
+  </ul>
+  <div class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="course-hero">
+  <div class="hero-inner">
+
+    <h1>Final Year <span>Project Guidance</span></h1>
+    <p>Your final year project is your first portfolio piece. We guide you from idea to submission — topic selection, development, documentation, viva preparation, and everything in between.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 1–3 Months</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> BSc-IT / BCA / MCA / Engineering</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> Full Documentation Support</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg> Viva Ready</div>
+    </div>
+  </div>
+</div>
+
+<div class="page-content">
+
+  <div class="section-label">How We Guide You</div>
+  <div class="section-title">Step-by-Step Project Journey</div>
+  <div class="timeline">
+    <div class="timeline-item">
+      <div class="timeline-dot">01</div>
+      <div class="timeline-content">
+        <h4>Topic Selection & Feasibility</h4>
+        <p>We help you pick a relevant, impressive, and achievable project topic aligned with your stream. We assess scope, technology fit, and originality before you commit.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">02</div>
+      <div class="timeline-content">
+        <h4>System Design & Architecture</h4>
+        <p>Plan the full system — database design (ER diagrams), module breakdown, tech stack selection, and architecture diagrams your viva panel will be impressed by.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">03</div>
+      <div class="timeline-content">
+        <h4>Development & Coding Support</h4>
+        <p>Build the project with expert mentorship. We help you code features, debug errors, integrate APIs, and ensure your project actually works — not just looks good on paper.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">04</div>
+      <div class="timeline-content">
+        <h4>Documentation Writing</h4>
+        <p>Full project report: Abstract, Introduction, Literature Review, System Design, Implementation, Testing, Conclusion — formatted exactly as your university requires.</p>
+      </div>
+    </div>
+    <div class="timeline-item">
+      <div class="timeline-dot">05</div>
+      <div class="timeline-content">
+        <h4>Presentation & Viva Preparation</h4>
+        <p>We prepare you for every question your panel might ask. Mock viva sessions, slide design, and presentation coaching to make sure you walk in confident.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-label">Project Domains</div>
+  <div class="section-title">Areas We Specialize In</div>
+  <div class="domain-grid">
+    <div class="domain-card"><div class="domain-icon">🤖</div><h5>AI & Machine Learning</h5><p>Prediction systems, classifiers, chatbots, recommendation engines</p></div>
+    <div class="domain-card"><div class="domain-icon">🌐</div><h5>Web Development</h5><p>Full-stack apps with Django, Flask, React, Node.js</p></div>
+    <div class="domain-card"><div class="domain-icon">📱</div><h5>Mobile Apps</h5><p>Android apps using Java/Kotlin or Flutter</p></div>
+    <div class="domain-card"><div class="domain-icon">📊</div><h5>Data Science</h5><p>EDA, dashboards, data pipelines, analytics projects</p></div>
+
+    <div class="domain-card"><div class="domain-icon">🗄️</div><h5>Database Systems</h5><p>Complex SQL systems, hospital/college/library management</p></div>
+    <div class="domain-card"><div class="domain-icon">🤖</div><h5>RPA Projects</h5><p>Automation bots for business process projects</p></div>
+  </div>
+
+  <div class="section-label">What's Included</div>
+  <div class="section-title">Everything You Get</div>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+      <h4>1-on-1 Mentorship</h4>
+      <p>Dedicated mentor assigned to your project. Get answers fast, not days later — WhatsApp support included.</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
+      <h4>Complete Documentation</h4>
+      <p>University-format project report, ER diagrams, DFDs, flowcharts, and UML — all included.</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg></div>
+      <h4>Presentation Slides</h4>
+      <p>Professional PPT deck designed to impress your panel, with all key slides: synopsis, architecture, demo, conclusion.</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <h4>Viva Mock Sessions</h4>
+      <p>We quiz you the way your panel will. Common viva Q&A bank + personalized mock interviews so you're never caught off guard.</p>
+    </div>
+  </div>
+
+  <div class="note-box">
+    <p><strong>📌 Note for Students:</strong> We support all university formats — Mumbai University (MU), Pune University (SPPU), Autonomous colleges, and more. Whether it's BSc IT, BSc CS, BCA, MCA, or Engineering — we've guided 500+ students to successful project submissions. Your project, your idea, our guidance.</p>
+  </div>
+
+  <div class="outcomes">
+    <div class="section-label">What You'll Achieve</div>
+    <div class="section-title">End Results You Can Expect</div>
+    <div class="outcomes-grid">
+      <div class="outcome-item">A working, impressive project you fully understand</div>
+      <div class="outcome-item">University-format documentation ready for submission</div>
+      <div class="outcome-item">Confidence to answer any viva question thrown at you</div>
+      <div class="outcome-item">A real portfolio project to show in job interviews</div>
+      <div class="outcome-item">Knowledge of your tech stack, not just copy-pasted code</div>
+      <div class="outcome-item">Stress-free submission with everything done on time</div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+     <div class="footer-logo-wrap">
+    <a href="{{ url_for('home') }}">
+        <img src="{{ url_for('static', filename='images/logo2.png') }}"
+             class="footer-logo"
+             alt="WE Institute"
+             onerror="this.style.display='none'">
+    </a>
+</div>
+      <p>WE Institute is committed to providing students with the skills and knowledge they need to succeed in the competitive field of technology.</p>
+      <div class="contact-info">
+        <div><strong>ADDRESS:</strong> 103, 1st Floor Shree Samarth Plaza,<br/>Mulund West, Mumbai, Maharashtra 400080</div>
+        <div style="margin-top:8px;"><strong>EMAIL:</strong> <a href="mailto:hr_admin@weinstitute.in">hr_admin@weinstitute.in</a></div>
+        <div style="margin-top:4px;"><strong>PHONE:</strong> <a href="tel:+919819740122">+91 9819740122</a></div>
+      </div>
+     <div class="footer-social-row">
+        <a class="footer-social-btn" href="https://www.facebook.com/WissenEducation.319" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+      <a class="footer-social-btn" href="https://www.instagram.com/weinstitute.cs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" style="fill:none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke-width="2.4"/></svg></a>
+        <a class="footer-social-btn" href="https://www.linkedin.com/in/we-institute-22b300309" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="footer-social-btn" href="https://www.youtube.com/@WE_Institute" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a237e"/></svg></a>
+        <a class="footer-social-btn" href="https://wa.me/919819740122" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/courses">Courses</a></li>
+		<li><a href="/achievements">Achievements</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Courses</h4>
+      <ul>
+        <li><a href="/DSAIML">Artificial Intelligence (AI)</a></li>
+        <li><a href="/DSAIML">Machine Learning (ML)</a></li>
+        <li><a href="/RPA">RPA Development</a></li>
+        <li><a href="/dataanalytics">Data Analytics</a></li>
+        <li><a href="/DSAIML">Data Science</a></li>
+        <li><a href="/introduction">Python Development</a></li>
+        <li><a href="/fullstackdevelopment">Full Stack Development</a></li>
+        <li><a href="/dataanalytics">PowerBI &amp; Tableau</a></li>
+        <li><a href="/dbmstools">DBMS Tools &amp; Query Languages</a></li>
+      </ul>
+    </div>
+  </div>
+  </div>
+  <div class="footer-bottom">
+    <p>
+        Copyright &copy; WE Institute 2012–<span id="currentYear"></span>
+        &nbsp;|&nbsp; Shaping Careers
+    </p>
+</div>
+
+<script>
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+</script>
+</footer>
+
+</body>
+</html>

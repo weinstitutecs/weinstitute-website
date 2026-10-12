@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Study Abroad | WE Institute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#1a237e; --royal:#1565c0; --sky:#00aaff;
+      --sky-lt:#e3f4ff; --light:#f0f4fb; --white:#ffffff;
+      --text:#1e2a4a; --muted:#5a6a8a; --border:#d0dcf0;
+      --green:#00b86b; --green-lt:#e6f9f1;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white)}
+
+    /* ── NAV ── */
+    nav{position:sticky;top:0;z-index:999;background:var(--white);display:flex;align-items:center;justify-content:space-between;padding:0 5vw;height:68px;box-shadow:0 2px 16px rgba(26,35,126,.35)}
+    .nav-brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+    .nav-logo{height:55px;border-radius:12px;background:#fff;padding:3px 6px;object-fit:contain}
+    .nav-brand-text{display:flex;flex-direction:column;line-height:1.1}
+    .nav-brand-text .t1{color:#fff;font-size:1.1rem;font-weight:700}
+    .nav-brand-text .t2{color:var(--sky);font-size:.68rem;font-weight:500;font-style:italic}
+    .nav-links{display:flex;align-items:center;gap:2px;list-style:none}
+    .nav-links a{color:black;text-decoration:none;font-size:.88rem;font-weight:500;padding:6px 14px;border-radius:5px;transition:color .2s,background .2s}
+    	.nav-links a:hover { color: var(--black); background: rgba(255,255,255,.1); }
+    .nav-links a.active { color: var(--sky) !important; }
+    .nav-links .btn-cta{background:var(--sky);color:var(--navy)!important;font-weight:700;border-radius:6px;margin-left:6px}
+    .nav-links .btn-cta:hover{background:#00c2ff}
+    .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer}
+    .nav-hamburger span{width:24px;height:2px;background:#fff;border-radius:2px}
+
+    /* ── HERO ── */
+    .page-hero{background:linear-gradient(135deg,var(--navy) 0%,#0d47a1 55%,#1565c0 100%);padding:90px 5vw 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;overflow:hidden}
+    .page-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat}
+    .page-hero::after{content:'';position:absolute;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,rgba(0,170,255,.15) 0%,transparent 70%);right:-150px;top:-150px;pointer-events:none}
+    .hero-text{position:relative;z-index:1}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:rgba(0,170,255,.15);border:1px solid rgba(0,170,255,.4);color:var(--sky);font-size:.75rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:6px 14px;border-radius:20px;margin-bottom:22px}
+    .hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--sky);animation:pulse 2s infinite}
+    @keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(1.4)}}
+    .hero-text h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3rem);font-weight:900;color:#fff;line-height:1.2;margin-bottom:20px}
+    .hero-text h1 span{color:var(--sky)}
+    .hero-text p{color:rgba(255,255,255,.75);font-size:1rem;line-height:1.8;max-width:500px;margin-bottom:32px}
+    .hero-cta{display:flex;gap:14px;flex-wrap:wrap}
+    .btn-primary{background:var(--sky);color:var(--navy);font-weight:700;font-size:.95rem;padding:13px 28px;border-radius:7px;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,170,255,.4)}
+    .btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,170,255,.5)}
+    .btn-outline{border:2px solid rgba(255,255,255,.4);color:#fff;font-weight:600;font-size:.95rem;padding:11px 28px;border-radius:7px;text-decoration:none;transition:border-color .2s,color .2s}
+    .btn-outline:hover{border-color:var(--sky);color:var(--sky)}
+    /* hero right — globe illustration */
+    .hero-globe{position:relative;z-index:1;display:flex;align-items:center;justify-content:center}
+    .globe-wrap{width:100%;max-width:380px;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;position:relative;margin:auto;box-shadow:0 20px 60px rgba(0,0,0,.3)}
+    .globe-wrap svg{width:65%;height:65%;stroke:var(--sky);fill:none;stroke-width:1;opacity:.8}
+    .globe-dot{position:absolute;width:12px;height:12px;border-radius:50%;background:var(--sky);box-shadow:0 0 12px rgba(0,170,255,.7)}
+    .globe-dot::after{content:'';position:absolute;inset:-4px;border-radius:50%;border:2px solid rgba(0,170,255,.4);animation:ripple 2s infinite}
+    @keyframes ripple{0%{transform:scale(1);opacity:1}100%{transform:scale(2.2);opacity:0}}
+    .globe-dot.d1{top:22%;left:30%}.globe-dot.d2{top:35%;right:22%}.globe-dot.d3{bottom:28%;left:38%}.globe-dot.d4{top:18%;right:35%}.globe-dot.d5{bottom:22%;right:28%}
+    .breadcrumb{display:flex;align-items:center;gap:8px;margin-top:28px;position:relative;font-size:.83rem;color:rgba(255,255,255,.5)}
+    .breadcrumb a{color:var(--sky);text-decoration:none}.breadcrumb span{color:rgba(255,255,255,.35)}
+
+    /* ── SECTION HEADER ── */
+    .section-header{text-align:center;margin-bottom:50px}
+    .section-header .label{display:inline-block;background:var(--sky-lt);color:var(--royal);font-size:.73rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px}
+    .section-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:var(--navy)}
+    .section-header p{color:var(--muted);font-size:.95rem;line-height:1.7;max-width:580px;margin:14px auto 0}
+    .section-header .underline{width:60px;height:4px;background:linear-gradient(90deg,var(--sky),var(--royal));border-radius:2px;margin:14px auto 0}
+
+    /* ── WHY STUDY ABROAD ── */
+    .why-abroad{padding:90px 5vw;background:var(--white)}
+    .why-abroad-grid{display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+    .why-abroad-img{border-radius:16px;overflow:hidden;background:var(--sky-lt);aspect-ratio:4/3;display:flex;align-items:center;justify-content:center;border:1px solid var(--border)}
+    .why-abroad-img .img-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:var(--border);font-size:.82rem;text-align:center;padding:20px}
+    .why-abroad-img .img-ph svg{opacity:.4;width:60px;height:60px}
+    .why-points{}
+    .why-points .label{display:inline-block;background:var(--sky-lt);color:var(--royal);font-size:.73rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:16px}
+    .why-points h2{font-family:'Playfair Display',serif;font-size:clamp(1.5rem,2.5vw,2rem);font-weight:700;color:var(--navy);margin-bottom:16px;line-height:1.3}
+    .why-points > p{color:var(--muted);font-size:.95rem;line-height:1.8;margin-bottom:28px}
+    .point-list{display:flex;flex-direction:column;gap:14px}
+    .point-item{display:flex;gap:14px;align-items:flex-start}
+    .point-icon{width:40px;height:40px;border-radius:10px;background:var(--sky-lt);border:1.5px solid rgba(0,170,255,.2);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .point-icon svg{width:20px;height:20px;stroke:var(--royal);fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+    .point-body h4{font-weight:700;color:var(--navy);font-size:.92rem;margin-bottom:2px}
+    .point-body p{color:var(--muted);font-size:.85rem;line-height:1.65}
+
+    /* ── PROCESS ── */
+    .process-section{padding:90px 5vw;background:var(--light)}
+    .process-steps{display:grid;grid-template-columns:repeat(3,1fr);gap:0;position:relative}
+    .process-steps::before{content:'';position:absolute;top:36px;left:calc(16.67% + 28px);right:calc(16.67% + 28px);height:2px;background:linear-gradient(90deg,var(--sky),var(--royal));z-index:0}
+    .step-card{text-align:center;padding:0 20px 0;position:relative;z-index:1}
+    .step-num{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--royal));color:#fff;font-family:'Playfair Display',serif;font-size:1.5rem;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;box-shadow:0 6px 20px rgba(26,35,126,.3);border:3px solid var(--white)}
+    .step-card h3{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:10px}
+    .step-card p{color:var(--muted);font-size:.85rem;line-height:1.7}
+
+    /* ── SERVICES ── */
+    .services-section{padding:90px 5vw;background:var(--white)}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+    .service-card{border-radius:16px;padding:34px 28px;border:1px solid var(--border);position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s,border-color .25s}
+    .service-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(26,35,126,.12);border-color:var(--sky)}
+    .service-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--sky),var(--royal))}
+    .service-icon{width:56px;height:56px;border-radius:14px;background:var(--sky-lt);border:1.5px solid rgba(0,170,255,.2);display:flex;align-items:center;justify-content:center;margin-bottom:20px}
+    .service-icon svg{width:28px;height:28px;stroke:var(--royal);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+    .service-card h3{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--navy);margin-bottom:12px}
+    .service-card p{color:var(--muted);font-size:.88rem;line-height:1.75}
+    .service-tag{display:inline-block;margin-top:14px;background:var(--sky-lt);color:var(--royal);font-size:.68rem;font-weight:700;padding:3px 10px;border-radius:10px}
+
+    /* ── DESTINATIONS ── */
+    .destinations-section{padding:90px 5vw;background:var(--light)}
+    .dest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:20px}
+    .dest-card{background:var(--white);border-radius:14px;border:1px solid var(--border);overflow:hidden;transition:transform .25s,box-shadow .25s;cursor:default}
+    .dest-card:hover{transform:translateY(-5px);box-shadow:0 14px 36px rgba(26,35,126,.12);border-color:var(--sky)}
+    .dest-flag{height:110px;background:var(--sky-lt);display:flex;align-items:center;justify-content:center;font-size:3.5rem;border-bottom:3px solid var(--sky)}
+    .dest-body{padding:18px 16px}
+    .dest-name{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--navy);margin-bottom:6px}
+    .dest-unis{font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:10px}
+    .dest-tag{display:inline-block;background:var(--sky-lt);color:var(--royal);font-size:.68rem;font-weight:700;padding:2px 9px;border-radius:10px}
+
+    .dest-cta-box{margin-top:40px;background:linear-gradient(135deg,var(--navy),#0d47a1);border-radius:16px;padding:40px;display:flex;align-items:center;justify-content:space-between;gap:24px;flex-wrap:wrap}
+    .dest-cta-box h3{font-family:'Playfair Display',serif;font-size:1.4rem;font-weight:700;color:#fff;max-width:500px;line-height:1.4}
+    .dest-cta-box p{color:rgba(255,255,255,.7);font-size:.9rem;margin-top:8px}
+    .dest-cta-box a{flex-shrink:0;background:var(--sky);color:var(--navy);font-weight:700;font-size:.95rem;padding:13px 28px;border-radius:7px;text-decoration:none;transition:background .2s,transform .2s;box-shadow:0 4px 16px rgba(0,170,255,.35)}
+    .dest-cta-box a:hover{background:#00c2ff;transform:translateY(-2px)}
+
+    /* ── TEAM ── */
+    .team-section{padding:90px 5vw;background:var(--white)}
+    .team-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:28px}
+    .team-card{background:var(--white);border-radius:16px;overflow:hidden;border:1px solid var(--border);box-shadow:0 4px 18px rgba(26,35,126,.07);transition:transform .25s,box-shadow .25s;text-align:center}
+    .team-card:hover{transform:translateY(-6px);box-shadow:0 16px 40px rgba(26,35,126,.13)}
+    .team-photo{height:220px;background:var(--sky-lt);display:flex;align-items:center;justify-content:center;overflow:hidden;border-bottom:3px solid var(--sky)}
+    .team-photo img{width:100%;height:100%;object-fit:cover;object-position:top}
+    .team-photo-ph{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;color:var(--muted);font-size:.78rem;text-align:center;padding:20px;width:100%;height:100%}
+    .team-avatar{width:80px;height:80px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--royal));display:flex;align-items:center;justify-content:center}
+    .team-avatar svg{width:38px;height:38px;fill:rgba(255,255,255,.7)}
+    .team-photo-ph span{color:var(--border);font-size:.75rem}
+    .team-body{padding:22px 18px}
+    .team-body h3{font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--navy);margin-bottom:4px}
+    .team-role{display:inline-block;background:var(--sky-lt);color:var(--royal);font-size:.7rem;font-weight:700;padding:3px 10px;border-radius:10px;margin-bottom:12px}
+    .team-body p{color:var(--muted);font-size:.83rem;line-height:1.65}
+    .team-expertise{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px;justify-content:center}
+    .exp-tag{background:var(--light);color:var(--navy);font-size:.68rem;font-weight:600;padding:3px 9px;border-radius:8px;border:1px solid var(--border)}
+
+    /* ── CTA SECTION ── */
+    .cta-section{padding:90px 5vw;background:linear-gradient(135deg,var(--navy) 0%,#0d47a1 60%,var(--royal) 100%);text-align:center;position:relative;overflow:hidden}
+    .cta-section::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat}
+    .cta-section .label{display:inline-block;background:rgba(0,170,255,.15);border:1px solid rgba(0,170,255,.4);color:var(--sky);font-size:.73rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:20px;position:relative}
+    .cta-section h2{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);font-weight:900;color:#fff;margin-bottom:16px;position:relative}
+    .cta-section p{color:rgba(255,255,255,.75);font-size:1rem;line-height:1.8;max-width:560px;margin:0 auto 36px;position:relative}
+    .cta-buttons{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;position:relative}
+    .cta-btn-primary{background:var(--sky);color:var(--navy);font-weight:700;font-size:.95rem;padding:14px 30px;border-radius:7px;text-decoration:none;transition:transform .2s,box-shadow .2s;box-shadow:0 4px 20px rgba(0,170,255,.4)}
+    .cta-btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,170,255,.5)}
+    .cta-btn-outline{border:2px solid rgba(255,255,255,.4);color:#fff;font-weight:600;font-size:.95rem;padding:12px 30px;border-radius:7px;text-decoration:none;transition:border-color .2s,color .2s}
+    .cta-btn-outline:hover{border-color:var(--sky);color:var(--sky)}
+
+    /* ── WHATSAPP FAB ── */
+    .whatsapp-fab{position:fixed;bottom:28px;right:28px;z-index:1000;width:56px;height:56px;border-radius:50%;background:#25d366;box-shadow:0 4px 20px rgba(37,211,102,.45);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:transform .2s}
+    .whatsapp-fab:hover{transform:scale(1.1)}.whatsapp-fab svg{width:30px;height:30px;fill:#fff}
+
+    /* ── FOOTER ── */
+    footer{background:var(--navy);color:rgba(255,255,255,.7);padding:70px 5vw 0}
+    .footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:50px;padding-bottom:50px;border-bottom:1px solid rgba(255,255,255,.1)}
+    .footer-logo-wrap{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+    .footer-logo{height:40px;border-radius:5px;background:#fff;padding:3px 6px;object-fit:contain}
+    .footer-brand-name .t1{color:#fff;font-weight:700;font-size:1rem}.footer-brand-name .t2{color:var(--sky);font-size:.7rem;font-style:italic}
+    .footer-brand p{font-size:.88rem;line-height:1.75;max-width:320px}
+    .footer-brand .contact-info{margin-top:20px;font-size:.87rem;line-height:1.85}
+    .footer-brand .contact-info strong{color:#fff}.footer-brand .contact-info a{color:var(--sky);text-decoration:none}
+    .footer-col h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:600;color:#fff;margin-bottom:18px;padding-bottom:10px;border-bottom:2px solid var(--sky);display:inline-block}
+    .footer-col ul{list-style:none}.footer-col ul li{margin-bottom:10px}
+    .footer-col ul a{color:rgba(255,255,255,.6);text-decoration:none;font-size:.87rem;transition:color .2s}.footer-col ul a:hover{color:var(--sky)}
+    .footer-social-row{display:flex;gap:10px;margin-top:20px;flex-wrap:wrap}
+    .footer-social-btn{width:38px;height:38px;border-radius:8px;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:background .2s}
+    .footer-social-btn:hover{background:var(--sky)}.footer-social-btn svg{width:17px;height:17px;fill:#fff}
+    .footer-bottom{padding:22px 0;text-align:center;font-size:.82rem;color:rgba(255,255,255,.35)}
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:1024px){.page-hero{grid-template-columns:1fr;padding:70px 5vw}.hero-globe{display:none}.why-abroad-grid{grid-template-columns:1fr}.why-abroad-img{display:none}.services-grid{grid-template-columns:1fr 1fr}.process-steps::before{display:none}.footer-grid{grid-template-columns:1fr 1fr;gap:36px}}
+    @media(max-width:768px){.services-grid{grid-template-columns:1fr}.process-steps{grid-template-columns:1fr 1fr}.dest-grid{grid-template-columns:repeat(2,1fr)}.team-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:640px){.nav-links{display:none;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:var(--navy);padding:20px 5vw;gap:6px;box-shadow:0 8px 20px rgba(0,0,0,.3)}.nav-links.open{display:flex}.nav-hamburger{display:flex}.process-steps{grid-template-columns:1fr}.dest-grid{grid-template-columns:1fr 1fr}.team-grid{grid-template-columns:1fr}.footer-grid{grid-template-columns:1fr}.dest-cta-box{flex-direction:column;text-align:center}}
+  </style>
+</head>
+<body>
+
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <a href="index.html" class="nav-brand">
+    <img src="{{ url_for('static', filename='images/logo2.png') }}" class="nav-logo" alt="WE Institute" onerror="this.style.display='none'" />
+    <!--<div class="nav-brand-text"><span class="t1">WE Institute</span><span class="t2">Shaping Careers</span></div>-->
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/courses">Courses</a></li>
+	<li><a href="/studyabroad" class="active">StudyAbroad</a></li>
+	<li><a href="/achievements">Achievements</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/contact">Contact</a></li>
+   <li><a href="contact.html" class="btn-cta">Enroll Now</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- ══ HERO ══ -->
+<section class="page-hero">
+  <div class="hero-text">
+    <div class="hero-tag">Educational Counselling</div>
+    <h1>Your Dream University<br/>Abroad is <span>One Step Away</span></h1>
+    <p>End-to-end study abroad guidance by a team of dedicated professionals — from university shortlisting to landing at your destination. We make international education accessible, clear, and stress-free.</p>
+    <div class="hero-cta">
+      <a href="contact.html" class="btn-primary">Book Free Counselling</a>
+      <a href="#services" class="btn-outline">Our Services</a>
+    </div>
+    <div class="breadcrumb"><a href="index.html">Home</a><span>›</span><span>Study Abroad</span></div>
+  </div>
+  <div class="hero-globe">
+    <div class="globe-wrap">
+      <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="100" cy="100" r="90" stroke-width="1.5"/>
+        <ellipse cx="100" cy="100" rx="50" ry="90" stroke-width="1"/>
+        <ellipse cx="100" cy="100" rx="90" ry="35" stroke-width="1"/>
+        <line x1="10" y1="100" x2="190" y2="100" stroke-width="1"/>
+        <line x1="100" y1="10" x2="100" y2="190" stroke-width="1"/>
+        <path d="M 30 60 Q 100 40 170 60" stroke-width="1" fill="none"/>
+        <path d="M 20 140 Q 100 160 180 140" stroke-width="1" fill="none"/>
+      </svg>
+      <div class="globe-dot d1"></div>
+      <div class="globe-dot d2"></div>
+      <div class="globe-dot d3"></div>
+      <div class="globe-dot d4"></div>
+      <div class="globe-dot d5"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ WHY STUDY ABROAD ══ -->
+<section class="why-abroad" id="why">
+  <div class="why-abroad-grid">
+    <div class="why-abroad-img">
+      <!-- Replace: <img src="static/images/study-abroad.jpg" alt="Study Abroad"> -->
+      <div class="img-ph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg><span>study-abroad.jpg<br/>(add your photo)</span></div>
+    </div>
+    <div class="why-points">
+      <div class="label">Why Go Global?</div>
+      <h2>Open Doors to World-Class Education &amp; Careers</h2>
+      <p>Studying abroad is one of the most transformative decisions a student can make. Beyond a degree, it offers global exposure, a multicultural experience, and career opportunities that transcend borders.</p>
+      <div class="point-list">
+        <div class="point-item"><div class="point-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div><div class="point-body"><h4>World-Ranked Universities</h4><p>Access top institutions in the USA, UK, Canada, Australia, and Europe with globally recognized degrees.</p></div></div>
+        <div class="point-item"><div class="point-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div><div class="point-body"><h4>Scholarship Opportunities</h4><p>Thousands of scholarships available for international students — we help you find and apply for the right ones.</p></div></div>
+        <div class="point-item"><div class="point-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg></div><div class="point-body"><h4>Global Career Prospects</h4><p>International work experience, OPT/PGWP work permits, and global networks open doors no local degree can match.</p></div></div>
+        <div class="point-item"><div class="point-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div><div class="point-body"><h4>Cultural &amp; Personal Growth</h4><p>Living and studying in a new country builds independence, communication skills, and a truly global mindset.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ PROCESS ══ -->
+<section class="process-section" id="process">
+  <div class="section-header">
+    <div class="label">How It Works</div>
+    <h2>Our End-to-End Process</h2>
+    <p>From your first consultation to landing at your destination — we guide you at every single step.</p>
+    <div class="underline"></div>
+  </div>
+  <div class="process-steps">
+    <div class="step-card"><div class="step-num">01</div><h3>Free Counselling Session</h3><p>We understand your profile, goals, budget, and preferences to chart the best path forward.</p></div>
+    <div class="step-card"><div class="step-num">02</div><h3>University Shortlisting</h3><p>We identify the best-fit universities based on your academic record, budget, and career goals.</p></div>
+    <div class="step-card"><div class="step-num">03</div><h3>Test Preparation</h3><p>IELTS / TOEFL / GRE / GMAT coaching tailored to the requirements of your target universities.</p></div>
+    <div class="step-card"><div class="step-num">04</div><h3>Application &amp; SOP / LOR</h3><p>We craft compelling SOPs and coordinate LORs, then manage the complete application process.</p></div>
+    <div class="step-card"><div class="step-num">05</div><h3>Visa Guidance</h3><p>Complete documentation support, visa filing assistance, and mock interview preparation.</p></div>
+    <div class="step-card"><div class="step-num">06</div><h3>Pre-Departure Support</h3><p>Accommodation guidance, travel tips, forex, SIM cards — we prepare you for life abroad.</p></div>
+  </div>
+</section>
+
+<!-- ══ SERVICES ══ -->
+<section class="services-section" id="services">
+  <div class="section-header">
+    <div class="label">What We Offer</div>
+    <h2>Our Counselling Services</h2>
+    <p>Comprehensive, professional support at every stage of your study abroad journey.</p>
+    <div class="underline"></div>
+  </div>
+  <div class="services-grid">
+
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg></div>
+      <h3>University Shortlisting &amp; Applications</h3>
+      <p>We analyse your academic profile, budget, location preference, and career goals to shortlist the most suitable universities and manage applications end-to-end — including deadlines, requirements, and submission.</p>
+      <span class="service-tag">Included Free</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg></div>
+      <h3>SOP &amp; LOR Writing Assistance</h3>
+      <p>A compelling Statement of Purpose can make or break your application. Our expert writers craft personalised, authentic SOPs and coordinate Letters of Recommendation that highlight your true potential.</p>
+      <span class="service-tag">Expert Writers</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></div>
+      <h3>Visa Guidance &amp; Documentation</h3>
+      <p>Visa rejections can be avoided with the right documentation. We guide you through every visa requirement, help prepare your financial documents, and conduct mock visa interviews to boost your confidence.</p>
+      <span class="service-tag">High Success Rate</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <h3>Scholarship Guidance</h3>
+      <p>We help identify scholarships, grants, and funding opportunities that match your profile — from government scholarships to university merit awards — and assist with compelling scholarship applications.</p>
+      <span class="service-tag">Save Thousands</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg></div>
+      <h3>IELTS / TOEFL / GRE Prep Support</h3>
+      <p>Language and aptitude tests are the gateway to your application. We provide structured preparation guidance, practice tests, and coaching to help you achieve the scores your target universities require.</p>
+      <span class="service-tag">Score Guarantee</span>
+    </div>
+
+    <div class="service-card">
+      <div class="service-icon"><svg viewBox="0 0 24 24"><path d="M22 2L11 13"/><path d="M22 2L15 22 11 13 2 9l20-7z"/></svg></div>
+      <h3>Pre-Departure &amp; Post-Landing Support</h3>
+      <p>Our support doesn't stop at the visa. We help with accommodation options, forex, travel preparation, local SIM cards, and connect you with the student community at your destination university.</p>
+      <span class="service-tag">Full Journey</span>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ DESTINATIONS ══ -->
+<section class="destinations-section" id="destinations">
+  <div class="section-header">
+    <div class="label">Where We Send Students</div>
+    <h2>Popular Study Destinations</h2>
+    <p>We counsel students for universities across the world's top study destinations.</p>
+    <div class="underline"></div>
+  </div>
+
+  <div class="dest-grid">
+    <div class="dest-card"><div class="dest-flag">🇺🇸</div><div class="dest-body"><div class="dest-name">United States</div><div class="dest-unis">MIT, Stanford, Carnegie Mellon, NYU &amp; 500+ universities</div><div class="dest-tag">Most Popular</div></div></div>
+    <div class="dest-card"><div class="dest-flag">🇬🇧</div><div class="dest-body"><div class="dest-name">United Kingdom</div><div class="dest-unis">Oxford, Imperial, UCL, Manchester &amp; more</div><div class="dest-tag">Top Ranked</div></div></div>
+    <div class="dest-card"><div class="dest-flag">🇨🇦</div><div class="dest-body"><div class="dest-name">Canada</div><div class="dest-unis">UofT, UBC, Waterloo, McGill &amp; PGWP friendly</div><div class="dest-tag">PR Friendly</div></div></div>
+    <div class="dest-card"><div class="dest-flag">🇦🇺</div><div class="dest-body"><div class="dest-name">Australia</div><div class="dest-unis">Melbourne, UNSW, ANU &amp; industry-linked programs</div><div class="dest-tag">Work Rights</div></div></div>
+    <div class="dest-card"><div class="dest-flag">🇩🇪</div><div class="dest-body"><div class="dest-name">Germany</div><div class="dest-unis">TU Munich, Heidelberg &amp; tuition-free options</div><div class="dest-tag">Affordable</div></div></div>
+    <div class="dest-card"><div class="dest-flag">🇸🇬</div><div class="dest-body"><div class="dest-name">Singapore</div><div class="dest-unis">NUS, NTU &amp; Asia's top tech universities</div><div class="dest-tag">Asia Hub</div></div></div>
+    <div class="dest-card"><div class="dest-flag">🇮🇪</div><div class="dest-body"><div class="dest-name">Ireland</div><div class="dest-unis">UCD, Trinity College &amp; EU access gateway</div><div class="dest-tag">EU Access</div></div></div>
+    <div class="dest-card"><div class="dest-flag">🇳🇿</div><div class="dest-body"><div class="dest-name">New Zealand</div><div class="dest-unis">Auckland, Otago &amp; scenic campus life</div><div class="dest-tag">Safe Destination</div></div></div>
+  </div>
+
+  <!-- CTA to contact for more -->
+  <div class="dest-cta-box" style="margin-top:40px">
+    <div>
+      <h3>Don't see your dream destination?</h3>
+      <p>We counsel for universities across 20+ countries. Get in touch and our experts will tailor a plan just for you.</p>
+    </div>
+    <a href="contact.html">Talk to a Counsellor →</a>
+  </div>
+</section>
+
+<!-- ══ EXPERT TEAM ══ -->
+<section class="team-section" id="team">
+  <div class="section-header">
+    <div class="label">Our Experts</div>
+    <h2>Meet Our Counselling Team</h2>
+    <p>A dedicated team of experienced professionals who have guided hundreds of students to universities across the globe.</p>
+    <div class="underline"></div>
+  </div>
+  <div class="team-grid">
+
+    <!-- Add/edit team members. Replace placeholder with <img src="team/name.jpg"> -->
+    <div class="team-card">
+      <div class="team-photo"><div class="team-photo-ph"><div class="team-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div><span>counsellor1.jpg</span></div></div>
+      <div class="team-body">
+        <h3>Counsellor Name</h3>
+        <div class="team-role">Senior Study Abroad Advisor</div>
+        <p>10+ years of experience guiding students to universities in the US, UK, and Canada. Visa specialist with 98% success rate.</p>
+        <div class="team-expertise"><span class="exp-tag">USA</span><span class="exp-tag">UK</span><span class="exp-tag">Canada</span><span class="exp-tag">Visa</span></div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-photo"><div class="team-photo-ph"><div class="team-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div><span>counsellor2.jpg</span></div></div>
+      <div class="team-body">
+        <h3>Counsellor Name</h3>
+        <div class="team-role">IELTS &amp; SOP Specialist</div>
+        <p>Certified IELTS trainer and SOP writer. Helped 200+ students achieve their target scores and craft winning statements of purpose.</p>
+        <div class="team-expertise"><span class="exp-tag">IELTS</span><span class="exp-tag">TOEFL</span><span class="exp-tag">SOP</span><span class="exp-tag">LOR</span></div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-photo"><div class="team-photo-ph"><div class="team-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div><span>counsellor3.jpg</span></div></div>
+      <div class="team-body">
+        <h3>Counsellor Name</h3>
+        <div class="team-role">Australia &amp; Europe Specialist</div>
+        <p>Expert in Australian and European university placements. Specialises in scholarship applications and tuition-free options in Germany.</p>
+        <div class="team-expertise"><span class="exp-tag">Australia</span><span class="exp-tag">Germany</span><span class="exp-tag">Ireland</span><span class="exp-tag">Scholarships</span></div>
+      </div>
+    </div>
+
+    <div class="team-card">
+      <div class="team-photo"><div class="team-photo-ph"><div class="team-avatar"><svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg></div><span>counsellor4.jpg</span></div></div>
+      <div class="team-body">
+        <h3>Counsellor Name</h3>
+        <div class="team-role">Pre-Departure &amp; Visa Coordinator</div>
+        <p>Handles end-of-process support — visa filing, accommodation search, pre-departure briefings, and post-landing orientation for students.</p>
+        <div class="team-expertise"><span class="exp-tag">Visa</span><span class="exp-tag">Housing</span><span class="exp-tag">Travel</span><span class="exp-tag">Orientation</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ══ CTA ══ -->
+<section class="cta-section">
+  <div class="label">Take the First Step</div>
+  <h2>Ready to Study Abroad?<br/>Let's Make It Happen.</h2>
+  <p>Book a free 30-minute counselling session with one of our experts. No obligation, no pressure — just honest, personalised guidance to help you make the right decision.</p>
+  <div class="cta-buttons">
+    <a href="contact.html" class="cta-btn-primary">Book Free Counselling Session</a>
+    <a href="https://wa.me/919819740122?text=Hi%2C+I+want+to+know+more+about+Study+Abroad+counselling" target="_blank" rel="noopener" class="cta-btn-outline">Chat on WhatsApp</a>
+  </div>
+</section>
+
+<!-- ══ WHATSAPP FAB ══ -->
+<a class="whatsapp-fab" href="https://wa.me/919819740122?text=Hi%2C+I+want+to+know+more+about+Study+Abroad" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo-wrap"><img src="/mnt/user-data/uploads/2025-06-10.webp" class="footer-logo" alt="WE Institute" onerror="this.style.display='none'" /><div class="footer-brand-name"><div class="t1">WE Institute</div><div class="t2">Shaping Careers</div></div></div>
+      <p>WE Institute provides world-class technology training and expert educational counselling to help students reach their full potential — locally and globally.</p>
+      <div class="contact-info"><div><strong>ADDRESS:</strong> 103, 1st Floor Shree Samarth Plaza, Mulund West, Mumbai 400080</div><div style="margin-top:8px"><strong>EMAIL:</strong> <a href="mailto:hr_admin@weinstitute.in">hr_admin@weinstitute.in</a></div><div style="margin-top:4px"><strong>PHONE:</strong> <a href="tel:+919819740122">+91 9819740122</a></div></div>
+      <div class="footer-social-row">
+        <a class="footer-social-btn" href="https://www.facebook.com/WissenEducation.319" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a class="footer-social-btn" href="https://www.instagram.com/weinstitute.cs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" fill="none" stroke="#fff" stroke-width="1.5"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg></a>
+        <a class="footer-social-btn" href="https://www.linkedin.com/in/we-institute-22b300309" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="footer-social-btn" href="https://www.youtube.com/@WE_Institute" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a237e"/></svg></a>
+        <a class="footer-social-btn" href="https://wa.me/919819740122" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col"><h4>Study Abroad</h4><ul><li><a href="#services">Our Services</a></li><li><a href="#process">Our Process</a></li><li><a href="#destinations">Destinations</a></li><li><a href="#team">Our Team</a></li><li><a href="contact.html">Book Counselling</a></li></ul></div>
+    <div class="footer-col"><h4>Quick Links</h4><ul><li><a href="index.html">Home</a></li><li><a href="about.html">About</a></li><li><a href="courses.html">Courses</a></li><li><a href="achievements.html">Achievements</a></li><li><a href="gallery.html">Gallery</a></li><li><a href="contact.html">Contact Us</a></li></ul></div>
+  </div>
+  <div class="footer-bottom"><p>Copyright &copy; WE Institute 2012–2025 &nbsp;|&nbsp; Shaping Careers</p></div>
+</footer>
+
+</body>
+</html>

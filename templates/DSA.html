@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Data Structures & Algorithms | TechLearn</title>
+<link rel="icon" href="static/images/logowihoutbg.png" type="image/png" />
+<style>
+:root {
+  --primary: #0a0a1a;
+  --accent: #6c63ff;
+  --accent2: #48cfad;
+  --gold: #ffd700;
+  --light: #f4f6ff;
+  --text: #1e1e2e;
+  --muted: #6b7080;
+  --card-bg: #ffffff;
+  --border: #e8eaf0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--light); }
+:root {
+      --navy:   #1a237e;
+      --royal:  #1565c0;
+      --sky:    #00aaff;
+      --sky-lt: #e3f4ff;
+      --light:  #f0f4fb;
+      --white:  #ffffff;
+      --text:   #1e2a4a;
+      --muted:  #5a6a8a;
+      --border: #d0dcf0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); }
+
+nav {
+      position: sticky; top: 0; z-index: 999;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 68px;
+      box-shadow: 0 2px 16px rgba(26,35,126,.35);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo {
+      height: 55px; width: 55; border-radius: 12px;
+
+    }
+	    .nav-brand-text {
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+    .nav-brand-text .t1 { color: var(--white); font-size: 1.1rem; font-weight: 700; letter-spacing: .3px; }
+    .nav-brand-text .t2 { color: var(--sky); font-size: .68rem; font-weight: 500; font-style: italic; letter-spacing: .5px; }
+    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .nav-links a {
+      color: #000; text-decoration: none;
+      font-size: .88rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 5px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color: var(--black); background: rgba(255,255,255,.1); }
+    .nav-links a.active { color: var(--sky) !important; }
+    .nav-links .btn-cta {
+      background: var(--sky); color: var(--navy) !important;
+      font-weight: 700; border-radius: 6px; margin-left: 6px;
+    }
+    .nav-links .btn-cta:hover { background: #00c2ff; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+ .nav-hamburger span {
+    width: 24px;
+    height: 3px;
+    background: #1a237e;
+    border-radius: 10px;
+}
+
+@media(min-width:769px){
+  .nav-hamburger{
+      display:none;
+  }
+}
+
+
+.course-hero {background:linear-gradient(135deg,var(--navy) 0%,#0d47a1 55%,#1565c0 100%);padding:80px 5vw 70px;text-align:center;position:relative;overflow:hidden}
+.course-hero::before{content:'';position:absolute;top:-100px;right:-100px;width:500px;height:500px;background:radial-gradient(circle,rgba(176,64,251,.3) 0%,transparent 65%);border-radius:50%;}
+.course-hero::after{content:'';position:absolute;bottom:-60px;left:5%;width:320px;height:320px;background:radial-gradient(circle,rgba(255,213,79,.12) 0%,transparent 65%);border-radius:50%;}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+.course-badge{display:inline-block;background:var(--accent);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:20px;}
+.course-hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.15;margin-bottom:18px;}
+.course-hero h1 span{color:var(--gold);}
+.course-hero p{font-size:1.05rem;color:rgba(255,255,255,.75);max-width:620px;line-height:1.7;margin:0 auto 32px;}
+.hero-meta{display:flex;gap:24px;flex-wrap:wrap;justify-content:center;}
+.meta-item{display:flex;align-items:center;gap:8px;color:rgba(255,255,255,.85);font-size:.88rem;}
+.meta-item svg{width:16px;height:16px;stroke:var(--gold);fill:none;stroke-width:2;}
+.page-content{max-width:1000px;margin:0 auto;padding:60px 24px;}
+.section-label{font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.6rem;color:var(--primary);margin-bottom:28px;}
+.overview-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-bottom:60px;}
+.overview-card{background:var(--card-bg);border:1px solid var(--border);border-radius:14px;padding:28px;box-shadow:0 2px 12px rgba(176,64,251,.07);}
+.overview-card .icon{width:48px;height:48px;border-radius:12px;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;margin-bottom:16px;}
+.overview-card .icon svg{width:22px;height:22px;stroke:#fff;fill:none;stroke-width:2;}
+.overview-card h4{font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;margin-bottom:8px;color:var(--primary);}
+.overview-card p{font-size:.88rem;color:var(--muted);line-height:1.6;}
+.complexity-table{width:100%;border-collapse:collapse;margin-bottom:60px;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.07);}
+.complexity-table th{background:var(--primary);color:#fff;font-family:'Syne',sans-serif;font-size:.85rem;padding:14px 18px;text-align:left;}
+.complexity-table td{background:var(--card-bg);padding:12px 18px;font-size:.88rem;border-bottom:1px solid var(--border);}
+.complexity-table tr:last-child td{border-bottom:none;}
+.complexity-table tr:nth-child(even) td{background:#faf5ff;}
+.badge{display:inline-block;padding:3px 10px;border-radius:12px;font-size:.75rem;font-weight:600;}
+.badge.green{background:#e8f5e9;color:#2e7d32;}
+.badge.yellow{background:#fff9c4;color:#f57f17;}
+.badge.red{background:#ffebee;color:#c62828;}
+.curriculum{margin-bottom:60px;}
+.module{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;overflow:hidden;}
+.module-header{padding:20px 24px;display:flex;align-items:center;gap:16px;cursor:pointer;user-select:none;}
+.module-num{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#fff;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.module-title{font-family:'Syne',sans-serif;font-weight:600;font-size:.98rem;color:var(--primary);flex:1;}
+.module-lessons{font-size:.8rem;color:var(--muted);}
+.module-body{padding:0 24px 20px 76px;display:none;}
+.module.open .module-body{display:block;}
+.module-body li{font-size:.88rem;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.module-body li:last-child{border-bottom:none;}
+.module-body li::before{content:'▶';font-size:.6rem;color:var(--accent);flex-shrink:0;}
+.outcomes{
+    background: linear-gradient(90deg, var(--sky) 0%, #0077cc 100%);
+    border-radius: 18px;
+    padding: 44px;
+    margin-bottom: 60px;
+    color: white;
+}
+.outcomes .section-label{color:var(--gold);}
+.outcomes .section-title{color:#fff;}
+.outcomes-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;}
+.outcome-item{display:flex;align-items:flex-start;gap:12px;color:rgba(255,255,255,.85);font-size:.9rem;line-height:1.5;}
+.outcome-item::before{content:'✓';width:22px;height:22px;border-radius:50%;background:var(--accent);color:#fff;font-size:.7rem;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px;}
+.cta-box{background:linear-gradient(135deg,var(--accent),#7b1fa2);border-radius:18px;padding:50px 44px;text-align:center;}
+.cta-box h3{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#fff;margin-bottom:12px;}
+.cta-box p{color:rgba(255,255,255,.85);margin-bottom:28px;font-size:.98rem;}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:var(--accent);font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;padding:14px 32px;border-radius:8px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.2);transition:transform .2s,box-shadow .2s;}
+.cta-btn:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.3);}
+.cta-btn svg{width:18px;height:18px;}
+/* =========================================
+   MOBILE VIEW
+========================================= */
+@media screen and (max-width:768px){
+
+  html,
+  body{
+    width:100%;
+    overflow-x:hidden;
+  }
+
+  /* NAVBAR */
+
+  nav{
+    height:65px;
+    padding:0 15px;
+  }
+
+  .nav-logo{
+    height:42px;
+    width:auto;
+  }
+
+  .nav-hamburger{
+    display:flex;
+  }
+
+  .nav-links{
+    display:none;
+    position:absolute;
+    top:65px;
+    left:0;
+    width:100%;
+    background:#fff;
+    flex-direction:column;
+    padding:15px;
+    gap:8px;
+    box-shadow:0 10px 20px rgba(0,0,0,.15);
+  }
+
+  .nav-links.open{
+    display:flex;
+  }
+
+  .nav-links li{
+    width:100%;
+  }
+
+  .nav-links a{
+    display:block;
+    width:100%;
+    padding:12px 15px;
+  }
+
+  /* HERO */
+
+  .course-hero{
+    padding:60px 20px 45px;
+  }
+
+  .course-hero h1{
+    font-size:32px;
+    line-height:1.3;
+  }
+
+  .course-hero p{
+    font-size:15px;
+    line-height:1.8;
+    margin:0 auto 25px;
+  }
+
+  .hero-meta{
+    flex-direction:column;
+    align-items:flex-start;
+    gap:12px;
+    margin-top:25px;
+  }
+
+  .meta-item{
+    font-size:14px;
+  }
+
+  /* PAGE CONTENT */
+
+  .page-content{
+    padding:40px 15px;
+  }
+
+  .section-title{
+    font-size:28px;
+    line-height:1.3;
+  }
+
+  /* OVERVIEW CARDS */
+
+  .overview-grid{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+
+  .overview-card{
+    padding:22px;
+  }
+
+  /* TABLE RESPONSIVE */
+
+  .complexity-table{
+    display:block;
+    overflow-x:auto;
+    white-space:nowrap;
+  }
+
+  .complexity-table th,
+  .complexity-table td{
+    padding:12px;
+    font-size:13px;
+  }
+
+  /* CURRICULUM */
+
+  .module-header{
+    padding:18px;
+    gap:12px;
+  }
+
+  .module-num{
+    width:34px;
+    height:34px;
+    font-size:14px;
+  }
+
+  .module-title{
+    flex:1;
+    font-size:14px;
+    line-height:1.5;
+  }
+
+  .module-lessons{
+    font-size:12px;
+  }
+
+  .module-body{
+    padding:0 18px 18px 18px;
+  }
+
+  .module-body li{
+    font-size:14px;
+    line-height:1.6;
+  }
+
+  /* OUTCOMES */
+
+  .outcomes{
+    padding:30px 20px;
+  }
+
+  .outcomes-grid{
+    grid-template-columns:1fr;
+    gap:15px;
+  }
+
+  .outcome-item{
+    font-size:14px;
+  }
+
+  /* CTA */
+
+  .cta-box{
+    padding:30px 20px;
+  }
+
+  .cta-box h3{
+    font-size:26px;
+  }
+
+  .cta-btn{
+    width:100%;
+    justify-content:center;
+  }
+
+  /* FOOTER */
+
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:35px;
+  }
+
+  .footer-logo-wrap{
+    justify-content:center;
+  }
+
+  .footer-brand{
+    text-align:center;
+  }
+
+  .footer-brand p{
+    max-width:100%;
+  }
+
+  .contact-info{
+    text-align:center;
+  }
+
+  .footer-col{
+    text-align:center;
+  }
+
+  .footer-col h4{
+    display:inline-block;
+  }
+
+  .social-row{
+    justify-content:center;
+  }
+
+}
+
+/* SMALL PHONES */
+
+@media screen and (max-width:480px){
+
+  .course-hero{
+    padding:45px 15px;
+  }
+
+  .course-hero h1{
+    font-size:26px;
+  }
+
+  .course-hero p{
+    font-size:14px;
+  }
+
+  .section-title{
+    font-size:24px;
+  }
+
+  .overview-card{
+    padding:18px;
+  }
+
+  .module-title{
+    font-size:13px;
+  }
+
+  .module-body li{
+    font-size:13px;
+  }
+
+  .outcomes{
+    padding:25px 15px;
+  }
+
+  .cta-box h3{
+    font-size:22px;
+  }
+
+  .footer-logo{
+    height:50px;
+  }
+
+  .footer-bottom{
+    font-size:13px;
+    padding:18px 10px;
+  }
+}
+
+ /* ── FOOTER ── */
+    footer { background: var(--navy); color: rgba(255,255,255,.7); padding: 70px 5vw 0; }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px;
+      padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .footer-logo { height: 60px; border-radius: 5px; background: white; padding: 4px 8px; object-fit: contain; }
+    .footer-brand-name .t1 { color: var(--white); font-weight: 700; font-size: 1rem; }
+    .footer-brand-name .t2 { color: var(--sky); font-size: .7rem; font-style: italic; }
+    .footer-brand p { font-size: .88rem; line-height: 1.75; max-width: 320px; }
+    .footer-brand .contact-info { margin-top: 20px; font-size: .87rem; line-height: 1.85; }
+    .footer-brand .contact-info strong { color: var(--white); }
+    .footer-brand .contact-info a { color: var(--sky); text-decoration: none; }
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--white);
+      margin-bottom: 18px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--sky); display: inline-block;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .87rem; transition: color .2s; }
+    .footer-col ul a:hover { color: var(--sky); }
+    .social-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+    .social-btn {
+      width: 38px; height: 38px; border-radius: 8px; background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center; text-decoration: none; transition: background .2s;
+    }
+    .social-btn:hover { background: var(--sky); }
+    .social-btn svg { width: 17px; height: 17px; fill: #fff; }
+    .footer-bottom { padding: 22px 0; text-align: center; font-size: .82rem; color: rgba(255,255,255,.35); }
+
+@media screen and (max-width:768px){
+
+    .footer-grid{
+        display:grid;
+        grid-template-columns:1fr !important;
+        gap:30px;
+    }
+
+    .footer-brand,
+    .footer-col{
+        text-align:center;
+    }
+
+    .footer-logo-wrap{
+        justify-content:center;
+    }
+
+    .social-row{
+        justify-content:center;
+    }
+
+    .contact-info{
+        text-align:center;
+    }
+
+    .outcomes-grid{
+        grid-template-columns:1fr !important;
+    }
+
+    .overview-grid{
+        grid-template-columns:1fr !important;
+    }
+
+    .hero-meta{
+        flex-direction:column;
+        align-items:center;
+    }
+
+    .module-header{
+        flex-wrap:wrap;
+    }
+
+    .module-title{
+        width:100%;
+        margin-top:10px;
+    }
+
+    .complexity-table{
+        display:block;
+        overflow-x:auto;
+        white-space:nowrap;
+    }
+}
+
+</style>
+</head>
+<body>
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="{{ url_for('static', filename='images/logo2.png') }}"  class="nav-logo" alt="WE Institute Logo" onerror="this.style.display='none'" />
+    <!--<div class="nav-brand-text">
+      <span class="t1">WE Institute</span>
+      <span class="t2">Shaping Careers</span>
+    </div>-->
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/" class="active">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/courses">Courses</a></li>
+
+	<li><a href="/achievements">Achievements</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/contact">Contact</a></li>
+   <!--
+   <li><a href="contact.html" class="btn-cta">Enroll Now</a></li>
+   -->
+  </ul>
+  <div class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<div class="course-hero">
+  <div class="hero-inner">
+    <span class="course-badge">Core CS Skill</span>
+    <h1>Data Structures <span>&amp; Algorithms</span></h1>
+    <p>The foundation of every great software engineer. Master the art of writing fast, memory-efficient code and ace placement interviews at top tech companies.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 3–4 Months</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Beginner–Advanced</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg> 100+ Coding Problems</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg> Certificate Included</div>
+    </div>
+  </div>
+</div>
+
+<div class="page-content">
+
+  <div class="section-label">Course Overview</div>
+  <div class="section-title">Why DSA is Non-Negotiable</div>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+      <h4>Crack Any Interview</h4>
+      <p>Google, Amazon, Microsoft, Flipkart — every top company tests DSA. This course is your blueprint.</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/></svg></div>
+      <h4>Write Faster Code</h4>
+      <p>Learn Big O notation and choose the right data structure so your programs run in milliseconds, not minutes.</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <h4>Think Algorithmically</h4>
+      <p>Break complex problems into clear steps. Recursion, dynamic programming, greedy — all made intuitive.</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg></div>
+      <h4>Language Agnostic</h4>
+      <p>Taught in Python and Java — the concepts apply to any language. Learn once, code anywhere.</p>
+    </div>
+  </div>
+
+  <!-- Complexity Cheat Sheet -->
+  <div class="section-label">Quick Reference</div>
+  <div class="section-title">Big O Complexity Overview</div>
+  <table class="complexity-table">
+    <thead>
+      <tr><th>Data Structure</th><th>Access</th><th>Search</th><th>Insert</th><th>Delete</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Array</td><td><span class="badge green">O(1)</span></td><td><span class="badge yellow">O(n)</span></td><td><span class="badge yellow">O(n)</span></td><td><span class="badge yellow">O(n)</span></td></tr>
+      <tr><td>Linked List</td><td><span class="badge yellow">O(n)</span></td><td><span class="badge yellow">O(n)</span></td><td><span class="badge green">O(1)</span></td><td><span class="badge green">O(1)</span></td></tr>
+      <tr><td>Hash Table</td><td>—</td><td><span class="badge green">O(1)</span></td><td><span class="badge green">O(1)</span></td><td><span class="badge green">O(1)</span></td></tr>
+      <tr><td>Binary Search Tree</td><td><span class="badge yellow">O(log n)</span></td><td><span class="badge yellow">O(log n)</span></td><td><span class="badge yellow">O(log n)</span></td><td><span class="badge yellow">O(log n)</span></td></tr>
+      <tr><td>Heap</td><td><span class="badge yellow">O(n)</span></td><td><span class="badge yellow">O(n)</span></td><td><span class="badge yellow">O(log n)</span></td><td><span class="badge yellow">O(log n)</span></td></tr>
+      <tr><td>Graph (Adj. List)</td><td><span class="badge yellow">O(V+E)</span></td><td><span class="badge yellow">O(V+E)</span></td><td><span class="badge green">O(1)</span></td><td><span class="badge yellow">O(E)</span></td></tr>
+    </tbody>
+  </table>
+
+  <div class="curriculum">
+    <div class="section-label">Curriculum</div>
+    <div class="section-title">Module Breakdown</div>
+
+    <div class="module open">
+      <div class="module-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="module-num">1</div>
+        <div class="module-title">Foundations — Arrays, Strings &amp; Complexity</div>
+        <span class="module-lessons">7 Topics</span>
+      </div>
+      <div class="module-body"><ul>
+        <li>Big O Notation &amp; Time/Space Analysis</li>
+        <li>Arrays — 1D &amp; 2D, Sliding Window, Two Pointers</li>
+        <li>String Manipulation &amp; Pattern Matching</li>
+        <li>Hashing &amp; HashMaps</li>
+        <li>Recursion &amp; Backtracking Fundamentals</li>
+        <li>Sorting: Bubble, Selection, Insertion, Merge, Quick</li>
+        <li>Problem Set: 20 LeetCode-style Problems</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="module-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="module-num">2</div>
+        <div class="module-title">Linear Data Structures</div>
+        <span class="module-lessons">6 Topics</span>
+      </div>
+      <div class="module-body"><ul>
+        <li>Linked Lists: Singly, Doubly, Circular</li>
+        <li>Stack: Implementation &amp; Applications</li>
+        <li>Queue: Simple, Circular, Deque, Priority Queue</li>
+        <li>Monotonic Stack &amp; Queue Problems</li>
+        <li>Prefix Sums &amp; Difference Arrays</li>
+        <li>Problem Set: 20 Problems</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="module-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="module-num">3</div>
+        <div class="module-title">Non-Linear Structures — Trees &amp; Graphs</div>
+        <span class="module-lessons">8 Topics</span>
+      </div>
+      <div class="module-body"><ul>
+        <li>Binary Trees: Traversals (BFS, DFS)</li>
+        <li>Binary Search Trees: Insert, Delete, Search</li>
+        <li>AVL Trees &amp; Balancing</li>
+        <li>Heaps &amp; Priority Queues</li>
+        <li>Tries — Prefix Trees</li>
+        <li>Graph Representations &amp; BFS/DFS</li>
+        <li>Shortest Path: Dijkstra, Bellman-Ford</li>
+        <li>Problem Set: 25 Problems</li>
+      </ul></div>
+    </div>
+
+    <div class="module">
+      <div class="module-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="module-num">4</div>
+        <div class="module-title">Advanced Algorithms</div>
+        <span class="module-lessons">7 Topics</span>
+      </div>
+      <div class="module-body"><ul>
+        <li>Dynamic Programming: Memoization &amp; Tabulation</li>
+        <li>Classic DP: Knapsack, LCS, LIS, Coin Change</li>
+        <li>Greedy Algorithms</li>
+        <li>Divide &amp; Conquer</li>
+        <li>Segment Trees &amp; Fenwick Trees</li>
+        <li>Union-Find (Disjoint Set)</li>
+        <li>Capstone: Mock Interview Session + 30 Problems</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="outcomes">
+    <div class="section-label">Learning Outcomes</div>
+    <div class="section-title">What You'll Walk Away With</div>
+    <div class="outcomes-grid">
+      <div class="outcome-item">Solve medium–hard LeetCode problems with confidence</div>
+      <div class="outcome-item">Analyze any algorithm's time and space complexity</div>
+      <div class="outcome-item">Implement all major data structures from scratch</div>
+      <div class="outcome-item">Apply dynamic programming to optimization problems</div>
+      <div class="outcome-item">Ace technical interviews at product-based companies</div>
+      <div class="outcome-item">Write clean, efficient code that scales under pressure</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+
+    <div class="footer-brand">
+      <div class="footer-logo-wrap">
+        <a href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename='images/logo2.png') }}"
+               class="footer-logo"
+               alt="WE Institute"
+               onerror="this.style.display='none'">
+        </a>
+      </div>
+      <p>WE Institute is committed to providing students with the skills and knowledge they need to succeed in the competitive field of technology.</p>
+      <div class="contact-info">
+        <div><strong>ADDRESS:</strong> 103, 1st Floor Shree Samarth Plaza,<br/>Mulund West, Mumbai, Maharashtra 400080</div>
+        <div style="margin-top:8px;"><strong>EMAIL:</strong> <a href="mailto:hr_admin@weinstitute.in">hr_admin@weinstitute.in</a></div>
+        <div style="margin-top:4px;"><strong>PHONE:</strong> <a href="tel:+919819740122">+91 9819740122</a></div>
+      </div>
+      <div class="social-row">
+        <a class="social-btn" href="https://www.facebook.com/WissenEducation.319" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a class="social-btn" href="https://www.instagram.com/weinstitute.cs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793 0 1.44.645 1.44 1.439z"/></svg></a>
+        <a class="social-btn" href="https://www.linkedin.com/in/we-institute-22b300309" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="social-btn" href="https://www.youtube.com/@WE_Institute" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a237e"/></svg></a>
+        <a class="social-btn" href="https://wa.me/919819740122" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/courses">Courses</a></li>
+        <li><a href="/achievements">Achievements</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h4>Our Courses</h4>
+      <ul>
+        <li><a href="/DSAIML">Artificial Intelligence (AI)</a></li>
+        <li><a href="/DSAIML">Machine Learning (ML)</a></li>
+        <li><a href="/RPA">RPA Development</a></li>
+        <li><a href="/dataanalytics">Data Analytics</a></li>
+        <li><a href="/DSAIML">Data Science</a></li>
+        <li><a href="/introduction">Python Development</a></li>
+        <li><a href="/fullstackdevelopment">Full Stack Development</a></li>
+        <li><a href="/dataanalytics">PowerBI &amp; Tableau</a></li>
+        <li><a href="/dbmstools">DBMS Tools &amp; Query Languages</a></li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div class="footer-bottom">
+    <p>
+        Copyright &copy; WE Institute 2012&ndash;<span id="currentYear"></span>
+        &nbsp;|&nbsp; Shaping Careers
+    </p>
+  </div>
+</footer>
+
+<script>
+    document.getElementById("currentYear").textContent = new Date().getFullYear();
+</script>
+
+</body>
+</html>

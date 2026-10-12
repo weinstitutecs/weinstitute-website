@@ -1,0 +1,912 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Achievements | WE Institute</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    :root{
+      --navy:#1a237e; --royal:#1565c0; --sky:#00aaff;
+      --sky-lt:#e3f4ff; --light:#f0f4fb; --white:#ffffff;
+      --text:#1e2a4a; --muted:#5a6a8a; --border:#d0dcf0;
+      --green:#00b86b; --green-lt:#e6f9f1;
+    }
+    html{scroll-behavior:smooth}
+    body{font-family:'DM Sans',sans-serif;color:var(--text);background:var(--white)}
+
+    nav {
+      position: sticky; top: 0; z-index: 999;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 68px;
+      box-shadow: 0 2px 16px rgba(26,35,126,.35);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo { height: 55px; border-radius: 12px; }
+    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .nav-links a {
+      color: #000; text-decoration: none;
+      font-size: .88rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 5px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { background: rgba(0,0,0,.05); }
+    .nav-links a.active { color: var(--sky) !important; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { width: 24px; height: 2px; background: #1a237e; border-radius: 2px; }
+
+    .page-hero{background:linear-gradient(135deg,var(--navy) 0%,#0d47a1 55%,#1565c0 100%);padding:80px 5vw 70px;text-align:center;position:relative;overflow:hidden}
+    .page-hero::before{content:'';position:absolute;inset:0;background:url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E") repeat}
+    .page-hero::after{content:'';position:absolute;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(0,170,255,.15) 0%,transparent 70%);right:-100px;top:-100px;pointer-events:none}
+    .page-hero-tag{display:inline-block;position:relative;background:rgba(0,170,255,.15);border:1px solid rgba(0,170,255,.4);color:var(--sky);font-size:.75rem;font-weight:700;letter-spacing:2px;text-transform:uppercase;padding:5px 16px;border-radius:20px;margin-bottom:20px}
+    .page-hero h1{font-family:'Playfair Display',serif;font-size:clamp(2rem,5vw,3.2rem);font-weight:900;color:#fff;line-height:1.2;margin-bottom:18px;position:relative}
+    .page-hero h1 span{color:var(--sky)}
+    .page-hero p{color:rgba(255,255,255,.75);font-size:1.05rem;line-height:1.8;max-width:620px;margin:0 auto;position:relative}
+    .breadcrumb{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:28px;position:relative;font-size:.83rem;color:rgba(255,255,255,.5)}
+    .breadcrumb a{color:var(--sky);text-decoration:none}
+    .breadcrumb span{color:rgba(255,255,255,.35)}
+
+    .stats-strip{background:var(--navy);display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid rgba(255,255,255,.08)}
+    .stat-item{padding:36px 5vw;text-align:center;border-right:1px solid rgba(255,255,255,.08)}
+    .stat-item:last-child{border-right:none}
+    .stat-num{font-family:'Playfair Display',serif;font-size:2.6rem;font-weight:900;color:var(--sky);line-height:1;margin-bottom:6px}
+    .stat-num sup{font-size:1.2rem}
+    .stat-label{color:rgba(255,255,255,.65);font-size:.82rem;font-weight:500;letter-spacing:.5px}
+
+    .section-header{text-align:center;margin-bottom:50px}
+    .section-header .label{display:inline-block;background:var(--sky-lt);color:var(--royal);font-size:.73rem;font-weight:700;letter-spacing:1.8px;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:14px}
+    .section-header h2{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.4rem);font-weight:700;color:var(--navy)}
+    .section-header p{color:var(--muted);font-size:.95rem;line-height:1.7;max-width:580px;margin:14px auto 0}
+    .section-header .underline{width:60px;height:4px;background:linear-gradient(90deg,var(--sky),var(--royal));border-radius:2px;margin:14px auto 0}
+
+.results-section{ padding:90px 5vw; background:var(--white); }
+.results-tabs{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:36px; justify-content:center; }
+.tab-btn{ padding:9px 22px; border-radius:25px; border:2px solid var(--border); background:var(--white); font-family:'DM Sans',sans-serif; font-size:.85rem; font-weight:600; color:var(--muted); cursor:pointer; transition:all .2s; }
+.tab-btn:hover{ border-color:var(--sky); color:var(--royal); }
+.tab-btn.active{ background:var(--navy); border-color:var(--navy); color:#fff; }
+.tab-panel{ display:none; }
+.tab-panel.active{ display:block; }
+
+.toppers-grid{ display:grid; grid-template-columns:repeat(4,1fr); gap:20px; max-width:1200px; margin:auto; }
+.topper-card{ background:var(--white); border-radius:14px; border:1px solid var(--border); padding:24px 20px; text-align:center; position:relative; overflow:hidden; transition:transform .25s, box-shadow .25s; }
+.topper-card:hover{ transform:translateY(-5px); box-shadow:0 14px 36px rgba(26,35,126,.12); }
+.topper-card::before{ content:''; position:absolute; top:0; left:0; right:0; height:4px; background:linear-gradient(90deg,var(--sky),var(--royal)); }
+.topper-rank{ position:absolute; top:12px; right:14px; width:28px; height:28px; border-radius:50%; background:var(--navy); color:#fff; font-size:.72rem; font-weight:700; display:flex; align-items:center; justify-content:center; }
+.topper-rank.gold,.topper-rank.silver,.topper-rank.bronze{ background:var(--navy); color:#fff; }
+.topper-photo{ width:90px; height:90px; border-radius:50%; overflow:hidden; margin:0 auto 15px; border:3px solid var(--sky); background:var(--sky-lt); display:flex; align-items:center; justify-content:center; }
+.topper-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+.topper-photo svg{ width:40px; height:40px; fill:var(--royal); }
+.topper-name{ font-family:'Playfair Display',serif; font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:4px; }
+.topper-subject{ font-size:.78rem; color:var(--muted); margin-bottom:10px; }
+.topper-score{ font-size:1.8rem; font-weight:900; color:var(--royal); font-family:'Playfair Display',serif; line-height:1; }
+.topper-score span{ font-size:.85rem; font-weight:500; color:var(--muted); }
+.topper-badge{ display:inline-block; margin-top:8px; background:var(--sky-lt); color:var(--royal); font-size:.7rem; font-weight:700; padding:3px 10px; border-radius:10px; }
+.topper-photo{ width:90px; height:90px; border-radius:50%; overflow:hidden; margin:0 auto 15px; border:4px solid #f5f5f5; background:#fff; }
+.topper-photo img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+@media (max-width:992px){ .toppers-grid{ grid-template-columns:repeat(2,1fr); } }
+@media (max-width:576px){ .toppers-grid{ grid-template-columns:1fr; } .topper-photo{ width:80px; height:80px; } .topper-score{ font-size:1.6rem; } }
+
+    .placement-section{padding:90px 5vw;background:var(--light)}
+    .placement-grid{display:grid;grid-template-columns:1fr 1.4fr;gap:50px;align-items:start}
+    .placement-stats{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .pstat-card{background:var(--white);border-radius:14px;padding:28px 22px;border:1px solid var(--border);text-align:center;position:relative;overflow:hidden;transition:transform .25s,box-shadow .25s}
+    .pstat-card:hover{transform:translateY(-4px);box-shadow:0 12px 30px rgba(26,35,126,.1)}
+    .pstat-card::before{content:'';position:absolute;bottom:0;left:0;right:0;height:3px}
+    .pstat-card.c1::before{background:var(--sky)}
+    .pstat-card.c2::before{background:var(--royal)}
+    .pstat-card.c3::before{background:var(--green)}
+    .pstat-card.c4::before{background:var(--navy)}
+    .pstat-icon{width:48px;height:48px;border-radius:12px;background:var(--sky-lt);display:flex;align-items:center;justify-content:center;margin:0 auto 14px}
+    .pstat-icon svg{width:24px;height:24px;stroke:var(--royal);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
+    .pstat-num{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:var(--navy);line-height:1;margin-bottom:4px}
+    .pstat-lbl{color:var(--muted);font-size:.8rem;font-weight:500}
+
+.companies-grid{ display:grid; grid-template-columns:repeat(3, 1fr); gap:20px; margin-top:20px; }
+.company-chip{ background:#fff; border:1px solid #dbe4f0; border-radius:16px; height:100px; padding:20px; display:flex; align-items:center; justify-content:center; transition:all .3s ease; overflow:hidden; }
+.company-chip:hover{ transform:translateY(-5px); box-shadow:0 10px 25px rgba(0,0,0,.08); }
+.company-chip img{ width:180px; height:80px; object-fit:contain; display:block; }
+@media (max-width: 992px){ .companies-grid{ grid-template-columns:repeat(2, 1fr); } }
+
+.placed-grid{ display:grid; grid-template-columns:repeat(auto-fill, minmax(220px,1fr)); gap:18px; margin-top:50px; }
+.placed-card{ background:var(--white); border-radius:12px; padding:20px 18px; border:1px solid var(--border); display:flex; align-items:center; gap:15px; transition:transform .25s ease, box-shadow .25s ease; }
+.placed-card:hover{ transform:translateY(-4px); box-shadow:0 10px 28px rgba(26,35,126,.10); }
+.placed-avatar{ width:70px; height:70px; min-width:70px; border-radius:50%; overflow:hidden; border:3px solid var(--sky); background:var(--sky-lt); display:flex; align-items:center; justify-content:center; }
+.placed-avatar img{ width:100%; height:100%; object-fit:cover; display:block; }
+.placed-avatar svg{ width:34px; height:34px; fill:var(--royal); }
+.placed-info{ flex:1; }
+.placed-info .name{ font-size:1rem; font-weight:700; color:var(--navy); margin-bottom:3px; }
+.placed-info .role{ font-size:.82rem; color:var(--muted); margin-bottom:8px; }
+.placed-company{ display:inline-block; background:var(--sky-lt); color:var(--royal); font-size:.72rem; font-weight:700; padding:4px 10px; border-radius:20px; margin-bottom:6px; }
+.placed-course{ font-size:.74rem; color:var(--muted); line-height:1.4; }
+
+@media (max-width:991px){ .placed-grid{ grid-template-columns:repeat(2,1fr); } .placed-avatar{ width:65px; height:65px; min-width:65px; } }
+@media (max-width:768px){
+    .placed-grid{ grid-template-columns:1fr; gap:15px; }
+    .placed-card{ padding:16px; gap:14px; }
+    .placed-avatar{ width:60px; height:60px; min-width:60px; }
+    .placed-info .name{ font-size:.95rem; }
+    .placed-info .role{ font-size:.78rem; }
+    .placed-company{ font-size:.70rem; padding:3px 8px; }
+    .placed-course{ font-size:.72rem; }
+}
+
+    .testimonials-section{padding:90px 5vw;background:var(--white)}
+    .testimonials-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:24px}
+    .testi-card{background:var(--white);border-radius:16px;padding:32px 28px;border:1px solid var(--border);box-shadow:0 4px 18px rgba(26,35,126,.06);position:relative;transition:transform .25s,box-shadow .25s}
+    .testi-card:hover{transform:translateY(-5px);box-shadow:0 16px 40px rgba(26,35,126,.12)}
+    .testi-quote{font-size:3rem;line-height:1;color:var(--sky);font-family:'Playfair Display',serif;margin-bottom:4px;opacity:.5}
+    .testi-text{font-size:.92rem;color:var(--muted);line-height:1.8;margin-bottom:20px;font-style:italic}
+    .testi-stars{display:flex;gap:3px;margin-bottom:16px}
+    .testi-stars svg{width:16px;height:16px;fill:var(--sky)}
+    .testi-person{display:flex;align-items:center;gap:14px}
+    .testi-avatar{width:46px;height:46px;border-radius:50%;background:linear-gradient(135deg,var(--navy),var(--royal));display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden}
+    .testi-avatar svg{width:24px;height:24px;fill:rgba(255,255,255,.75)}
+    .testi-avatar img{width:100%;height:100%;object-fit:cover}
+    .testi-name{font-weight:700;font-size:.9rem;color:var(--navy)}
+    .testi-role{font-size:.75rem;color:var(--muted)}
+    .testi-tag{position:absolute;top:18px;right:18px;background:var(--sky-lt);color:var(--royal);font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:10px;letter-spacing:.5px}
+
+    .whatsapp-fab{position:fixed;bottom:28px;right:28px;z-index:998;width:56px;height:56px;border-radius:50%;background:#25d366;box-shadow:0 4px 20px rgba(37,211,102,.45);display:flex;align-items:center;justify-content:center;text-decoration:none;transition:transform .2s}
+    .whatsapp-fab:hover{transform:scale(1.1)}.whatsapp-fab svg{width:30px;height:30px;fill:#fff}
+
+    footer { background: var(--navy); color: rgba(255,255,255,.7); padding: 70px 5vw 0; }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px;
+      padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .footer-logo { height: 60px; border-radius: 5px; background: white; padding: 4px 8px; object-fit: contain; }
+    .footer-brand p { font-size: .88rem; line-height: 1.75; max-width: 320px; }
+    .footer-brand .contact-info { margin-top: 20px; font-size: .87rem; line-height: 1.85; }
+    .footer-brand .contact-info strong { color: var(--white); }
+    .footer-brand .contact-info a { color: var(--sky); text-decoration: none; }
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--white);
+      margin-bottom: 18px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--sky); display: inline-block;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .87rem; transition: color .2s; }
+    .footer-col ul a:hover { color: var(--sky); }
+    .social-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+    .social-btn {
+      width: 38px; height: 38px; border-radius: 8px; background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center; text-decoration: none; transition: background .2s;
+    }
+    .social-btn:hover { background: var(--sky); }
+    .social-btn svg { width: 17px; height: 17px; fill: #fff; }
+    .footer-bottom { padding: 22px 0; text-align: center; font-size: .82rem; color: rgba(255,255,255,.35); }
+
+@media (max-width:991px){
+    .page-hero{ padding:70px 20px 60px; }
+    .footer-grid{ grid-template-columns:1fr 1fr; gap:30px; }
+}
+@media (max-width:768px){
+    nav{ height:65px; padding:0 15px; }
+    .nav-logo{ height:45px; width:auto; }
+    .nav-hamburger{ display:flex; }
+    .nav-links{
+        display:none; flex-direction:column; align-items:flex-start;
+        position:absolute; top:65px; left:0; width:100%;
+        background:#fff; padding:15px; box-shadow:0 10px 25px rgba(0,0,0,.12);
+        gap:5px; z-index:999;
+    }
+    .nav-links.open{ display:flex; }
+    .nav-links li{ width:100%; }
+    .nav-links a{ width:100%; display:block; padding:12px; border-radius:8px; }
+    .page-hero{ padding:55px 18px; }
+    .page-hero h1{ font-size:2rem; }
+    .page-hero p{ font-size:.95rem; line-height:1.7; }
+    .breadcrumb{ flex-wrap:wrap; }
+    .results-section{ padding:60px 18px; }
+    .section-header{ margin-bottom:35px; }
+    .section-header h2{ font-size:1.8rem; }
+    .footer-grid{ grid-template-columns:1fr; gap:30px; }
+    .footer-brand p{ max-width:100%; }
+    .whatsapp-fab{ width:50px; height:50px; bottom:18px; right:18px; }
+    .whatsapp-fab svg{ width:26px; height:26px; }
+}
+@media (max-width:480px){
+    .page-hero h1{ font-size:1.75rem; }
+    .page-hero p{ font-size:.9rem; }
+    .footer-logo{ height:50px; }
+}
+@media(max-width:1024px){
+    .placement-grid{ grid-template-columns:1fr; }
+    .stats-strip{ grid-template-columns:repeat(2,1fr); }
+}
+@media(max-width:768px){
+    .companies-grid{ grid-template-columns:repeat(2,1fr); }
+    .footer-grid{ grid-template-columns:1fr 1fr; gap:36px; }
+}
+@media(max-width:640px){
+    .nav-hamburger{ display:flex; }
+    .nav-links{
+        display:none; flex-direction:column; position:absolute;
+        top:68px; left:0; right:0; background:#ffffff;
+        padding:20px 5vw; gap:6px; box-shadow:0 8px 20px rgba(0,0,0,.3); z-index:999;
+    }
+    .nav-links.open{ display:flex; }
+    .nav-links a{ width:100%; display:block; padding:12px 15px; }
+    .stats-strip{ grid-template-columns:1fr 1fr; }
+    .footer-grid{ grid-template-columns:1fr; }
+    .toppers-grid{ grid-template-columns:1fr 1fr; }
+    .testimonials-grid{ grid-template-columns:1fr; }
+    .placed-grid{ grid-template-columns:1fr; }
+}
+@media(max-width:480px){
+    .companies-grid{ grid-template-columns:1fr; }
+    .toppers-grid{ grid-template-columns:1fr 1fr; }
+}
+@media(max-width:360px){
+    .toppers-grid{ grid-template-columns:1fr; }
+    .stats-strip{ grid-template-columns:1fr; }
+}
+
+    /* ══ CHATBOT WIDGET ══ */
+    #chatToggle{position:fixed;bottom:96px;right:28px;width:56px;height:56px;border-radius:50%;background:var(--navy);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px;box-shadow:0 6px 22px rgba(26,35,126,.45);z-index:998;transition:background .2s,transform .2s}
+    #chatToggle:hover{background:var(--sky);transform:scale(1.08)}
+    .ct-badge{position:absolute;top:-2px;right:-2px;width:14px;height:14px;border-radius:50%;background:#ef4444;border:2px solid #fff;animation:badgePulse 2s ease-in-out infinite}
+    @keyframes badgePulse{0%,100%{transform:scale(1)}50%{transform:scale(1.3)}}
+    #chatPanel{position:fixed;bottom:28px;right:96px;width:min(360px,calc(100vw - 124px));height:min(400px,calc(100vh - 200px));background:#fff;border-radius:20px;border:1px solid var(--border);box-shadow:0 20px 60px rgba(26,35,126,.18);display:none;flex-direction:column;overflow:hidden;z-index:997}
+    #chatPanel.open{display:flex;animation:cpSlide .22s ease}
+    @keyframes cpSlide{from{opacity:0;transform:translateX(14px)}to{opacity:1;transform:translateX(0)}}
+    .cp-header{background:linear-gradient(135deg,var(--navy),var(--royal));padding:14px 16px;display:flex;align-items:center;gap:12px;flex-shrink:0}
+    .cp-avatar{width:40px;height:40px;border-radius:50%;background:var(--sky);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;box-shadow:0 0 12px rgba(0,170,255,.4)}
+    .cp-info{flex:1}.cp-name{font-size:14px;font-weight:700;color:#fff}
+    .cp-status{font-size:11px;color:rgba(255,255,255,.65);display:flex;align-items:center;gap:5px;margin-top:2px}
+    .cp-dot{width:7px;height:7px;border-radius:50%;background:#4ade80;animation:dotPulse 2s ease-in-out infinite}
+    @keyframes dotPulse{0%,100%{opacity:1}50%{opacity:.4}}
+    .cp-close{background:none;border:none;color:rgba(255,255,255,.7);cursor:pointer;font-size:20px;line-height:1;transition:color .15s}.cp-close:hover{color:#fff}
+    #cpMessages{flex:1;overflow-y:auto;padding:12px 10px;display:flex;flex-direction:column;gap:8px;background:var(--light);scroll-behavior:smooth}
+    #cpMessages::-webkit-scrollbar{width:4px}#cpMessages::-webkit-scrollbar-thumb{background:var(--border);border-radius:4px}
+    .cp-row{display:flex;gap:7px;align-items:flex-end}.cp-row.user{flex-direction:row-reverse}
+    .cp-av{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0}
+    .cp-av.ai{background:var(--navy);color:#fff}.cp-av.user{background:var(--sky);color:#fff}
+    .cp-bub{max-width:82%;padding:9px 12px;border-radius:14px;font-size:13px;line-height:1.6;word-break:break-word;animation:bubIn .18s ease}
+    @keyframes bubIn{from{opacity:0;transform:scale(.96)}to{opacity:1;transform:scale(1)}}
+    .cp-bub.ai{background:#fff;border:1px solid var(--border);color:var(--text);border-bottom-left-radius:4px}
+    .cp-bub.user{background:var(--sky);color:#fff;border-bottom-right-radius:4px}
+    .cp-bub strong{color:var(--navy)}.cp-bub.user strong{color:#fff}
+    .cp-typing{display:flex;gap:5px;align-items:center;padding:4px 2px}
+    .cp-typing span{width:7px;height:7px;border-radius:50%;background:var(--sky);animation:typBounce 1.2s ease-in-out infinite}
+    .cp-typing span:nth-child(2){animation-delay:.2s}.cp-typing span:nth-child(3){animation-delay:.4s}
+    @keyframes typBounce{0%,60%,100%{transform:translateY(0);opacity:.4}30%{transform:translateY(-6px);opacity:1}}
+    .cp-input-row{display:flex;gap:8px;align-items:center;padding:10px 12px;border-top:1px solid var(--border);background:#fff;flex-shrink:0}
+    #cpInput{flex:1;border:1px solid var(--border);border-radius:20px;padding:9px 14px;font-size:13px;outline:none;background:var(--light);color:var(--text);font-family:inherit;transition:border-color .15s}
+    #cpInput:focus{border-color:var(--sky)}#cpInput::placeholder{color:var(--muted)}
+    #cpSend{width:38px;height:38px;border-radius:50%;background:var(--sky);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:0 3px 10px rgba(0,170,255,.35);transition:background .15s,transform .12s}
+    #cpSend:hover:not(:disabled){background:#0090dd;transform:scale(1.07)}#cpSend:disabled{opacity:.4;cursor:not-allowed;transform:none}
+    .cp-opts{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+    .cp-opt{background:#fff;border:1.5px solid var(--border);color:var(--text);font-size:12.5px;font-weight:500;padding:8px 12px;border-radius:10px;cursor:pointer;text-align:left;display:flex;align-items:center;gap:8px;font-family:inherit;transition:all .15s;width:100%;line-height:1.3}
+    .cp-opt:hover:not(:disabled){border-color:var(--sky);background:var(--sky-lt);color:var(--royal)}
+    .cp-opt:disabled{cursor:default}.cp-opt .opt-em{font-size:15px;flex-shrink:0}
+    .cp-result{font-size:13px;line-height:1.7}
+    .cp-result .career-title{font-size:15px;font-weight:700;color:var(--navy);margin-bottom:6px}
+    .cp-result .salary-chip{display:inline-block;background:var(--sky-lt);color:var(--royal);font-size:11px;font-weight:600;padding:3px 10px;border-radius:20px;margin-bottom:10px}
+    .cp-result .section-lbl{font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.05em;margin:10px 0 4px}
+    .cp-result .tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:4px}
+    .cp-result .tag{background:#f0f4fb;border:1px solid var(--border);color:var(--text);font-size:11px;padding:3px 9px;border-radius:20px}
+    .cp-result .step{display:flex;gap:8px;margin-bottom:5px}
+    .cp-result .step-num{width:20px;height:20px;border-radius:50%;background:var(--navy);color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .cp-result .wa-btn{display:inline-flex;align-items:center;gap:6px;background:#25d366;color:#fff;font-size:12px;font-weight:600;padding:8px 14px;border-radius:8px;text-decoration:none;margin-top:12px;border:none;cursor:pointer;font-family:inherit}
+    .cp-result .restart-btn{display:inline-flex;align-items:center;gap:5px;background:none;border:1px solid var(--border);color:var(--muted);font-size:12px;padding:7px 12px;border-radius:8px;cursor:pointer;font-family:inherit;margin-top:6px;margin-left:6px}
+    .cp-result .restart-btn:hover{background:var(--light);color:var(--text)}
+    @media(max-width:768px){ #chatToggle{bottom:90px;right:18px;width:50px;height:50px;font-size:22px}#chatPanel{right:8px;bottom:155px;width:calc(100vw - 16px);height:min(380px,calc(100vh - 200px))}}
+    @media(max-width:480px){ #chatToggle{right:16px;bottom:90px}.whatsapp-fab{right:16px;bottom:28px}}
+
+    .page-wrap{overflow-x:hidden;width:100%;position:relative}
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="{{ url_for('static', filename='images/logo2.png') }}"  class="nav-logo" alt="WE Institute Logo" onerror="this.style.display='none'" />
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/courses">Courses</a></li>
+    <li><a href="/achievements" class="active">Achievements</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/contact">Contact Us</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-tag">Our Track Record</div>
+  <h1>Student <span>Achievements</span> &amp; Results</h1>
+  <p>Years of dedicated teaching reflected in outstanding results — from XII toppers to placed professionals. Here's proof that learning at WE Institute truly shapes careers.</p>
+  <div class="breadcrumb"><a href="/">Home</a><span>›</span><span>Achievements</span></div>
+</section>
+
+<div class="stats-strip">
+  <div class="stat-item"><div class="stat-num">500<sup>+</sup></div><div class="stat-label">Students Trained</div></div>
+  <div class="stat-item"><div class="stat-num">100<sup>%</sup></div><div class="stat-label">Pass Rate</div></div>
+  <div class="stat-item"><div class="stat-num">100<sup>+</sup></div><div class="stat-label">Students Placed</div></div>
+  <div class="stat-item"><div class="stat-num">10<sup>+</sup></div><div class="stat-label">Years of Excellence</div></div>
+</div>
+
+<section class="results-section" id="results">
+  <div class="section-header">
+    <div class="label">Academic Excellence</div>
+    <h2>Exam Results &amp; Toppers</h2>
+    <p>Outstanding results across XII Computer Science, BSc IT/CS, and Engineering subjects — year after year.</p>
+    <div class="underline"></div>
+  </div>
+
+  <div class="results-tabs">
+    <button class="tab-btn active" onclick="switchTab('xii', this)">XII Computer Science</button>
+    <button class="tab-btn" onclick="switchTab('bsc', this)">BSc IT / CS</button>
+  </div>
+
+  <div class="tab-panel active" id="tab-xii">
+    <div class="toppers-grid">
+<div class="topper-card">
+    <div class="topper-rank gold">1</div>
+    <div class="topper-photo"><img src="static/images/profile pic/OMKAR.png" alt="Omkar B"></div>
+    <div class="topper-name">Omkar B</div>
+    <div class="topper-subject">XII CS — 2025</div>
+    <div class="topper-score">95<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank silver">2</div>
+    <div class="topper-photo"><img src="static/images/profile pic/Rahul.png" alt="Rahul Kalaskar"></div>
+    <div class="topper-name">Rahul Kalaskar</div>
+    <div class="topper-subject">XII CS — 2026</div>
+    <div class="topper-score">92.5<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank silver">3</div>
+    <div class="topper-photo"><img src="static/images/profile pic/Ved.png" alt="Ved Thakkar"></div>
+    <div class="topper-name">Ved Thakkar</div>
+    <div class="topper-subject">XII IT — 2026</div>
+    <div class="topper-score">92<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank bronze">4</div>
+    <div class="topper-photo"><img src="static/images/profile pic/Aditya.png" alt="Aditya Chaudhary"></div>
+    <div class="topper-name">Aditya Chaudhary</div>
+    <div class="topper-subject">XII CS — 2026</div>
+    <div class="topper-score">91<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank">5</div>
+    <div class="topper-photo"><img src="static/images/profile pic/Medhaj.png" alt="Medhaj L"></div>
+    <div class="topper-name">Medhaj L</div>
+    <div class="topper-subject">XII CS — 2025</div>
+    <div class="topper-score">86<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank">6</div>
+    <div class="topper-photo"><img src="static/images/profile pic/Sanvi.png" alt="Sanvi Barge"></div>
+    <div class="topper-name">Sanvi Barge</div>
+    <div class="topper-subject">XII CS — 2026</div>
+    <div class="topper-score">86<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank">7</div>
+    <div class="topper-photo"><img src="static/images/profile pic/ARNAV.png" alt="Arnav J"></div>
+    <div class="topper-name">Arnav J</div>
+    <div class="topper-subject">XII CS — 2025</div>
+    <div class="topper-score">85<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank">8</div>
+    <div class="topper-photo"><img src="static/images/profile pic/Vishal.png" alt="Vishal Rout"></div>
+    <div class="topper-name">Vishal Rout</div>
+    <div class="topper-subject">XII CS — 2026</div>
+    <div class="topper-score">84<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank">9</div>
+    <div class="topper-photo"><img src="static/images/profile pic/TANISHQA.png" alt="Tanishqa Y"></div>
+    <div class="topper-name">Tanishqa Y</div>
+    <div class="topper-subject">XII CS — 2025</div>
+    <div class="topper-score">83<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank">10</div>
+    <div class="topper-photo"><img src="static/images/profile pic/Vanshi.png" alt="Vanshi Sachde"></div>
+    <div class="topper-name">Vanshi Sachde</div>
+    <div class="topper-subject">XII CS — 2026</div>
+    <div class="topper-score">81<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank">11</div>
+    <div class="topper-photo"><img src="static/images/profile pic/Vieona.png" alt="Vieona Shah"></div>
+    <div class="topper-name">Vieona Shah</div>
+    <div class="topper-subject">XII CS — 2026</div>
+    <div class="topper-score">80<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+    <div class="topper-rank">12</div>
+    <div class="topper-photo"><img src="static/images/profile pic/NITYATI.png" alt="Niyati M"></div>
+    <div class="topper-name">Niyati M</div>
+    <div class="topper-subject">XII CS — 2025</div>
+    <div class="topper-score">72<span>%</span></div>
+    <div class="topper-badge">⭐⭐⭐</div>
+</div>
+    </div>
+  </div>
+
+<div class="tab-panel" id="tab-bsc">
+  <div class="toppers-grid">
+<div class="topper-card">
+  <div class="topper-rank gold">1</div>
+  <div class="topper-photo"><img src="static/images/profile pic/SHUBHAM.png" alt="SHUBHAM K"></div>
+  <div class="topper-name">SHUBHAM K</div>
+  <div class="topper-subject">BSc IT - 2025</div>
+  <div class="topper-score">9.6<span>CGPA</span></div>
+  <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+  <div class="topper-rank silver">2</div>
+  <div class="topper-photo"><img src="static/images/profile pic/Bindhya.jpg" alt="BINDHYA K"></div>
+  <div class="topper-name">BINDHYA K</div>
+  <div class="topper-subject">BSc CS - 2025</div>
+  <div class="topper-score">8.6<span>CGPA</span></div>
+  <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+  <div class="topper-rank bronze">3</div>
+  <div class="topper-photo"><img src="static/images/profile pic/ASHWINI.jpg" alt="ASHWINI B"></div>
+  <div class="topper-name">ASHWINI B</div>
+  <div class="topper-subject">BSc IT - 2025</div>
+  <div class="topper-score">8.5<span>CGPA</span></div>
+  <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+  <div class="topper-rank">4</div>
+  <div class="topper-photo"><img src="static/images/profile pic/krish.jpg" alt="Krish S"></div>
+  <div class="topper-name">Krish S</div>
+  <div class="topper-subject">BSc CS - 2025</div>
+  <div class="topper-score">8.3<span>CGPA</span></div>
+  <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+  <div class="topper-rank">5</div>
+  <div class="topper-photo"><img src="static/images/profile pic/mamta.png" alt="MAMATA K"></div>
+  <div class="topper-name">MAMATA K</div>
+  <div class="topper-subject">BSc IT - 2025</div>
+  <div class="topper-score">7.7<span>CGPA</span></div>
+  <div class="topper-badge">⭐⭐⭐</div>
+</div>
+<div class="topper-card">
+  <div class="topper-rank">6</div>
+  <div class="topper-photo"><img src="static/images/profile pic/Jividha.jpg" alt="JIVIDHA Y"></div>
+  <div class="topper-name">JIVIDHA Y</div>
+  <div class="topper-subject">BSc CS - 2025</div>
+  <div class="topper-score">7.3<span>CGPA</span></div>
+  <div class="topper-badge">⭐⭐⭐</div>
+</div>
+  </div>
+</div>
+
+<section class="placement-section" id="placements">
+  <div class="section-header">
+    <div class="label">Career Outcomes</div>
+    <h2>Placement Achievements</h2>
+    <p>Our students don't just learn — they get hired. Here's a snapshot of where WE Institute graduates are working today.</p>
+    <div class="underline"></div>
+  </div>
+
+  <div class="placement-grid">
+    <div>
+      <div class="placement-stats">
+        <div class="pstat-card c1">
+          <div class="pstat-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg></div>
+          <div class="pstat-num">100+</div>
+          <div class="pstat-lbl">Students Placed</div>
+        </div>
+        <div class="pstat-card c2">
+          <div class="pstat-icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+          <div class="pstat-num">5+</div>
+          <div class="pstat-lbl">Hiring Companies</div>
+        </div>
+        <div class="pstat-card c3">
+          <div class="pstat-icon"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+          <div class="pstat-num">₹4L+</div>
+          <div class="pstat-lbl">Avg. CTC</div>
+        </div>
+        <div class="pstat-card c4">
+          <div class="pstat-icon"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+          <div class="pstat-num">90%</div>
+          <div class="pstat-lbl">Placement Rate</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="companies-wrap">
+      <h3>Companies That Hired Our Students</h3>
+      <div class="companies-grid">
+        <div class="company-chip"><img src="{{ url_for('static', filename='images/clients/shriram.png') }}" alt="Shriram Infra"></div>
+        <div class="company-chip"><img src="{{ url_for('static', filename='images/clients/PASSAVANT.png') }}" alt="Passavant"></div>
+        <div class="company-chip"><img src="{{ url_for('static', filename='images/clients/SAAVI.png') }}" alt="SAAVI"></div>
+        <div class="company-chip"><img src="{{ url_for('static', filename='images/clients/reliable.png') }}" alt="Reliable"></div>
+        <div class="company-chip"><img src="{{ url_for('static', filename='images/clients/PCPL.png') }}" alt="PCPL"></div>
+        <div class="company-chip"><img src="{{ url_for('static', filename='images/clients/microoasis.png') }}" alt="Microoasis"></div>
+      </div>
+      <p style="font-size:.82rem;color:var(--muted)"></p>
+    </div>
+  </div>
+
+  <div class="section-header" style="margin-top:70px;margin-bottom:30px">
+    <div class="label">Success Stories</div>
+    <h2>Placed Students</h2>
+    <div class="underline"></div>
+  </div>
+  <div class="placed-grid">
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/kailash.jpg" alt="Kailash J"></div>
+    <div class="placed-info">
+        <div class="name">Kailash J</div>
+        <div class="role">RPA Developer</div>
+        <div class="placed-company">Mizuho Global</div>
+        <div class="placed-course">Course: RPA Development</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/Ambar.png" alt="Ambar M"></div>
+    <div class="placed-info">
+        <div class="name">Ambar M</div>
+        <div class="role">RPA Developer</div>
+        <div class="placed-company">Lauren group</div>
+        <div class="placed-course">Course: RPA Development</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/siddhesh-s.jpg" alt="Siddhesh S"></div>
+    <div class="placed-info">
+        <div class="name">Siddhesh S</div>
+        <div class="role">RPA Developer</div>
+        <div class="placed-company">GEBBS Healthcare</div>
+        <div class="placed-course">Course: RPA Development</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/Irshad.jpg" alt="Irshad K"></div>
+    <div class="placed-info">
+        <div class="name">Irshad K</div>
+        <div class="role">Full Stack Developer</div>
+        <div class="placed-company">PCPL</div>
+        <div class="placed-course">Course: Full Stack Dev</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/Mayur.png" alt="Mayur S"></div>
+    <div class="placed-info">
+        <div class="name">Mayur S</div>
+        <div class="role">Full Stack Developer</div>
+        <div class="placed-company">Shriram ITS</div>
+        <div class="placed-course">Course: Full Stack Dev</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/Pruthvi.png" alt="Pruthvi K"></div>
+    <div class="placed-info">
+        <div class="name">Pruthvi K</div>
+        <div class="role">Mobile Application Developer</div>
+        <div class="placed-company">Passavant</div>
+        <div class="placed-course">Course: Full Stack Dev</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/Kartik.jpeg" alt="Kartik K"></div>
+    <div class="placed-info">
+        <div class="name">Kartik K</div>
+        <div class="role">Full Stack Developer</div>
+        <div class="placed-company">Shriram ITS</div>
+        <div class="placed-course">Course: Full Stack Dev</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/prasann.png" alt="Prasann P"></div>
+    <div class="placed-info">
+        <div class="name">Prasann P</div>
+        <div class="role">Data Analyst</div>
+        <div class="placed-company">Shriram ITS</div>
+        <div class="placed-course">Course: Power BI & Tableau</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/saurabh.png" alt="Saurabh K"></div>
+    <div class="placed-info">
+        <div class="name">Saurabh K</div>
+        <div class="role">Data Analyst</div>
+        <div class="placed-company">Shriram ITS</div>
+        <div class="placed-course">Course: Power BI & Tableau</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/siddhesh.png" alt="Siddhesh J"></div>
+    <div class="placed-info">
+        <div class="name">Siddhesh J</div>
+        <div class="role">Software supporter</div>
+        <div class="placed-company">Darsh Infotech PVT LTD</div>
+        <div class="placed-course">Course: Full Stack Dev</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/Harsh.png" alt="Harsh S"></div>
+    <div class="placed-info">
+        <div class="name">Harsh S</div>
+        <div class="role">RPA Developer</div>
+        <div class="placed-company">Catnip Infotech</div>
+        <div class="placed-course">Course: RPA Development</div>
+    </div>
+</div>
+<div class="placed-card">
+    <div class="placed-avatar"><img src="static/images/profile pic/Aayush.png" alt="Aayush R"></div>
+    <div class="placed-info">
+        <div class="name">Aayush R</div>
+        <div class="role">INTERN</div>
+        <div class="placed-company">Reliance Jio</div>
+        <div class="placed-course">Course: Frontend development</div>
+    </div>
+</div>
+  </div>
+</section>
+
+<section class="testimonials-section" id="testimonials">
+  <div class="section-header">
+    <div class="label">What Students Say</div>
+    <h2>Success Stories</h2>
+    <p>Hear directly from students who transformed their careers at WE Institute.</p>
+    <div class="underline"></div>
+  </div>
+  <div class="reviews-slider">
+    <div class="elfsight-app-585f05dc-2b66-4c3a-b3c0-6a28b1231a14" data-elfsight-app-lazy></div>
+  </div>
+</section>
+
+<script src="https://static.elfsight.com/platform/platform.js" async></script>
+
+</div><!-- /page-wrap -->
+<a class="whatsapp-fab" href="https://wa.me/919819740122?text=Hi%2C+I+want+to+know+more+about+your+courses+and+placements" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+     <div class="footer-logo-wrap">
+    <a href="{{ url_for('home') }}">
+        <img src="{{ url_for('static', filename='images/logo2.png') }}" class="footer-logo" alt="WE Institute" onerror="this.style.display='none'">
+    </a>
+</div>
+      <p>WE Institute is committed to providing students with the skills and knowledge they need to succeed in the competitive field of technology.</p>
+      <div class="contact-info">
+        <div><strong>ADDRESS:</strong> 103, 1st Floor Shree Samarth Plaza,<br/>Mulund West, Mumbai, Maharashtra 400080</div>
+        <div style="margin-top:8px;"><strong>EMAIL:</strong> <a href="mailto:hr_admin@weinstitute.in">hr_admin@weinstitute.in</a></div>
+        <div style="margin-top:4px;"><strong>PHONE:</strong> <a href="tel:+919819740122">+91 9819740122</a></div>
+      </div>
+      <div class="social-row">
+        <a class="social-btn" href="https://www.facebook.com/WissenEducation.319" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a class="social-btn" href="https://www.instagram.com/weinstitute.cs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="#fff" stroke-width="1.8" fill="none"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="#fff" stroke-width="1.8" fill="none"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+        <a class="social-btn" href="https://www.linkedin.com/in/we-institute-22b300309" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="social-btn" href="https://www.youtube.com/@WE_Institute" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a237e"/></svg></a>
+        <a class="social-btn" href="https://wa.me/919819740122" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/courses">Courses</a></li>
+        <li><a href="/achievements">Achievements</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Courses</h4>
+      <ul>
+       <li><a href="/DSAIML">Artificial Intelligence (AI)</a></li>
+        <li><a href="/DSAIML">Machine Learning (ML)</a></li>
+        <li><a href="/RPA">RPA Development</a></li>
+        <li><a href="/dataanalytics">Data Analytics</a></li>
+        <li><a href="/DSAIML">Data Science</a></li>
+        <li><a href="/introduction">Python Development</a></li>
+        <li><a href="/fullstackdevelopment">Full Stack Development</a></li>
+        <li><a href="/dataanalytics">PowerBI &amp; Tableau</a></li>
+        <li><a href="/dbmstools">DBMS Tools &amp; Query Languages</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright &copy; WE Institute 2012–<span id="currentYear"></span> &nbsp;|&nbsp; Shaping Careers</p>
+  </div>
+</footer>
+
+<script>
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+</script>
+
+<!-- ══ CHATBOT TOGGLE ══ -->
+<button id="chatToggle" aria-label="Open AI Assistant">
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
+  </svg>
+  <span class="ct-badge"></span>
+</button>
+
+<!-- ══ CHAT PANEL ══ -->
+<div id="chatPanel" role="dialog" aria-label="WE Institute AI Assistant">
+  <div class="cp-header">
+    <div class="cp-avatar">🎓</div>
+    <div class="cp-info">
+      <div class="cp-name">WE AI Assistant</div>
+      <div class="cp-status"><span class="cp-dot"></span> Online · ready to help</div>
+    </div>
+    <button class="cp-close" id="cpClose" aria-label="Close">✕</button>
+  </div>
+  <div id="cpMessages"></div>
+  <div class="cp-input-row" id="cpInputRow" style="display:none;">
+    <input id="cpInput" type="text" placeholder="Ask a follow-up question…" autocomplete="off" />
+    <button id="cpSend" aria-label="Send">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  const COMPASS_URL = "/api/career-compass";
+  const CHAT_URL    = "/api/chat";
+
+  const ccQuestions = [
+    { key:"stream",   question:"What was your 12th standard stream?",      options:[{em:"🔬",label:"Science (PCM / PCB)"},{em:"📈",label:"Commerce"},{em:"🎨",label:"Arts / Humanities"},{em:"🛠",label:"Vocational / Other"}] },
+    { key:"interest", question:"What excites you most in technology?",      options:[{em:"💻",label:"Building apps & websites"},{em:"🤖",label:"AI, Data & Analytics"},{em:"🛡️",label:"Cybersecurity & Networks"},{em:"⚙️",label:"Automation & RPA"},{em:"🎮",label:"Gaming & App Design"},{em:"📊",label:"Business Intelligence"}] },
+    { key:"studyMode",question:"Which education path are you considering?", options:[{em:"🎓",label:"Full degree (BSC / BCA / BE)"},{em:"📜",label:"Diploma course"},{em:"⏱",label:"Short professional course"},{em:"🔀",label:"Degree + extra training"}] },
+    { key:"goal",     question:"What is your primary goal right now?",      options:[{em:"💼",label:"Get a good job quickly"},{em:"🚀",label:"Build my own startup"},{em:"🌍",label:"Study / work abroad"},{em:"📈",label:"High salary long-term"}] }
+  ];
+
+  const careerTemplates = {
+    "Building apps & websites": {emoji:"💻",primaryCareer:"Full Stack Developer",salaryRange:"₹3.5 – ₹9 LPA",demand:"Very High",technicalSkills:["HTML/CSS/JS","React.js","Node.js","Git","REST APIs"],courses:["Full Stack Development","Introduction to Programming"]},
+    "AI, Data & Analytics":     {emoji:"🤖",primaryCareer:"Data Scientist / ML Engineer",salaryRange:"₹4 – ₹12 LPA",demand:"Very High",technicalSkills:["Python","Statistics","ML","SQL","Data Visualization"],courses:["Data Science + AI + ML","AI Tools"]},
+    "Cybersecurity & Networks": {emoji:"🛡️",primaryCareer:"Cybersecurity Analyst",salaryRange:"₹3.5 – ₹10 LPA",demand:"High",technicalSkills:["Networking","Linux","Python","DBMS","Security tools"],courses:["Introduction to Programming","DBMS Tools"]},
+    "Automation & RPA":         {emoji:"⚙️",primaryCareer:"RPA Developer",salaryRange:"₹3.5 – ₹9 LPA",demand:"High",technicalSkills:["UiPath","UiRPA","Process mapping","SQL","Scripting"],courses:["RPA Development","Introduction to Programming"]},
+    "Gaming & App Design":      {emoji:"🎮",primaryCareer:"Mobile App / UI Developer",salaryRange:"₹3 – ₹8 LPA",demand:"High",technicalSkills:["JavaScript","React Native","UI/UX","HTML & CSS","Git"],courses:["Full Stack Development","Introduction to Programming"]},
+    "Business Intelligence":    {emoji:"📊",primaryCareer:"Business Intelligence Analyst",salaryRange:"₹3.5 – ₹9 LPA",demand:"High",technicalSkills:["Excel","SQL","Tableau","Power BI","Data storytelling"],courses:["Data Analytics","Data Science + AI + ML"]}
+  };
+
+  function buildLocalResult(a){
+    const t=careerTemplates[a.interest]||careerTemplates["AI, Data & Analytics"];
+    return {emoji:t.emoji,primaryCareer:t.primaryCareer,salaryRange:t.salaryRange,demand:t.demand,
+            technicalSkills:t.technicalSkills,recommendedCourses:t.courses,
+            academicPath:["Build job-ready skills through focused training","Complete hands-on projects for your portfolio","Apply for internships & entry-level roles"],
+            motivationalLine:"Every expert started exactly where you are right now — take the first step."};
+  }
+
+  let ccStep=0,ccAnswers={},chatMode=false;
+  const cpHistory=[];
+  const chatToggle=document.getElementById('chatToggle'),chatPanel=document.getElementById('chatPanel');
+  const cpClose=document.getElementById('cpClose'),cpMsgs=document.getElementById('cpMessages');
+  const cpInputRow=document.getElementById('cpInputRow'),cpInput=document.getElementById('cpInput');
+  const cpSendBtn=document.getElementById('cpSend'),ctBadge=document.querySelector('.ct-badge');
+
+  chatToggle.addEventListener('click',()=>{
+    const opening=!chatPanel.classList.contains('open');
+    chatPanel.classList.toggle('open');
+    if(opening){ctBadge.style.display='none';if(cpMsgs.children.length===0)startCompass();}
+  });
+  cpClose.addEventListener('click',()=>chatPanel.classList.remove('open'));
+
+  function cpAppend(html,role){
+    const row=document.createElement('div');row.className='cp-row'+(role==='user'?' user':'');
+    const av=document.createElement('div');av.className='cp-av '+(role==='user'?'user':'ai');av.textContent=role==='user'?'👤':'🎓';
+    const bub=document.createElement('div');bub.className='cp-bub '+(role==='user'?'user':'ai');bub.innerHTML=html;
+    row.appendChild(av);row.appendChild(bub);cpMsgs.appendChild(row);cpMsgs.scrollTop=cpMsgs.scrollHeight;return bub;
+  }
+  function cpShowTyping(){
+    const row=document.createElement('div');row.className='cp-row';row.id='cpTyping';
+    const av=document.createElement('div');av.className='cp-av ai';av.textContent='🎓';
+    const bub=document.createElement('div');bub.className='cp-bub ai';
+    bub.innerHTML='<div class="cp-typing"><span></span><span></span><span></span></div>';
+    row.appendChild(av);row.appendChild(bub);cpMsgs.appendChild(row);cpMsgs.scrollTop=cpMsgs.scrollHeight;
+  }
+  function cpHideTyping(){const t=document.getElementById('cpTyping');if(t)t.remove();}
+
+  function showQuestion(idx){
+    const q=ccQuestions[idx];
+    const optHtml=q.options.map(o=>`<button class="cp-opt" onclick="selectOpt('${q.key}','${o.label.replace(/'/g,"\\'")}','${idx}',this)"><span class="opt-em">${o.em}</span>${o.label}</button>`).join('');
+    cpAppend(`<div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Step ${idx+1} of 4</div><div style="font-weight:600;margin-bottom:4px;">${q.question}</div><div class="cp-opts">${optHtml}</div>`,'ai');
+  }
+
+  function startCompass(){
+    ccStep=0;ccAnswers={};chatMode=false;
+    cpMsgs.innerHTML='';cpInputRow.style.display='none';
+    cpAppend('👋 Hi! I\'m the <strong>WE Institute AI Assistant</strong>.<br><br>Answer 4 quick questions and I\'ll show you your personalised IT career roadmap! 🚀','ai');
+    setTimeout(()=>showQuestion(0),400);
+  }
+
+  function selectOpt(key,value,qIdx,btn){
+    if(parseInt(qIdx)!==ccStep)return;
+    ccAnswers[key]=value;
+    btn.closest('.cp-opts').querySelectorAll('.cp-opt').forEach(b=>{b.disabled=true;b.style.opacity=b===btn?'1':'0.4';b.style.cursor='default';});
+    btn.style.borderColor='var(--sky)';btn.style.background='var(--sky-lt)';btn.style.color='var(--royal)';
+    setTimeout(()=>{
+      cpAppend(value,'user');ccStep++;
+      if(ccStep<ccQuestions.length)setTimeout(()=>showQuestion(ccStep),350);
+      else setTimeout(()=>generateResult(),350);
+    },200);
+  }
+
+  async function generateResult(){
+    cpShowTyping();let result;
+    try{
+      const res=await fetch(COMPASS_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(ccAnswers)});
+      if(!res.ok)throw new Error(res.status);
+      result=await res.json();if(result.error)throw new Error(result.error);
+    }catch{result=buildLocalResult(ccAnswers);}
+    cpHideTyping();showResult(result);
+  }
+
+  function showResult(r){
+    const waMsg=encodeURIComponent(`Hi! I used the Career Compass widget. My best-fit career is ${r.primaryCareer}. I'm interested in ${(r.recommendedCourses||[]).join(' and ')}. Please guide me!`);
+    const skillTags=(r.technicalSkills||[]).map(s=>`<span class="tag">${s}</span>`).join('');
+    const roadSteps=(r.academicPath||[]).map((s,i)=>`<div class="step"><div class="step-num">${i+1}</div><div>${s}</div></div>`).join('');
+    cpAppend(`<div class="cp-result">
+      <div class="career-title">${r.emoji||'🎓'} ${r.primaryCareer}</div>
+      <span class="salary-chip">💰 ${r.salaryRange} · Demand: ${r.demand}</span>
+      <div class="section-lbl">Skills to build</div><div class="tags">${skillTags}</div>
+      <div class="section-lbl">Your roadmap</div>${roadSteps}
+      <div class="section-lbl">WE Institute recommends</div>
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px;">${(r.recommendedCourses||[]).join(' · ')}</div>
+      <div style="font-size:12px;font-style:italic;color:var(--muted);margin-top:8px;">"${r.motivationalLine||'Every expert started exactly where you are now.'}"</div>
+      <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">
+        <a class="wa-btn" href="https://wa.me/919819740122?text=${waMsg}" target="_blank">💬 Talk to a counsellor</a>
+        <button class="restart-btn" onclick="startCompass()">🔄 Start over</button>
+      </div>
+    </div>`,'ai');
+    chatMode=true;cpInputRow.style.display='flex';
+  }
+
+  async function cpSend(){
+    const text=cpInput.value.trim();if(!text||cpSendBtn.disabled)return;
+    cpInput.value='';cpSendBtn.disabled=true;
+    cpAppend(text,'user');cpHistory.push({role:'user',content:text});cpShowTyping();
+    try{
+      const res=await fetch(CHAT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:cpHistory})});
+      if(!res.ok)throw new Error(res.status);
+      const data=await res.json();
+      const reply=data.reply||"I'm here to help — try asking again!";
+      cpHideTyping();cpAppend(reply.replace(/\n/g,'<br>'),'ai');
+      cpHistory.push({role:'assistant',content:reply});
+    }catch{cpHideTyping();cpAppend('⚠️ Connection issue. Please try again or WhatsApp us!','ai');}
+    cpSendBtn.disabled=false;cpInput.focus();
+  }
+
+  if(cpInput)cpInput.addEventListener('keydown',e=>{if(e.key==='Enter')cpSend();});
+  if(cpSendBtn)cpSendBtn.addEventListener('click',cpSend);
+</script>
+
+</body>
+</html>

@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WE Institute | Shaping Careers</title>
+  <link rel="icon" href="static/images/logowihoutbg.png" type="image/png">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --navy:   #1a237e; --royal:  #1565c0; --sky:    #00aaff;
+      --sky-lt: #e3f4ff; --light:  #f0f4fb; --white:  #ffffff;
+      --text:   #1e2a4a; --muted:  #5a6a8a; --border: #d0dcf0;
+    }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); }
+
+    nav {
+      position: sticky; top: 0; z-index: 999; background: var(--white);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 68px; box-shadow: 0 2px 16px rgba(26,35,126,.35);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo { height: 55px; border-radius: 12px; }
+    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .nav-links a {
+      color: #000; text-decoration: none; font-size: .88rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 5px; transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { background: rgba(0,0,0,.05); }
+    .nav-links a.active { color: var(--sky) !important; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { width: 24px; height: 2px; background: #1a237e; border-radius: 2px; }
+
+    .hero { position: relative; height: 80vh; width: 100%; overflow: hidden; }
+    .hero::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.25); z-index: 0; }
+    .hero-slide {
+      position: absolute; inset: 0; background-size: cover; background-position: center;
+      opacity: 0; animation: fadeSlide 20s infinite; filter: brightness(1.4);
+    }
+    .hero-slide:nth-child(1) { background-image: url("/static/images/template.1.jpg"); animation-delay: 0s; opacity: 1; }
+    .hero-slide:nth-child(2) { background-image: url("/static/images/template.2.jpg"); animation-delay: 6.66s; }
+    .hero-slide:nth-child(3) { background-image: url("/static/images/template.3.jpg"); animation-delay: 13.33s; }
+    @keyframes fadeSlide { 0%{opacity:0} 10%{opacity:1} 30%{opacity:1} 40%{opacity:0} 100%{opacity:0} }
+    @media (max-width: 768px) { .hero { height: 23vh; } }
+
+    .tagline-banner { background: linear-gradient(90deg, var(--sky) 0%, #0077cc 100%); padding: 36px 5vw; text-align: center; }
+    .tagline-banner blockquote {
+      font-family: 'Playfair Display', serif; font-size: clamp(1.1rem,3vw,1.65rem);
+      font-weight: 700; color: #fff; line-height: 1.4; max-width: 750px; margin: 0 auto;
+    }
+    .tagline-banner blockquote::before { content: '\201C'; }
+    .tagline-banner blockquote::after  { content: '\201D'; }
+
+    .section-header { text-align: center; margin-bottom: 50px; }
+    .section-header .label {
+      display: inline-block; background: var(--sky-lt); color: var(--royal);
+      font-size: .73rem; font-weight: 700; letter-spacing: 1.8px;
+      text-transform: uppercase; padding: 5px 14px; border-radius: 20px; margin-bottom: 14px;
+    }
+    .section-header h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.6rem,3vw,2.4rem); font-weight: 700; color: var(--navy); }
+    .section-header .underline { width: 60px; height: 4px; background: linear-gradient(90deg,var(--sky),var(--royal)); border-radius: 2px; margin: 14px auto 0; }
+
+    .clients-section { padding: 70px 0; background: var(--light); overflow: hidden; }
+    .clients-section .section-header { padding: 0 5vw; }
+    .ticker-wrap { overflow: hidden; position: relative; width: 100%; padding: 20px 0; }
+    .ticker-wrap::before,.ticker-wrap::after { content:''; position:absolute; top:0; bottom:0; width:120px; z-index:2; pointer-events:none; }
+    .ticker-wrap::before { left:0; background:linear-gradient(to right,var(--light),transparent); }
+    .ticker-wrap::after  { right:0; background:linear-gradient(to left,var(--light),transparent); }
+    .ticker { display:flex; align-items:center; gap:50px; width:max-content; animation:tickerScroll 20s linear infinite; }
+    .ticker:hover { animation-play-state:paused; }
+    @keyframes tickerScroll { 0%{transform:translateX(0)} 100%{transform:translateX(-50%)} }
+    .ticker-item {
+      position:relative; flex:0 0 220px; height:110px; background:var(--white);
+      border-radius:14px; display:flex; align-items:center; justify-content:center;
+      padding:12px; border:1px solid var(--border); box-shadow:0 2px 10px rgba(26,35,126,.08);
+      overflow:hidden; transition:all .3s;
+    }
+    .ticker-item::after { content:''; position:absolute; left:0; bottom:0; width:100%; height:5px; background:#2563eb; border-radius:0 0 14px 14px; }
+    .ticker-item:hover { transform:translateY(-4px); box-shadow:0 8px 20px rgba(37,99,235,.15); }
+    .ticker-item img { width:140px; height:80px; object-fit:contain; padding:8px; }
+
+    .courses-section { padding: 90px 5vw; }
+    .courses-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(330px,1fr)); gap:28px; }
+    .course-card {
+      border-radius:14px; overflow:hidden; box-shadow:0 4px 18px rgba(26,35,126,.07);
+      border:1px solid var(--border); background:var(--white);
+      transition:transform .25s,box-shadow .25s; display:flex; flex-direction:column;
+    }
+    .course-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(26,35,126,.14); }
+    .course-img { width:100%; height:220px; overflow:hidden; border-radius:18px 18px 0 0; }
+    .course-img img { width:100%; height:100%; object-fit:cover; display:block; transition:.4s; }
+    .course-card:hover .course-img img { transform:scale(1.05); }
+    .course-body { padding:24px; flex:1; display:flex; flex-direction:column; }
+    .course-tag {
+      display:inline-block; background:var(--sky-lt); color:var(--royal);
+      font-size:.68rem; font-weight:700; letter-spacing:1.2px;
+      text-transform:uppercase; padding:3px 10px; border-radius:12px; margin-bottom:10px;
+    }
+    .course-body h3 { font-family:'Playfair Display',serif; font-size:1.18rem; font-weight:700; color:var(--navy); margin-bottom:10px; }
+    .course-body p { color:var(--muted); font-size:.9rem; line-height:1.7; flex:1; }
+    .course-body ul { list-style:none; padding:0; margin-top:12px; }
+    .course-body ul li { color:var(--muted); font-size:.88rem; line-height:1.6; padding-left:18px; position:relative; margin-bottom:4px; }
+    .course-body ul li::before { content:'✓'; position:absolute; left:0; color:var(--sky); font-weight:700; }
+    .course-footer { padding:0 24px 20px; }
+    .btn-course {
+      display:inline-block; background:var(--navy); color:#fff;
+      font-size:.85rem; font-weight:600; padding:9px 20px; border-radius:6px;
+      text-decoration:none; transition:background .2s;
+    }
+    .btn-course:hover { background:var(--royal); }
+
+    .whatsapp-fab {
+      position:fixed; bottom:28px; right:28px; z-index:998;
+      width:56px; height:56px; border-radius:50%; background:#25d366;
+      box-shadow:0 4px 20px rgba(37,211,102,.45);
+      display:flex; align-items:center; justify-content:center;
+      text-decoration:none; transition:transform .2s;
+    }
+    .whatsapp-fab:hover { transform:scale(1.1); }
+    .whatsapp-fab svg { width:30px; height:30px; fill:#fff; }
+
+    footer { background:var(--navy); color:rgba(255,255,255,.7); padding:70px 5vw 0; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr; gap:50px; padding-bottom:50px; border-bottom:1px solid rgba(255,255,255,.1); }
+    .footer-logo-wrap { display:flex; align-items:center; gap:10px; margin-bottom:16px; }
+    .footer-logo { height:60px; border-radius:5px; background:white; padding:4px 8px; object-fit:contain; }
+    .footer-brand p { font-size:.88rem; line-height:1.75; max-width:320px; }
+    .footer-brand .contact-info { margin-top:20px; font-size:.87rem; line-height:1.85; }
+    .footer-brand .contact-info strong { color:#fff; }
+    .footer-brand .contact-info a { color:var(--sky); text-decoration:none; }
+    .footer-col h4 { font-family:'Playfair Display',serif; font-size:1rem; font-weight:600; color:#fff; margin-bottom:18px; padding-bottom:10px; border-bottom:2px solid var(--sky); display:inline-block; }
+    .footer-col ul { list-style:none; }
+    .footer-col ul li { margin-bottom:10px; }
+    .footer-col ul a { color:rgba(255,255,255,.6); text-decoration:none; font-size:.87rem; transition:color .2s; }
+    .footer-col ul a:hover { color:var(--sky); }
+    .social-row { display:flex; gap:10px; margin-top:20px; flex-wrap:wrap; }
+    .social-btn { width:38px; height:38px; border-radius:8px; background:rgba(255,255,255,.08); display:flex; align-items:center; justify-content:center; text-decoration:none; transition:background .2s; }
+    .social-btn:hover { background:var(--sky); }
+    .social-btn svg { width:17px; height:17px; fill:#fff; }
+    .footer-bottom { padding:22px 0; text-align:center; font-size:.82rem; color:rgba(255,255,255,.35); }
+
+    @media (max-width:991px) { .footer-grid { grid-template-columns:1fr 1fr; gap:30px; } }
+    @media (max-width:768px) {
+      nav { height:65px; padding:0 15px; }
+      .nav-logo { height:45px; }
+      .nav-hamburger { display:flex; }
+      .nav-links { display:none; flex-direction:column; align-items:flex-start; position:absolute; top:65px; left:0; width:100%; background:#fff; padding:15px; box-shadow:0 10px 25px rgba(0,0,0,.12); gap:5px; z-index:999; }
+      .nav-links.open { display:flex; }
+      .nav-links li { width:100%; }
+      .nav-links a { width:100%; display:block; padding:12px; border-radius:8px; }
+      .footer-grid { grid-template-columns:1fr; gap:30px; }
+      .footer-brand p { max-width:100%; }
+      .whatsapp-fab { width:50px; height:50px; bottom:18px; right:18px; }
+      .whatsapp-fab svg { width:26px; height:26px; }
+      .ticker { gap:25px; animation-duration:15s; }
+      .ticker-item { flex:0 0 180px; height:90px; }
+      .ticker-item img { width:120px; height:65px; }
+    }
+
+    /* ══ CHATBOT WIDGET ══ */
+    #chatToggle {
+      position:fixed; bottom:96px; right:28px;
+      width:56px; height:56px; border-radius:50%;
+      background:var(--navy); border:none; cursor:pointer;
+      display:flex; align-items:center; justify-content:center;
+      color:#fff; font-size:26px;
+      box-shadow:0 6px 22px rgba(26,35,126,.45); z-index:998;
+      transition:background .2s,transform .2s;
+    }
+    #chatToggle:hover { background:var(--sky); transform:scale(1.08); }
+    .ct-badge {
+      position:absolute; top:-2px; right:-2px; width:14px; height:14px;
+      border-radius:50%; background:#ef4444; border:2px solid #fff;
+      animation:badgePulse 2s ease-in-out infinite;
+    }
+    @keyframes badgePulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.3)} }
+
+    #chatPanel {
+      position:fixed; bottom:28px; right:96px;
+      width:min(360px,calc(100vw - 124px)); height:min(400px,calc(100vh - 200px));
+      background:#fff; border-radius:20px; border:1px solid var(--border);
+      box-shadow:0 20px 60px rgba(26,35,126,.18);
+      display:none; flex-direction:column; overflow:hidden; z-index:997;
+    }
+    #chatPanel.open { display:flex; animation:cpSlide .22s ease; }
+    @keyframes cpSlide { from{opacity:0;transform:translateX(14px)} to{opacity:1;transform:translateX(0)} }
+
+    .cp-header {
+      background:linear-gradient(135deg,var(--navy),var(--royal));
+      padding:14px 16px; display:flex; align-items:center; gap:12px; flex-shrink:0;
+    }
+    .cp-avatar { width:40px; height:40px; border-radius:50%; background:var(--sky); display:flex; align-items:center; justify-content:center; font-size:20px; flex-shrink:0; box-shadow:0 0 12px rgba(0,170,255,.4); }
+    .cp-info { flex:1; }
+    .cp-name { font-size:14px; font-weight:700; color:#fff; }
+    .cp-status { font-size:11px; color:rgba(255,255,255,.65); display:flex; align-items:center; gap:5px; margin-top:2px; }
+    .cp-dot { width:7px; height:7px; border-radius:50%; background:#4ade80; animation:dotPulse 2s ease-in-out infinite; }
+    @keyframes dotPulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+    .cp-close { background:none; border:none; color:rgba(255,255,255,.7); cursor:pointer; font-size:20px; line-height:1; transition:color .15s; }
+    .cp-close:hover { color:#fff; }
+
+    #cpMessages {
+      flex:1; overflow-y:auto; padding:12px 10px;
+      display:flex; flex-direction:column; gap:8px;
+      background:var(--light); scroll-behavior:smooth;
+    }
+    #cpMessages::-webkit-scrollbar { width:4px; }
+    #cpMessages::-webkit-scrollbar-thumb { background:var(--border); border-radius:4px; }
+
+    .cp-row { display:flex; gap:7px; align-items:flex-end; }
+    .cp-row.user { flex-direction:row-reverse; }
+    .cp-av { width:26px; height:26px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:12px; flex-shrink:0; }
+    .cp-av.ai   { background:var(--navy); color:#fff; }
+    .cp-av.user { background:var(--sky);  color:#fff; }
+    .cp-bub { max-width:82%; padding:9px 12px; border-radius:14px; font-size:13px; line-height:1.6; word-break:break-word; animation:bubIn .18s ease; }
+    @keyframes bubIn { from{opacity:0;transform:scale(.96)} to{opacity:1;transform:scale(1)} }
+    .cp-bub.ai   { background:#fff; border:1px solid var(--border); color:var(--text); border-bottom-left-radius:4px; }
+    .cp-bub.user { background:var(--sky); color:#fff; border-bottom-right-radius:4px; }
+    .cp-bub strong { color:var(--navy); }
+    .cp-bub.user strong { color:#fff; }
+
+    .cp-typing { display:flex; gap:5px; align-items:center; padding:4px 2px; }
+    .cp-typing span { width:7px; height:7px; border-radius:50%; background:var(--sky); animation:typBounce 1.2s ease-in-out infinite; }
+    .cp-typing span:nth-child(2) { animation-delay:.2s; }
+    .cp-typing span:nth-child(3) { animation-delay:.4s; }
+    @keyframes typBounce { 0%,60%,100%{transform:translateY(0);opacity:.4} 30%{transform:translateY(-6px);opacity:1} }
+
+    .cp-input-row { display:flex; gap:8px; align-items:center; padding:10px 12px; border-top:1px solid var(--border); background:#fff; flex-shrink:0; }
+    #cpInput { flex:1; border:1px solid var(--border); border-radius:20px; padding:9px 14px; font-size:13px; outline:none; background:var(--light); color:var(--text); font-family:inherit; transition:border-color .15s; }
+    #cpInput:focus { border-color:var(--sky); }
+    #cpInput::placeholder { color:var(--muted); }
+    #cpSend { width:38px; height:38px; border-radius:50%; background:var(--sky); border:none; cursor:pointer; display:flex; align-items:center; justify-content:center; color:#fff; flex-shrink:0; box-shadow:0 3px 10px rgba(0,170,255,.35); transition:background .15s,transform .12s; }
+    #cpSend:hover:not(:disabled) { background:#0090dd; transform:scale(1.07); }
+    #cpSend:disabled { opacity:.4; cursor:not-allowed; transform:none; }
+
+    .cp-opts { display:flex; flex-direction:column; gap:6px; margin-top:8px; }
+    .cp-opt { background:#fff; border:1.5px solid var(--border); color:var(--text); font-size:12.5px; font-weight:500; padding:8px 12px; border-radius:10px; cursor:pointer; text-align:left; display:flex; align-items:center; gap:8px; font-family:inherit; transition:all .15s; width:100%; line-height:1.3; }
+    .cp-opt:hover:not(:disabled) { border-color:var(--sky); background:var(--sky-lt); color:var(--royal); }
+    .cp-opt:disabled { cursor:default; }
+    .cp-opt .opt-em { font-size:15px; flex-shrink:0; }
+
+    .cp-result { font-size:13px; line-height:1.7; }
+    .cp-result .career-title { font-size:15px; font-weight:700; color:var(--navy); margin-bottom:6px; }
+    .cp-result .salary-chip { display:inline-block; background:var(--sky-lt); color:var(--royal); font-size:11px; font-weight:600; padding:3px 10px; border-radius:20px; margin-bottom:10px; }
+    .cp-result .section-lbl { font-size:11px; font-weight:700; color:var(--muted); text-transform:uppercase; letter-spacing:.05em; margin:10px 0 4px; }
+    .cp-result .tags { display:flex; flex-wrap:wrap; gap:5px; margin-bottom:4px; }
+    .cp-result .tag { background:#f0f4fb; border:1px solid var(--border); color:var(--text); font-size:11px; padding:3px 9px; border-radius:20px; }
+    .cp-result .step { display:flex; gap:8px; margin-bottom:5px; }
+    .cp-result .step-num { width:20px; height:20px; border-radius:50%; background:var(--navy); color:#fff; font-size:10px; font-weight:700; display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:2px; }
+    .cp-result .wa-btn { display:inline-flex; align-items:center; gap:6px; background:#25d366; color:#fff; font-size:12px; font-weight:600; padding:8px 14px; border-radius:8px; text-decoration:none; margin-top:12px; border:none; cursor:pointer; font-family:inherit; }
+    .cp-result .restart-btn { display:inline-flex; align-items:center; gap:5px; background:none; border:1px solid var(--border); color:var(--muted); font-size:12px; padding:7px 12px; border-radius:8px; cursor:pointer; font-family:inherit; margin-top:6px; margin-left:6px; }
+    .cp-result .restart-btn:hover { background:var(--light); color:var(--text); }
+
+    @media (max-width:768px) {
+      #chatToggle { bottom:90px; right:18px; width:50px; height:50px; font-size:22px; }
+      #chatPanel { right:8px; bottom:155px; width:calc(100vw - 16px); height:min(380px,calc(100vh - 200px)); }
+    }
+    @media (max-width:480px) { #chatToggle { right:16px; bottom:90px; } .whatsapp-fab { right:16px; bottom:28px; } }
+
+    .page-wrap{overflow-x:hidden;width:100%;position:relative}
+  </style>
+</head>
+<body>
+<div class="page-wrap">
+
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="{{ url_for('static', filename='images/logo2.png') }}" class="nav-logo" alt="WE Institute Logo" onerror="this.style.display='none'" />
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/" class="active">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/courses">Courses</a></li>
+    <li><a href="/achievements">Achievements</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/contact">Contact Us</a></li>
+  </ul>
+  <div class="nav-hamburger" onclick="document.getElementById('navLinks').classList.toggle('open')">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<section class="hero">
+  <header class="hero">
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+    <div class="hero-slide"></div>
+  </header>
+</section>
+
+<div class="tagline-banner">
+  <blockquote>Education is the most powerful weapon you can use to change the world.</blockquote>
+</div>
+
+<section class="clients-section">
+  <div class="section-header">
+    <div class="label">Trusted By</div>
+    <h2>Our Esteemed Clients</h2>
+    <div class="underline"></div>
+  </div>
+  <div class="ticker-wrap">
+    <div class="ticker">
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/shriram.png') }}" alt="Shriram Infra"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/PASSAVANT.png') }}" alt="Passavant"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/SAAVI.png') }}" alt="Saavi"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/reliable.png') }}" alt="Reliable"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/PCPL.png') }}" alt="PCPL"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/microoasis.png') }}" alt="Microoasis"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/rr.png') }}" alt="RR"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/shriram.png') }}" alt="Shriram Infra"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/PASSAVANT.png') }}" alt="Passavant"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/SAAVI.png') }}" alt="Saavi"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/reliable.png') }}" alt="Reliable"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/PCPL.png') }}" alt="PCPL"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/microoasis.png') }}" alt="Microoasis"></div>
+      <div class="ticker-item"><img src="{{ url_for('static', filename='images/clients/rr.png') }}" alt="RR"></div>
+    </div>
+  </div>
+</section>
+
+<section class="courses-section" id="courses">
+  <div class="section-header">
+    <div class="label">What We Offer</div>
+    <h2>Training Courses We Offer</h2>
+    <div class="underline"></div>
+  </div>
+  <div class="courses-grid">
+    <div class="course-card">
+      <div class="course-img"><img src="{{ url_for('static', filename='images/Programming.png') }}" alt="Introduction to Programming"></div>
+      <div class="course-body"><span class="course-tag">Beginner</span><h3>Introduction to Programming</h3><p>Learn the basics of Python, C, C++, and Core Java. Build fundamental programming skills through hands-on experience creating real programs.</p></div>
+      <div class="course-footer"><a href="/introduction" class="btn-course">Learn More</a></div>
+    </div>
+    <div class="course-card">
+      <div class="course-img"><img src="{{ url_for('static', filename='images/DAM.png') }}" alt="Data Science AI ML"></div>
+      <div class="course-body"><span class="course-tag">Advanced</span><h3>Data Science, AI and ML</h3><p>Master data science, machine learning, and artificial intelligence — three of the most in-demand fields combining mathematics, computer science, and statistics to uncover hidden insights.</p></div>
+      <div class="course-footer"><a href="/DSAIML" class="btn-course">Learn More</a></div>
+    </div>
+    <div class="course-card">
+      <div class="course-img"><img src="{{ url_for('static', filename='images/RPA2.png') }}" alt="RPA"></div>
+      <div class="course-body"><span class="course-tag">Professional</span><h3>RPA Development</h3><p>Robotic Process Automation is one of the fastest growing jobs. Learn UiPath and prepare for the UiPath Certified Professional (UiRPA) certification.</p>
+        <ul><li>Design and create automation for business processes</li><li>In-demand skills from industry experts</li><li>Prepare for UiRPA certification</li></ul>
+      </div>
+      <div class="course-footer"><a href="/RPA" class="btn-course">Learn More</a></div>
+    </div>
+    <div class="course-card">
+      <div class="course-img"><img src="{{ url_for('static', filename='images/datastructure.png') }}" alt="DSA"></div>
+      <div class="course-body"><span class="course-tag">Core</span><h3>Data Structures &amp; Algorithms</h3><p>A crucial foundation for every developer. Enhance your problem-solving abilities, optimize resource utilization, and build efficient, scalable software.</p></div>
+      <div class="course-footer"><a href="/DSA" class="btn-course">Learn More</a></div>
+    </div>
+    <div class="course-card">
+      <div class="course-img"><img src="{{ url_for('static', filename='images/DAANALYTICS.jpg') }}" alt="Data Analytics"></div>
+      <div class="course-body"><span class="course-tag">Analytics</span><h3>Data Analytics</h3><p>Excel, SQL, Tableau, and Power BI — equipping you with practical data collection, cleaning, analysis, and visualization skills that drive real-world impact.</p></div>
+      <div class="course-footer"><a href="/dataanalytics" class="btn-course">Learn More</a></div>
+    </div>
+    <div class="course-card">
+      <div class="course-img"><img src="{{ url_for('static', filename='images/Ai Tool.jpeg') }}" alt="AI Tools"></div>
+      <div class="course-body"><span class="course-tag">Trending</span><h3>AI Tools</h3><p>Expert mentors help students choose innovative topics, develop project plans, and implement practical solutions using the latest tools and technologies.</p></div>
+      <div class="course-footer"><a href="/aitools" class="btn-course">Learn More</a></div>
+    </div>
+    <div class="course-card">
+      <div class="course-img"><img src="{{ url_for('static', filename='images/Full stack development.jpeg') }}" alt="Full Stack"></div>
+      <div class="course-body"><span class="course-tag">Full Stack</span><h3>Full Stack Development</h3><p>Build end-to-end web applications with the latest frameworks and tools. Strengthen your coding, problem-solving, and deployment skills through practical experience.</p></div>
+      <div class="course-footer"><a href="/fullstackdevelopment" class="btn-course">Learn More</a></div>
+    </div>
+    <div class="course-card">
+      <div class="course-img"><img src="{{ url_for('static', filename='images/dbmstools.png') }}" alt="DBMS Tools"></div>
+      <div class="course-body"><span class="course-tag">Database</span><h3>DBMS Tools</h3><p>Learn to design, manage, and optimize databases using industry-standard DBMS tools and SQL. Gain practical experience in data storage, retrieval, and efficient database management.</p></div>
+      <div class="course-footer"><a href="/dbmstools" class="btn-course">Learn More</a></div>
+    </div>
+    <div class="course-card">
+      <div class="course-img"><img src="{{ url_for('static', filename='images/img3.png') }}" alt="Final Year Project"></div>
+      <div class="course-body"><span class="course-tag">Guidance</span><h3>Final Year Project Guidance</h3><p>Receive expert guidance to plan, develop, and complete your final year project with innovative ideas and modern technologies.</p></div>
+      <div class="course-footer"><a href="/FYProject" class="btn-course">Learn More</a></div>
+    </div>
+  </div>
+</section>
+
+</div><!-- /page-wrap -->
+<a class="whatsapp-fab" href="https://wa.me/919819740122?text=Hi%2C%20I%20would%20like%20to%20know%20more%20about%20your%20courses" target="_blank" rel="noopener">
+  <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo-wrap">
+        <a href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename='images/logo2.png') }}" class="footer-logo" alt="WE Institute" onerror="this.style.display='none'">
+        </a>
+      </div>
+      <p>WE Institute is committed to providing students with the skills and knowledge they need to succeed in the competitive field of technology.</p>
+      <div class="contact-info">
+        <div><strong>ADDRESS:</strong> 103, 1st Floor Shree Samarth Plaza,<br/>Mulund West, Mumbai, Maharashtra 400080</div>
+        <div style="margin-top:8px;"><strong>EMAIL:</strong> <a href="mailto:hr_admin@weinstitute.in">hr_admin@weinstitute.in</a></div>
+        <div style="margin-top:4px;"><strong>PHONE:</strong> <a href="tel:+919819740122">+91 9819740122</a></div>
+      </div>
+      <div class="social-row">
+        <a class="social-btn" href="https://www.facebook.com/WissenEducation.319" target="_blank"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a class="social-btn" href="https://www.instagram.com/weinstitute.cs" target="_blank"><svg viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="5" ry="5" stroke="#fff" stroke-width="1.8" fill="none"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z" stroke="#fff" stroke-width="1.8" fill="none"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg></a>
+        <a class="social-btn" href="https://www.linkedin.com/in/we-institute-22b300309" target="_blank"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="social-btn" href="https://www.youtube.com/@WE_Institute" target="_blank"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a237e"/></svg></a>
+        <a class="social-btn" href="https://wa.me/919819740122" target="_blank"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/courses">Courses</a></li>
+        <li><a href="/achievements">Achievements</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Courses</h4>
+      <ul>
+        <li><a href="/DSAIML">Artificial Intelligence (AI)</a></li>
+        <li><a href="/DSAIML">Machine Learning (ML)</a></li>
+        <li><a href="/RPA">RPA Development</a></li>
+        <li><a href="/dataanalytics">Data Analytics</a></li>
+        <li><a href="/DSAIML">Data Science</a></li>
+        <li><a href="/introduction">Python Development</a></li>
+        <li><a href="/fullstackdevelopment">Full Stack Development</a></li>
+        <li><a href="/dataanalytics">PowerBI &amp; Tableau</a></li>
+        <li><a href="/dbmstools">DBMS Tools &amp; Query Languages</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>Copyright &copy; WE Institute 2012–<span id="currentYear"></span> &nbsp;|&nbsp; Shaping Careers</p>
+  </div>
+</footer>
+
+<!-- ══ CHATBOT TOGGLE ══ -->
+<button id="chatToggle" aria-label="Open AI Assistant">
+  <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+    <circle cx="9" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="12" cy="10" r="1" fill="currentColor" stroke="none"/>
+    <circle cx="15" cy="10" r="1" fill="currentColor" stroke="none"/>
+  </svg>
+  <span class="ct-badge"></span>
+</button>
+
+<!-- ══ CHAT PANEL ══ -->
+<div id="chatPanel" role="dialog" aria-label="WE Institute AI Assistant">
+  <div class="cp-header">
+    <div class="cp-avatar">🎓</div>
+    <div class="cp-info">
+      <div class="cp-name">WE AI Assistant</div>
+      <div class="cp-status"><span class="cp-dot"></span> Online · ready to help</div>
+    </div>
+    <button class="cp-close" id="cpClose" aria-label="Close">✕</button>
+  </div>
+  <div id="cpMessages"></div>
+  <div class="cp-input-row" id="cpInputRow" style="display:none;">
+    <input id="cpInput" type="text" placeholder="Ask a follow-up question…" autocomplete="off" />
+    <button id="cpSend" aria-label="Send">
+      <svg viewBox="0 0 24 24" width="17" height="17" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+    </button>
+  </div>
+</div>
+
+<script>
+  document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+  /* ── Flask API routes (powered by Gemini in app.py) ── */
+  const COMPASS_URL = "/api/career-compass";
+  const CHAT_URL    = "/api/chat";
+
+  const ccQuestions = [
+    { key:"stream",   question:"What was your 12th standard stream?",         options:[{em:"🔬",label:"Science (PCM / PCB)"},{em:"📈",label:"Commerce"},{em:"🎨",label:"Arts / Humanities"},{em:"🛠",label:"Vocational / Other"}] },
+    { key:"interest", question:"What excites you most in technology?",         options:[{em:"💻",label:"Building apps & websites"},{em:"🤖",label:"AI, Data & Analytics"},{em:"🛡️",label:"Cybersecurity & Networks"},{em:"⚙️",label:"Automation & RPA"},{em:"🎮",label:"Gaming & App Design"},{em:"📊",label:"Business Intelligence"}] },
+    { key:"studyMode",question:"Which education path are you considering?",    options:[{em:"🎓",label:"Full degree (BSC / BCA / BE)"},{em:"📜",label:"Diploma course"},{em:"⏱",label:"Short professional course"},{em:"🔀",label:"Degree + extra training"}] },
+    { key:"goal",     question:"What is your primary goal right now?",         options:[{em:"💼",label:"Get a good job quickly"},{em:"🚀",label:"Build my own startup"},{em:"🌍",label:"Study / work abroad"},{em:"📈",label:"High salary long-term"}] }
+  ];
+
+  const careerTemplates = {
+    "Building apps & websites": {emoji:"💻",primaryCareer:"Full Stack Developer",salaryRange:"₹3.5 – ₹9 LPA",demand:"Very High",technicalSkills:["HTML/CSS/JS","React.js","Node.js","Git","REST APIs"],courses:["Full Stack Development","Introduction to Programming"]},
+    "AI, Data & Analytics":     {emoji:"🤖",primaryCareer:"Data Scientist / ML Engineer",salaryRange:"₹4 – ₹12 LPA",demand:"Very High",technicalSkills:["Python","Statistics","ML","SQL","Data Visualization"],courses:["Data Science + AI + ML","AI Tools"]},
+    "Cybersecurity & Networks": {emoji:"🛡️",primaryCareer:"Cybersecurity Analyst",salaryRange:"₹3.5 – ₹10 LPA",demand:"High",technicalSkills:["Networking","Linux","Python","DBMS","Security tools"],courses:["Introduction to Programming","DBMS Tools"]},
+    "Automation & RPA":         {emoji:"⚙️",primaryCareer:"RPA Developer",salaryRange:"₹3.5 – ₹9 LPA",demand:"High",technicalSkills:["UiPath","UiRPA","Process mapping","SQL","Scripting"],courses:["RPA Development","Introduction to Programming"]},
+    "Gaming & App Design":      {emoji:"🎮",primaryCareer:"Mobile App / UI Developer",salaryRange:"₹3 – ₹8 LPA",demand:"High",technicalSkills:["JavaScript","React Native","UI/UX","HTML & CSS","Git"],courses:["Full Stack Development","Introduction to Programming"]},
+    "Business Intelligence":    {emoji:"📊",primaryCareer:"Business Intelligence Analyst",salaryRange:"₹3.5 – ₹9 LPA",demand:"High",technicalSkills:["Excel","SQL","Tableau","Power BI","Data storytelling"],courses:["Data Analytics","Data Science + AI + ML"]}
+  };
+
+  function buildLocalResult(a) {
+    const t = careerTemplates[a.interest] || careerTemplates["AI, Data & Analytics"];
+    return {emoji:t.emoji,primaryCareer:t.primaryCareer,salaryRange:t.salaryRange,demand:t.demand,
+            technicalSkills:t.technicalSkills,recommendedCourses:t.courses,
+            academicPath:["Build job-ready skills through focused training","Complete hands-on projects for your portfolio","Apply for internships & entry-level roles"],
+            motivationalLine:"Every expert started exactly where you are right now — take the first step."};
+  }
+
+  let ccStep=0, ccAnswers={}, chatMode=false;
+  const cpHistory=[];
+  const chatToggle=document.getElementById('chatToggle');
+  const chatPanel=document.getElementById('chatPanel');
+  const cpClose=document.getElementById('cpClose');
+  const cpMsgs=document.getElementById('cpMessages');
+  const cpInputRow=document.getElementById('cpInputRow');
+  const cpInput=document.getElementById('cpInput');
+  const cpSendBtn=document.getElementById('cpSend');
+  const ctBadge=document.querySelector('.ct-badge');
+
+  chatToggle.addEventListener('click',()=>{
+    const opening=!chatPanel.classList.contains('open');
+    chatPanel.classList.toggle('open');
+    if(opening){ ctBadge.style.display='none'; if(cpMsgs.children.length===0) startCompass(); }
+  });
+  cpClose.addEventListener('click',()=>chatPanel.classList.remove('open'));
+
+  function cpAppend(html,role){
+    const row=document.createElement('div'); row.className='cp-row'+(role==='user'?' user':'');
+    const av=document.createElement('div'); av.className='cp-av '+(role==='user'?'user':'ai'); av.textContent=role==='user'?'👤':'🎓';
+    const bub=document.createElement('div'); bub.className='cp-bub '+(role==='user'?'user':'ai'); bub.innerHTML=html;
+    row.appendChild(av); row.appendChild(bub); cpMsgs.appendChild(row); cpMsgs.scrollTop=cpMsgs.scrollHeight; return bub;
+  }
+
+  function cpShowTyping(){
+    const row=document.createElement('div'); row.className='cp-row'; row.id='cpTyping';
+    const av=document.createElement('div'); av.className='cp-av ai'; av.textContent='🎓';
+    const bub=document.createElement('div'); bub.className='cp-bub ai';
+    bub.innerHTML='<div class="cp-typing"><span></span><span></span><span></span></div>';
+    row.appendChild(av); row.appendChild(bub); cpMsgs.appendChild(row); cpMsgs.scrollTop=cpMsgs.scrollHeight;
+  }
+  function cpHideTyping(){ const t=document.getElementById('cpTyping'); if(t)t.remove(); }
+
+  function showQuestion(idx){
+    const q=ccQuestions[idx];
+    const optHtml=q.options.map(o=>`<button class="cp-opt" onclick="selectOpt('${q.key}','${o.label.replace(/'/g,"\\'")}','${idx}',this)"><span class="opt-em">${o.em}</span>${o.label}</button>`).join('');
+    cpAppend(`<div style="font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-bottom:6px;">Step ${idx+1} of 4</div><div style="font-weight:600;margin-bottom:4px;">${q.question}</div><div class="cp-opts">${optHtml}</div>`,'ai');
+  }
+
+  function startCompass(){
+    ccStep=0; ccAnswers={}; chatMode=false;
+    cpMsgs.innerHTML=''; cpInputRow.style.display='none';
+    cpAppend('👋 Hi! I\'m the <strong>WE Institute AI Assistant</strong>.<br><br>Answer 4 quick questions and I\'ll show you your personalised IT career roadmap! 🚀','ai');
+    setTimeout(()=>showQuestion(0),400);
+  }
+
+  function selectOpt(key,value,qIdx,btn){
+    if(parseInt(qIdx)!==ccStep) return;
+    ccAnswers[key]=value;
+    btn.closest('.cp-opts').querySelectorAll('.cp-opt').forEach(b=>{
+      b.disabled=true; b.style.opacity=b===btn?'1':'0.4'; b.style.cursor='default';
+    });
+    btn.style.borderColor='var(--sky)'; btn.style.background='var(--sky-lt)'; btn.style.color='var(--royal)';
+    setTimeout(()=>{
+      cpAppend(value,'user'); ccStep++;
+      if(ccStep<ccQuestions.length) setTimeout(()=>showQuestion(ccStep),350);
+      else setTimeout(()=>generateResult(),350);
+    },200);
+  }
+
+  async function generateResult(){
+    cpShowTyping();
+    let result;
+    try{
+      const res=await fetch(COMPASS_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(ccAnswers)});
+      if(!res.ok) throw new Error(res.status);
+      result=await res.json();
+      if(result.error) throw new Error(result.error);
+    } catch { result=buildLocalResult(ccAnswers); }
+    cpHideTyping();
+    showResult(result);
+  }
+
+  function showResult(r){
+    const waMsg=encodeURIComponent(`Hi! I used the Career Compass widget. My best-fit career is ${r.primaryCareer}. I'm interested in ${(r.recommendedCourses||[]).join(' and ')}. Please guide me!`);
+    const skillTags=(r.technicalSkills||[]).map(s=>`<span class="tag">${s}</span>`).join('');
+    const roadSteps=(r.academicPath||[]).map((s,i)=>`<div class="step"><div class="step-num">${i+1}</div><div>${s}</div></div>`).join('');
+    const courses=(r.recommendedCourses||[]).join(' · ');
+    cpAppend(`<div class="cp-result">
+      <div class="career-title">${r.emoji||'🎓'} ${r.primaryCareer}</div>
+      <span class="salary-chip">💰 ${r.salaryRange} · Demand: ${r.demand}</span>
+      <div class="section-lbl">Skills to build</div><div class="tags">${skillTags}</div>
+      <div class="section-lbl">Your roadmap</div>${roadSteps}
+      <div class="section-lbl">WE Institute recommends</div>
+      <div style="font-size:13px;font-weight:600;color:var(--navy);margin-bottom:4px;">${courses}</div>
+      <div style="font-size:12px;font-style:italic;color:var(--muted);margin-top:8px;">"${r.motivationalLine||'Every expert started exactly where you are now.'}"</div>
+      <div style="margin-top:12px;display:flex;flex-wrap:wrap;gap:6px;">
+        <a class="wa-btn" href="https://wa.me/919819740122?text=${waMsg}" target="_blank">💬 Talk to a counsellor</a>
+        <button class="restart-btn" onclick="startCompass()">🔄 Start over</button>
+      </div>
+    </div>`,'ai');
+    chatMode=true; cpInputRow.style.display='flex';
+  }
+
+  async function cpSend(){
+    const text=cpInput.value.trim();
+    if(!text||cpSendBtn.disabled) return;
+    cpInput.value=''; cpSendBtn.disabled=true;
+    cpAppend(text,'user'); cpHistory.push({role:'user',content:text}); cpShowTyping();
+    try{
+      const res=await fetch(CHAT_URL,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:cpHistory})});
+      if(!res.ok) throw new Error(res.status);
+      const data=await res.json();
+      const reply=data.reply||"I'm here to help — try asking again!";
+      cpHideTyping(); cpAppend(reply.replace(/\n/g,'<br>'),'ai');
+      cpHistory.push({role:'assistant',content:reply});
+    } catch { cpHideTyping(); cpAppend('⚠️ Connection issue. Please try again or WhatsApp us!','ai'); }
+    cpSendBtn.disabled=false; cpInput.focus();
+  }
+
+  if(cpInput) cpInput.addEventListener('keydown',e=>{if(e.key==='Enter')cpSend();});
+  if(cpSendBtn) cpSendBtn.addEventListener('click',cpSend);
+</script>
+</body>
+</html>

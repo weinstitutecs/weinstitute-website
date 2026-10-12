@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>RPA Development | TechLearn</title>
+<link rel="icon" href="static/images/logowihoutbg.png" type="image/png">
+<style>
+:root {
+  --primary: #0a0a1a;
+  --accent: #6c63ff;
+  --accent2: #48cfad;
+  --gold: #ffd700;
+  --light: #f4f6ff;
+  --text: #1e1e2e;
+  --muted: #6b7080;
+  --card-bg: #ffffff;
+  --border: #e8eaf0;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--light); }
+:root {
+      --navy:   #1a237e;
+      --royal:  #1565c0;
+      --sky:    #00aaff;
+      --sky-lt: #e3f4ff;
+      --light:  #f0f4fb;
+      --white:  #ffffff;
+      --text:   #1e2a4a;
+      --muted:  #5a6a8a;
+      --border: #d0dcf0;
+    }
+
+    html { scroll-behavior: smooth; }
+    body { font-family: 'DM Sans', sans-serif; color: var(--text); background: var(--white); }
+
+nav {
+      position: sticky; top: 0; z-index: 999;
+      background: var(--white);
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 0 5vw; height: 68px;
+      box-shadow: 0 2px 16px rgba(26,35,126,.35);
+    }
+    .nav-brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+    .nav-logo {
+      height: 55px; width: 55; border-radius: 12px;
+
+    }
+	    .nav-brand-text {
+      display: flex; flex-direction: column; line-height: 1.1;
+    }
+    .nav-brand-text .t1 { color: var(--white); font-size: 1.1rem; font-weight: 700; letter-spacing: .3px; }
+    .nav-brand-text .t2 { color: var(--sky); font-size: .68rem; font-weight: 500; font-style: italic; letter-spacing: .5px; }
+    .nav-links { display: flex; align-items: center; gap: 2px; list-style: none; }
+    .nav-links a {
+      color: #000; text-decoration: none;
+      font-size: .88rem; font-weight: 500;
+      padding: 6px 14px; border-radius: 5px;
+      transition: color .2s, background .2s;
+    }
+    .nav-links a:hover { color: var(--black); background: rgba(255,255,255,.1); }
+    .nav-links a.active { color: var(--sky) !important; }
+    .nav-links .btn-cta {
+      background: var(--sky); color: var(--navy) !important;
+      font-weight: 700; border-radius: 6px; margin-left: 6px;
+    }
+    .nav-links .btn-cta:hover { background: #00c2ff; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; }
+    .nav-hamburger span { width: 24px; height: 2px; background: #fff; border-radius: 2px; }
+
+
+.course-hero{
+    background:linear-gradient(
+      135deg,
+      var(--navy) 0%,
+      #0d47a1 55%,
+      #1565c0 100%
+    );
+    padding:80px 5vw 70px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+}
+.course-hero::before{content:'';position:absolute;top:-80px;right:-80px;width:450px;height:450px;background:radial-gradient(circle,rgba(0,200,83,.25) 0%,transparent 65%);border-radius:50%;}
+.hero-inner{max-width:900px;margin:0 auto;position:relative;z-index:1;}
+.course-badge{display:inline-block;background:var(--accent);color:#000;font-size:.75rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:5px 14px;border-radius:20px;margin-bottom:20px;}
+.course-hero h1{font-family:'Syne',sans-serif;font-weight:800;font-size:clamp(2rem,5vw,3.2rem);color:#fff;line-height:1.15;margin-bottom:18px;}
+.course-hero h1 span{color:var(--gold);}
+.course-hero p{font-size:1.05rem;color:rgba(255,255,255,.75);max-width:620px;line-height:1.7;margin:0 auto 32px;}
+.hero-meta { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; }
+.meta-item { display: flex; align-items: center; gap: 8px; color: rgba(255,255,255,.85); font-size: .88rem; }
+.meta-item svg { width: 16px; height: 16px; stroke: var(--accent2); fill: none; stroke-width: 2; }
+.page-content{max-width:1000px;margin:0 auto;padding:60px 24px;}
+.section-label{font-family:'Syne',sans-serif;font-weight:700;font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;}
+.section-title{font-family:'Syne',sans-serif;font-weight:700;font-size:1.6rem;color:var(--primary);margin-bottom:28px;}
+.overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-bottom: 60px; }
+.overview-card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 14px; padding: 28px; box-shadow: 0 2px 12px rgba(0,0,0,.05); }
+.overview-card .icon { width: 48px; height: 48px; border-radius: 12px; background: linear-gradient(135deg, var(--accent), #9b59b6); display: flex; align-items: center; justify-content: center; margin-bottom: 16px; }
+.overview-card .icon svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; }
+.overview-card h4 { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 1rem; margin-bottom: 8px; color: var(--primary); }
+.overview-card p { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+.curriculum{margin-bottom:60px;}
+.module{background:var(--card-bg);border:1px solid var(--border);border-radius:12px;margin-bottom:16px;overflow:hidden;}
+.module-header{padding:20px 24px;display:flex;align-items:center;gap:16px;cursor:pointer;user-select:none;}
+.module-num{width:36px;height:36px;border-radius:50%;background:var(--accent);color:#000;font-family:'Syne',sans-serif;font-weight:700;font-size:.85rem;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.module-title{font-family:'Syne',sans-serif;font-weight:600;font-size:.98rem;color:var(--primary);flex:1;}
+.module-lessons{font-size:.8rem;color:var(--muted);}
+.module-body{padding:0 24px 20px 76px;display:none;}
+.module.open .module-body{display:block;}
+.module-body li{font-size:.88rem;color:var(--text);padding:6px 0;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.module-body li:last-child{border-bottom:none;}
+.module-body li::before{content:'▶';font-size:.6rem;color:var(--accent);flex-shrink:0;}
+.tools-grid{display:flex;flex-wrap:wrap;gap:14px;margin-bottom:60px;}
+.tool-chip{display:flex;align-items:center;gap:10px;background:var(--card-bg);border:2px solid var(--accent);border-radius:10px;padding:12px 20px;font-weight:600;font-size:.9rem;color:var(--primary);}
+.outcomes{
+    background: linear-gradient(90deg, var(--sky) 0%, #0077cc 100%);
+    border-radius: 18px;
+    padding: 44px;
+    margin-bottom: 60px;
+    color: white;
+}
+.outcomes .section-label { color: var(--white); }
+.outcomes .section-title { color: #fff; }
+.outcomes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.outcome-item { display: flex; align-items: flex-start; gap: 12px; color: rgba(255,255,255,.85); font-size: .9rem; line-height: 1.5; }
+.outcome-item::before { content: '✓'; width: 22px; height: 22px; border-radius: 50%; background: var(--accent2); color: #000; font-size: .7rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }.cta-box{background:linear-gradient(135deg,#00c853,#00897b);border-radius:18px;padding:50px 44px;text-align:center;}
+.cta-box h3{font-family:'Syne',sans-serif;font-weight:800;font-size:1.8rem;color:#fff;margin-bottom:12px;}
+.cta-box p{color:rgba(255,255,255,.9);margin-bottom:28px;font-size:.98rem;}
+.cta-btn{display:inline-flex;align-items:center;gap:10px;background:#fff;color:#00c853;font-family:'Syne',sans-serif;font-weight:700;font-size:1rem;padding:14px 32px;border-radius:8px;text-decoration:none;box-shadow:0 4px 20px rgba(0,0,0,.15);transition:transform .2s;}
+.cta-btn:hover{transform:translateY(-2px);}
+.cta-btn svg{width:18px;height:18px;}
+@media(max-width:768px){.course-hero{padding:50px 20px 40px;}.overview-grid,.outcomes-grid{grid-template-columns:1fr;}.cta-box{padding:36px 24px;}nav{padding:14px 20px;}}
+
+/* ── FOOTER ── */
+    footer { background: var(--navy); color: rgba(255,255,255,.7); padding: 70px 5vw 0; }
+    .footer-grid {
+      display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 50px;
+      padding-bottom: 50px; border-bottom: 1px solid rgba(255,255,255,.1);
+    }
+    .footer-logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
+    .footer-logo { height: 60px; border-radius: 5px; background: white; padding: 4px 8px; object-fit: contain; }
+    .footer-brand-name .t1 { color: var(--white); font-weight: 700; font-size: 1rem; }
+    .footer-brand-name .t2 { color: var(--sky); font-size: .7rem; font-style: italic; }
+    .footer-brand p { font-size: .88rem; line-height: 1.75; max-width: 320px; }
+    .footer-brand .contact-info { margin-top: 20px; font-size: .87rem; line-height: 1.85; }
+    .footer-brand .contact-info strong { color: var(--white); }
+    .footer-brand .contact-info a { color: var(--sky); text-decoration: none; }
+    .footer-col h4 {
+      font-family: 'Playfair Display', serif; font-size: 1rem; font-weight: 600; color: var(--white);
+      margin-bottom: 18px; padding-bottom: 10px;
+      border-bottom: 2px solid var(--sky); display: inline-block;
+    }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 10px; }
+    .footer-col ul a { color: rgba(255,255,255,.6); text-decoration: none; font-size: .87rem; transition: color .2s; }
+    .footer-col ul a:hover { color: var(--sky); }
+    .social-row { display: flex; gap: 10px; margin-top: 20px; flex-wrap: wrap; }
+    .social-btn {
+      width: 38px; height: 38px; border-radius: 8px; background: rgba(255,255,255,.08);
+      display: flex; align-items: center; justify-content: center; text-decoration: none; transition: background .2s;
+    }
+    .social-btn:hover { background: var(--sky); }
+    .social-btn svg { width: 17px; height: 17px; fill: #fff; }
+    .footer-bottom { padding: 22px 0; text-align: center; font-size: .82rem; color: rgba(255,255,255,.35); }
+
+/* ==========================================
+   MOBILE RESPONSIVE DESIGN
+========================================== */
+@media screen and (max-width: 768px) {
+
+  /* NAVBAR */
+  nav{
+    padding:0 20px;
+    height:65px;
+  }
+
+  .nav-logo{
+    height:45px;
+    width:auto;
+  }
+
+  .nav-hamburger{
+    display:flex;
+  }
+
+  .nav-hamburger span{
+    background:#000;
+  }
+
+  .nav-links{
+    position:fixed;
+    top:65px;
+    left:-100%;
+    width:100%;
+    height:calc(100vh - 65px);
+    background:#fff;
+    flex-direction:column;
+    justify-content:flex-start;
+    align-items:flex-start;
+    padding:30px;
+    gap:12px;
+    transition:.35s ease;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+  }
+
+  .nav-links.open{
+    left:0;
+  }
+
+  .nav-links li{
+    width:100%;
+  }
+
+  .nav-links a{
+    display:block;
+    width:100%;
+    font-size:1rem;
+    padding:12px 15px;
+    border-radius:8px;
+  }
+
+  /* HERO */
+  .course-hero{
+    padding:60px 20px 50px;
+    text-align:center;
+  }
+
+  .course-hero h1{
+    font-size:2rem;
+    line-height:1.2;
+  }
+
+  .course-hero p{
+    font-size:.95rem;
+    line-height:1.7;
+    margin:0 auto 25px;
+  }
+
+  .hero-meta{
+    flex-direction:column;
+    gap:12px;
+    align-items:flex-start;
+  }
+
+  .meta-item{
+    font-size:.85rem;
+  }
+
+  /* PAGE CONTENT */
+  .page-content{
+    padding:40px 18px;
+  }
+
+  .section-title{
+    font-size:1.35rem;
+    line-height:1.3;
+  }
+
+  /* OVERVIEW CARDS */
+  .overview-grid{
+    grid-template-columns:1fr;
+    gap:16px;
+  }
+
+  .overview-card{
+    padding:22px;
+  }
+
+  .overview-card h4{
+    font-size:1rem;
+  }
+
+  .overview-card p{
+    font-size:.9rem;
+  }
+
+  /* TOOL CHIPS */
+  .tools-grid{
+    gap:10px;
+  }
+
+  .tool-chip{
+    width:100%;
+    justify-content:center;
+    padding:14px;
+    font-size:.9rem;
+  }
+
+  /* CURRICULUM */
+  .module-header{
+    padding:16px;
+    gap:12px;
+  }
+
+  .module-title{
+    font-size:.9rem;
+    line-height:1.4;
+  }
+
+  .module-lessons{
+    display:none;
+  }
+
+  .module-body{
+    padding:0 16px 16px 16px;
+  }
+
+  .module-body li{
+    font-size:.85rem;
+    line-height:1.5;
+  }
+
+  /* OUTCOMES */
+  .outcomes{
+    padding:28px 20px;
+    border-radius:14px;
+  }
+
+  .outcomes-grid{
+    grid-template-columns:1fr;
+    gap:14px;
+  }
+
+  .outcome-item{
+    font-size:.9rem;
+  }
+
+  /* CTA */
+  .cta-box{
+    padding:30px 20px;
+  }
+
+  .cta-box h3{
+    font-size:1.5rem;
+  }
+
+  .cta-box p{
+    font-size:.92rem;
+  }
+
+  .cta-btn{
+    width:100%;
+    justify-content:center;
+    padding:14px;
+  }
+
+  /* FOOTER */
+  .footer-grid{
+    grid-template-columns:1fr;
+    gap:35px;
+    text-align:center;
+  }
+
+  .footer-logo-wrap{
+    justify-content:center;
+  }
+
+  .footer-brand p{
+    max-width:100%;
+  }
+
+  .contact-info{
+    text-align:center;
+  }
+
+  .social-row{
+    justify-content:center;
+  }
+
+  .footer-col h4{
+    display:inline-block;
+  }
+}
+
+/* EXTRA SMALL DEVICES */
+@media screen and (max-width: 480px){
+
+  .course-hero{
+    padding:50px 15px 40px;
+  }
+
+  .course-hero h1{
+    font-size:1.8rem;
+  }
+
+  .course-hero p{
+    font-size:.9rem;
+  }
+
+  .section-title{
+    font-size:1.2rem;
+  }
+
+  .overview-card{
+    padding:18px;
+  }
+
+  .tool-chip{
+    font-size:.85rem;
+  }
+
+  footer{
+    padding:50px 15px 0;
+  }
+}
+
+</style>
+</head>
+<body>
+<!-- ══ NAVBAR ══ -->
+<nav>
+  <a href="/" class="nav-brand">
+    <img src="{{ url_for('static', filename='images/logo2.png') }}"  class="nav-logo" alt="WE Institute Logo" onerror="this.style.display='none'" />
+    <!--<div class="nav-brand-text">
+      <span class="t1">WE Institute</span>
+      <span class="t2">Shaping Careers</span>
+    </div>-->
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/" class="active">Home</a></li>
+    <li><a href="/about">About</a></li>
+    <li><a href="/courses">Courses</a></li>
+
+	<li><a href="/achievements">Achievements</a></li>
+    <li><a href="/gallery">Gallery</a></li>
+    <li><a href="/contact">Contact</a></li>
+  <!--
+   <li><a href="contact.html" class="btn-cta">Enroll Now</a></li>
+   -->
+  </ul>
+  <div class="nav-hamburger">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+<div class="course-hero">
+  <div class="hero-inner">
+
+    <h1>RPA <span>Development</span></h1>
+    <p>Robotic Process Automation is transforming how businesses operate. Learn to build software robots that automate repetitive tasks — saving time, reducing errors, and cutting costs at scale.</p>
+    <div class="hero-meta">
+      <div class="meta-item"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> 2–3 Months</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg> Beginner–Intermediate</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/></svg> Live Automation Projects</div>
+      <div class="meta-item"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/></svg> Certificate Included</div>
+    </div>
+  </div>
+</div>
+<div class="page-content">
+  <div class="section-label">Course Overview</div>
+  <div class="section-title">Automate Everything</div>
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg></div>
+      <h4>UiPath &amp; Automation Anywhere</h4>
+      <p>Get hands-on with the industry's leading RPA platforms used by Fortune 500 companies worldwide.</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg></div>
+      <h4>No-Code &amp; Low-Code Bots</h4>
+      <p>Build powerful automation workflows without writing complex code — perfect for non-developers too.</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></div>
+      <h4>Enterprise Use Cases</h4>
+      <p>Automate invoice processing, HR onboarding, data entry, report generation, and web scraping.</p>
+    </div>
+    <div class="overview-card">
+      <div class="icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <h4>Bot Deployment &amp; Monitoring</h4>
+      <p>Learn to deploy, schedule, and monitor bots in production environments with error handling.</p>
+    </div>
+  </div>
+
+  <div class="section-label">Tools Covered</div>
+  <div class="section-title">Your RPA Toolkit</div>
+  <div class="tools-grid">
+    <div class="tool-chip">🤖 UiPath Studio</div>
+    <div class="tool-chip">⚙️ Power Automation </div>
+
+    <div class="tool-chip">🐍 Python Scripting</div>
+    <div class="tool-chip">📊 Excel Automation</div>
+    <div class="tool-chip">🌐 Web Scraping</div>
+    <div class="tool-chip">📧 Email Automation</div>
+  </div>
+
+  <div class="curriculum">
+    <div class="section-label">Curriculum</div>
+    <div class="section-title">What You'll Learn</div>
+    <div class="module open">
+      <div class="module-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="module-num">1</div>
+        <div class="module-title">Introduction to RPA &amp; UiPath Basics</div>
+        <span class="module-lessons">6 Topics</span>
+      </div>
+      <div class="module-body"><ul>
+        <li>What is RPA? Use Cases &amp; Industry Impact</li>
+        <li>UiPath Studio Interface &amp; Components</li>
+        <li>Variables, Arguments &amp; Data Types</li>
+        <li>Recording &amp; Playback</li>
+        <li>Selectors &amp; UI Identification</li>
+        <li>Mini Project: Form Auto-Fill Bot</li>
+      </ul></div>
+    </div>
+    <div class="module">
+      <div class="module-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="module-num">2</div>
+        <div class="module-title">Advanced UiPath &amp; Workflows</div>
+        <span class="module-lessons">7 Topics</span>
+      </div>
+      <div class="module-body"><ul>
+        <li>Control Flow: If, While, For Each</li>
+        <li>Data Tables &amp; Excel Automation</li>
+        <li>PDF Extraction &amp; Processing</li>
+        <li>Email Automation (Outlook/Gmail)</li>
+        <li>Exception Handling &amp; Logging</li>
+        <li>Orchestrator — Deploy &amp; Monitor Bots</li>
+        <li>Project: Invoice Processing Automation</li>
+      </ul></div>
+    </div>
+    <div class="module">
+      <div class="module-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="module-num">3</div>
+        <div class="module-title">Web Scraping &amp; API Bots</div>
+        <span class="module-lessons">5 Topics</span>
+      </div>
+      <div class="module-body"><ul>
+        <li>Web Scraping with UiPath &amp; Python</li>
+        <li>Browser Automation (Chrome/Firefox)</li>
+        <li>REST API Integration in Bots</li>
+        <li>Database Interactions (SQL + RPA)</li>
+        <li>Project: E-commerce Price Monitor Bot</li>
+      </ul></div>
+    </div>
+    <div class="module">
+      <div class="module-header" onclick="this.parentElement.classList.toggle('open')">
+        <div class="module-num">4</div>
+        <div class="module-title">Automation Anywhere &amp; Capstone</div>
+        <span class="module-lessons">5 Topics</span>
+      </div>
+      <div class="module-body"><ul>
+        <li>Automation Anywhere Platform Overview</li>
+        <li>Bot Creator &amp; Control Room</li>
+        <li>Migrating Bots Across Platforms</li>
+        <li>RPA + AI — Intelligent Automation Basics</li>
+        <li>Capstone: End-to-End Business Process Automation</li>
+      </ul></div>
+    </div>
+  </div>
+
+  <div class="outcomes">
+    <div class="section-label">Learning Outcomes</div>
+    <div class="section-title">What You'll Be Able to Do</div>
+    <div class="outcomes-grid">
+      <div class="outcome-item">Build production-ready bots with UiPath and Automation Anywhere</div>
+      <div class="outcome-item">Automate web, desktop, and email workflows from scratch</div>
+      <div class="outcome-item">Deploy and monitor bots in Orchestrator</div>
+      <div class="outcome-item">Integrate bots with APIs, databases, and spreadsheets</div>
+      <div class="outcome-item">Handle exceptions and build robust, fault-tolerant automations</div>
+      <div class="outcome-item">Apply RPA to real business processes across any industry</div>
+    </div>
+  </div>
+
+
+</div>
+
+<!-- ══ FOOTER ══ -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo-wrap">
+        <a href="{{ url_for('home') }}">
+          <img src="{{ url_for('static', filename='images/logo2.png') }}"
+               class="footer-logo"
+               alt="WE Institute"
+               onerror="this.style.display='none'">
+        </a>
+      </div>
+      <p>WE Institute is committed to providing students with the skills and knowledge they need to succeed in the competitive field of technology.</p>
+      <div class="contact-info">
+        <div><strong>ADDRESS:</strong> 103, 1st Floor Shree Samarth Plaza,<br/>Mulund West, Mumbai, Maharashtra 400080</div>
+        <div style="margin-top:8px;"><strong>EMAIL:</strong> <a href="mailto:hr_admin@weinstitute.in">hr_admin@weinstitute.in</a></div>
+        <div style="margin-top:4px;"><strong>PHONE:</strong> <a href="tel:+919819740122">+91 9819740122</a></div>
+      </div>
+      <div class="social-row">
+        <a class="social-btn" href="https://www.facebook.com/WissenEducation.319" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        <a class="social-btn" href="https://www.instagram.com/weinstitute.cs" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.14.63c-.789.306-1.459.717-2.126 1.384S.935 3.35.63 4.14C.333 4.905.131 5.775.072 7.053.012 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.913.306.788.717 1.459 1.384 2.126.667.666 1.336 1.079 2.126 1.384.766.296 1.636.499 2.913.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.262 2.913-.558.788-.306 1.459-.718 2.126-1.384.666-.667 1.079-1.335 1.384-2.126.296-.765.499-1.636.558-2.913.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.262-2.149-.558-2.913-.306-.789-.718-1.459-1.384-2.126C21.319 1.347 20.651.935 19.86.63c-.765-.297-1.636-.499-2.913-.558C15.667.012 15.26 0 12 0zm0 2.16c3.203 0 3.585.016 4.85.071 1.17.055 1.805.249 2.227.415.562.217.96.477 1.382.896.419.42.679.819.896 1.381.164.422.36 1.057.413 2.227.057 1.266.07 1.646.07 4.85s-.015 3.585-.074 4.85c-.061 1.17-.256 1.805-.421 2.227-.224.562-.479.96-.899 1.382-.419.419-.824.679-1.38.896-.42.164-1.065.36-2.235.413-1.274.057-1.649.07-4.859.07-3.211 0-3.586-.015-4.859-.074-1.171-.061-1.816-.256-2.236-.421-.569-.224-.96-.479-1.379-.899-.421-.419-.69-.824-.9-1.38-.165-.42-.359-1.065-.42-2.235-.045-1.26-.061-1.649-.061-4.844 0-3.196.016-3.586.061-4.861.061-1.17.255-1.814.42-2.234.21-.57.479-.96.9-1.381.419-.419.81-.689 1.379-.898.42-.166 1.051-.361 2.221-.421 1.275-.045 1.65-.06 4.859-.06zm0 3.678c-3.405 0-6.162 2.76-6.162 6.162 0 3.405 2.76 6.162 6.162 6.162 3.405 0 6.162-2.76 6.162-6.162 0-3.405-2.76-6.162-6.162-6.162zM12 16c-2.21 0-4-1.79-4-4s1.79-4 4-4 4 1.79 4 4-1.79 4-4 4zm7.846-10.405c0 .795-.646 1.44-1.44 1.44-.795 0-1.44-.646-1.44-1.44 0-.794.646-1.439 1.44-1.439.793 0 1.44.645 1.44 1.439z"/></svg></a>
+        <a class="social-btn" href="https://www.linkedin.com/in/we-institute-22b300309" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg></a>
+        <a class="social-btn" href="https://www.youtube.com/@WE_Institute" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" fill="#1a237e"/></svg></a>
+        <a class="social-btn" href="https://wa.me/919819740122" target="_blank" rel="noopener"><svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg></a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h4>Menu</h4>
+      <ul>
+        <li><a href="/about">About</a></li>
+        <li><a href="/courses">Courses</a></li>
+        <li><a href="/achievements">Achievements</a></li>
+        <li><a href="/gallery">Gallery</a></li>
+        <li><a href="/contact">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Our Courses</h4>
+      <ul>
+        <li><a href="/DSAIML">Artificial Intelligence (AI)</a></li>
+        <li><a href="/DSAIML">Machine Learning (ML)</a></li>
+        <li><a href="/RPA">RPA Development</a></li>
+        <li><a href="/dataanalytics">Data Analytics</a></li>
+        <li><a href="/DSAIML">Data Science</a></li>
+        <li><a href="/introduction">Python Development</a></li>
+        <li><a href="/fullstackdevelopment">Full Stack Development</a></li>
+        <li><a href="/dataanalytics">PowerBI &amp; Tableau</a></li>
+        <li><a href="/dbmstools">DBMS Tools &amp; Query Languages</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <p>
+        Copyright &copy; WE Institute 2012&ndash;<span id="currentYear"></span>
+        &nbsp;|&nbsp; Shaping Careers
+    </p>
+  </div>
+</footer>
+
+<script>
+document.getElementById("currentYear").textContent = new Date().getFullYear();
+
+const hamburger = document.querySelector(".nav-hamburger");
+const navLinks = document.getElementById("navLinks");
+
+hamburger.addEventListener("click", () => {
+    navLinks.classList.toggle("open");
+});
+</script>
+
+</body>
+</html>
